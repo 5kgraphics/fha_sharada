@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Chat - FHA Sharada Residents Association</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern CSS Reset */
+        :root {
+            --primary: #00A7E6; /* New primary color */
+            --secondary: #0077B6;
+            --accent: #FF6B6B; /* A contrasting accent */
+            --dark: #2C3E50; /* Dark text/elements */
+            --light: #ECF0F1; /* Light backgrounds */
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --gray: #BDC3C7;
+
+            /* New Theme Variables */
+            --bg-main: #ECF0F1; /* Main background */
+            --text-main: #2C3E50; /* Main text color */
+            --card-bg: #FFFFFF; /* Card background */
+            --border-color: rgba(0, 0, 0, 0.1);
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --header-scrolled-bg: rgba(0, 167, 230, 0.9); /* Scrolled header background based on new primary */
+            --footer-bg: #2C3E50; /* Dark footer */
+            --footer-text: #ECF0F1;
+            --footer-copyright-text: #BDC3C7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header Styles (Fixed) */
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: var(--header-scrolled-bg);
+            box-shadow: 0 10px 30px rgba(0, 167, 230, 0.2); /* Adjusted shadow to new primary */
+        }
+
+        header.scrolled .nav-link {
+            color: white !important;
+        }
+
+        header.scrolled .association-name {
+            color: white;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .association-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .association-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation Menu */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center; /* Align items horizontally */
+        }
+
+        .nav-menu li {
+            position: relative; /* Needed for sub-menu positioning */
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 5px 0; /* Add padding for better click area */
+            display: block; /* Make the whole area clickable */
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Sub-menu styles */
+        .sub-menu {
+            list-style: none;
+            position: absolute;
+            top: 100%; /* Position below the parent link */
+            left: 0;
+            background: var(--card-bg); /* Sub-menu background */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            min-width: 200px;
+            z-index: 1001; /* Ensure it's above other content */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            padding: 10px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-menu li:hover > .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sub-menu li {
+            width: 100%; /* Full width for sub-menu items */
+        }
+
+        .sub-menu a {
+            padding: 10px 20px;
+            color: var(--text-main);
+            font-weight: 400;
+            font-size: 1rem;
+            display: block;
+            white-space: nowrap; /* Prevent text wrapping */
+            text-decoration: none; /* Ensure no default underline */
+        }
+
+        .sub-menu a::after {
+            content: none; /* Remove underline pseudo-element */
+        }
+
+        .sub-menu a:hover {
+            background-color: var(--bg-main); /* Hover background for sub-menu items */
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--text-main);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) { top: 10px; }
+        .hamburger span:nth-child(4) { top: 20px; }
+        .hamburger.open span:nth-child(1) { top: 10px; width: 0%; left: 50%; }
+        .hamburger.open span:nth-child(2) { transform: rotate(45deg); }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
+        .hamburger.open span:nth-child(4) { top: 10px; width: 0%; left: 50%; }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--header-bg);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: all 0.5s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+            .nav-menu.active { right: 0; }
+            header.scrolled .hamburger span { background: white; }
+
+            /* Mobile Sub-menu adjustments */
+            .sub-menu {
+                position: static; /* Remove absolute positioning */
+                opacity: 1; /* Always visible when parent is clicked */
+                visibility: visible;
+                transform: translateY(0);
+                box-shadow: none;
+                border: none;
+                background: none;
+                padding: 0;
+                width: auto;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .nav-menu li:hover > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .sub-menu a {
+                padding: 8px 0; /* Adjust padding for mobile sub-items */
+                color: var(--text-main); /* Ensure mobile sub-menu links adapt */
+            }
+            .sub-menu a:hover {
+                background-color: transparent; /* No background hover for mobile sub-menu */
+                color: var(--accent); /* Only color change on hover */
+            }
+        }
+
+        /* Chat Hero Section */
+        .chat-hero {
+            background: linear-gradient(135deg, rgba(0, 167, 230, 0.8), rgba(0, 119, 182, 0.9)), /* Uses new primary/secondary */
+                        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px; /* Space for fixed header */
+            position: relative;
+        }
+
+        .chat-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-main), transparent);
+            z-index: 1;
+        }
+
+        .chat-hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chat-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            color: white; /* Ensure hero title is white */
+        }
+
+        /* Main Chat Container */
+        .main-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: -5rem auto 3rem; /* Pull up over the hero gradient */
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            height: 75vh; /* Use viewport height for responsiveness */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Chatango Chat Styling */
+        .chatango-container {
+            flex-grow: 1; /* Allow this container to grow and fill space */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Simple Footer */
+        .simple-footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        .simple-footer .copyright-text {
+            color: var(--footer-copyright-text);
+        }
+
+        .simple-footer .copyright-text a {
+            color: #FFD700; /* Specific yellow for 5K Graphics Studio */
+            text-decoration: none;
+        }
+
+        .simple-footer .copyright-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .chat-hero h1 { font-size: 2.2rem; }
+            .nav-menu { gap: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: row; }
+            .nav-menu { gap: 1rem; }
+            .chat-hero { height: 35vh; }
+            .chat-container { height: 70vh; } /* Adjust height for mobile */
+        }
+
+        @media (max-width: 576px) {
+            .chat-hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://images.unsplash.com/photo-1594708764951-4017f8d9510b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="FHA Sharada Logo" class="association-logo">
+                <h1 class="association-name">FHA Sharada RA</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="chat-hero">
+        <div class="chat-hero-content">
+            <h1>Community Chat Room</h1>
+            <p>Connect with your neighbors in real-time</p>
+        </div>
+    </section>
+
+    <div class="main-container">
+        <div class="chat-container">
+            <div class="chatango-container">
+                <script id="cid0020000411419030696" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">{"handle":"fharesidents","arch":"js","styles":{"a":"00A7E6","b":100,"c":"2C3E50","d":"2C3E50","k":"00A7E6","l":"00A7E6","m":"00A7E6","p":"10","q":"00A7E6","r":100,"fwtickm":1}}</script>
+            </div>
+        </div>
+    </div>
+
+    <footer class="simple-footer">
+        <p class="copyright-text">
+            &copy; <span id="current-year"></span> FHA Sharada Phase 1 Residents Association. All Rights Reserved. <br>
+            <!-- Designed by <a href="http://www.5kgraphics.com">5k Graphics Studio</a> -->
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link (including submenu links)
+            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close if it's a direct link, not a sub-menu parent
+                    if (!link.closest('.has-submenu')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

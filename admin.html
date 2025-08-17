@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHA Sharada Residents Association - Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Classic & Professional Color Palette */
+        :root {
+            --primary-color: #4A607C; /* Muted Blue-Gray */
+            --secondary-color: #6C7A89; /* Slightly Lighter Blue-Gray */
+            --accent-color: #C07F00; /* Subtle Gold/Amber */
+            --text-dark: #333333; /* Dark Gray for main text */
+            --text-light: #F5F5F5; /* Light Gray for dark backgrounds */
+            --background-light: #F8F9FA; /* Off-White for main background */
+            --background-card: #FFFFFF; /* Pure White for cards */
+            --border-color: #E0E0E0; /* Light Gray for borders */
+            --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow */
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --transition-speed: 0.3s;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif; /* Clean sans-serif for body */
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif; /* Classic serif for headings */
+            color: var(--primary-color);
+            margin-bottom: 0.8em;
+            line-height: 1.2;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            position: fixed;
+            height: 100vh;
+            transition: all var(--transition-speed) ease-in-out;
+            z-index: 100;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px var(--shadow-light);
+        }
+
+        .sidebar.active {
+            margin-left: -var(--sidebar-width);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .association-logo {
+            width: 90px;
+            height: 90px;
+            background-color: var(--background-card);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* To handle uploaded logos */
+        }
+
+        .association-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .association-name {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu ul li a .fa-solid {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .sidebar-menu ul li a:hover,
+        .sidebar-menu ul li a.active {
+            background-color: var(--secondary-color);
+            color: var(--accent-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            transition: margin-left var(--transition-speed) ease-in-out;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--background-card);
+            color: var(--text-dark);
+            padding: 0 25px;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: var(--primary-color);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .user-profile span {
+            font-weight: 600;
+        }
+
+        /* Page Content */
+        .page-content {
+            padding: 30px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-title {
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        /* Removed .page-actions button styles as the global print button is removed */
+        .hidden {
+            display: none !important;
+        }
+
+        .card {
+            background-color: var(--background-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group input[type="file"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            font-size: 1em;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group input[type="file"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 96, 124, 0.2);
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .form-actions button {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform 0.2s;
+        }
+
+        .form-actions .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+        }
+
+        .form-actions .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .form-actions .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            border: none;
+        }
+
+        .form-actions .btn-secondary:hover {
+            background-color: #5A6D7F;
+            transform: translateY(-2px);
+        }
+
+        .form-actions .btn-danger {
+            background-color: var(--danger);
+            color: var(--text-light);
+            border: none;
+        }
+
+        .form-actions .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                margin-left: -var(--sidebar-width);
+            }
+
+            .sidebar.active {
+                margin-left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .header .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Dashboard Specific Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            padding: 20px;
+            background-color: var(--background-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        /* Smaller text for dashboard cards */
+        .dashboard-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px; /* Reduced margin */
+            font-size: 1.2em; /* Smaller */
+        }
+
+        .dashboard-card .metric {
+            font-size: 2em; /* Smaller */
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        .dashboard-card .description {
+            font-size: 0.85em; /* Smaller */
+            color: var(--text-dark);
+        }
+
+        .chart-container {
+            height: 300px; /* Placeholder for chart */
+            background-color: var(--background-light);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* CCTV Camera Grid */
+        .cctv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .cctv-card {
+            background-color: var(--background-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .cctv-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .cctv-embed {
+            width: 100%;
+            height: 250px; /* Adjust as needed */
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.2em;
+            border-radius: 5px;
+            overflow: hidden; /* For actual embeds */
+            cursor: pointer; /* Indicate clickable */
+        }
+
+        .cctv-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Countdown Timer */
+        .countdown-timer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .countdown-timer div {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .countdown-timer span {
+            display: block;
+            font-size: 0.8em;
+            color: var(--text-dark);
+        }
+
+        /* List styles for dashboard items and individual page lists */
+        .dashboard-list ul, .page-list ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            max-height: 250px; /* Limit height for scroll if many items */
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .dashboard-list li, .page-list li {
+            background-color: var(--background-light);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em; /* Smaller text for list items */
+            color: var(--text-dark);
+        }
+
+        .dashboard-list li:last-child, .page-list li:last-child {
+            border-bottom: none;
+        }
+
+        .dashboard-list li span, .page-list li span {
+            font-weight: 500;
+            color: var(--primary-color);
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .dashboard-list .item-actions, .page-list .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dashboard-list .item-actions button, .page-list .item-actions button {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: color 0.2s;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .dashboard-list .item-actions button:hover, .page-list .item-actions button:hover {
+            color: var(--accent-color);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-list .no-items-message, .page-list .no-items-message {
+            padding: 15px;
+            text-align: center;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            width: 800px; /* Max width for the modal */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="association-logo" id="associationLogo">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="association-name" id="associationName">
+                    FHA Sharada Residents Association
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="#" data-page="dashboard-page" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" data-page="security-personnel-page"><i class="fas fa-user-shield"></i> Security Personnel</a></li>
+                    <li><a href="#" data-page="security-salary-page"><i class="fas fa-money-bill-wave"></i> Security Salary</a></li>
+                    <li><a href="#" data-page="security-cams-page"><i class="fas fa-video"></i> Security Cams</a></li>
+                    <li><a href="#" data-page="residents-page"><i class="fas fa-users"></i> Residents</a></li>
+                    <li><a href="#" data-page="property-page"><i class="fas fa-building"></i> Property</a></li>
+                    <li><a href="#" data-page="gallery-adding-page"><i class="fas fa-images"></i> Add Gallery Photos</a></li>
+                    <li><a href="#" data-page="documents-upload-page"><i class="fas fa-file-upload"></i> Upload Documents</a></li>
+                    <li><a href="#" data-page="poll-adding-page"><i class="fas fa-poll"></i> Add Poll</a></li>
+                    <li><a href="#" data-page="lost-and-found-page"><i class="fas fa-box-open"></i> Lost & Found</a></li>
+                    <li><a href="#" data-page="upcoming-events-page"><i class="fas fa-calendar-alt"></i> Upcoming Events</a></li>
+                    <li><a href="#" data-page="logo-site-name-page"><i class="fas fa-paint-brush"></i> Site Customization</a></li>
+                    <li><a href="#" data-page="announcements-page"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <header class="header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="currentPageTitle">Dashboard</h1>
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="User Avatar">
+                    <span>Admin User</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <h2 class="page-title" id="contentPageTitle">Dashboard Overview</h2>
+                    <!-- Removed global print button -->
+                </div>
+
+                <!-- 12. Unique and awesome dashboard display -->
+                <div id="dashboard-page" class="page-section">
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Total Residents</h3>
+                            <div class="metric">150</div>
+                            <p class="description">Active residents registered in the association.</p>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Open Tasks</h3>
+                            <div class="metric">12</div>
+                            <p class="description">Pending admin tasks and requests.</p>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>New Documents</h3>
+                            <div class="metric">5</div>
+                            <p class="description">Documents uploaded this week.</p>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Recent Polls</h3>
+                            <div class="metric">3</div>
+                            <p class="description">Currently active community polls.</p>
+                        </div>
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Resident Demographics</h2>
+                            </div>
+                            <div class="chart-container">
+                                <p>Chart Placeholder (e.g., Bar chart of age groups)</p>
+                            </div>
+                        </div>
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Document Categories</h2>
+                            </div>
+                            <div class="chart-container">
+                                <p>Chart Placeholder (e.g., Pie chart of document types)</p>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Sections for each tab's information -->
+
+                        <!-- Recent Security Personnel -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Security Personnel</h2>
+                            </div>
+                            <div class="dashboard-list" id="securityPersonnelDashboardList">
+                                <ul>
+                                    <li data-id="sec001">
+                                        <span>John Doe - ID: SEC001 (Day Shift)</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Security Personnel', 'John Doe - ID: SEC001, Shift: Day, Contact: 08012345678, Status: Active')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Security Personnel Report for John Doe - ID: SEC001')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Security Personnel', 'SEC001')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Security Personnel', 'SEC001')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noSecurityPersonnelItems">No recent security personnel added.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Security Salary Entries -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Security Salary Entries</h2>
+                            </div>
+                            <div class="dashboard-list" id="securitySalaryDashboardList">
+                                <ul>
+                                    <li data-id="salary001">
+                                        <span>Personnel ID: SEC001 - Net Salary: ₦150,000.00 (2024-07)</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Security Salary', 'Personnel ID: SEC001, Monthly Salary: ₦120,000, Allowances: ₦30,000, Deductions: ₦0, Net: ₦150,000')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Security Salary Slip for SEC001')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Security Salary', 'SEC001')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Security Salary', 'SEC001')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noSecuritySalaryItems">No recent salary entries.</p>
+                            </div>
+                        </div>
+
+                        <!-- Security Camera Overview -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Security Camera Overview</h2>
+                            </div>
+                            <div class="dashboard-list" id="securityCamsDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>Camera 1: Main Gate</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Security Camera', 'Camera 1 (Main Gate) - IP: http://your-camera-ip-1')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Camera 1 Status Report')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Security Camera', 'Camera 1')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Security Camera', 'Camera 1')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Camera 2: Community Hall</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Security Camera', 'Camera 2 (Community Hall) - IP: http://your-camera-ip-2')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Camera 2 Status Report')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Security Camera', 'Camera 2')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Security Camera', 'Camera 2')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noSecurityCamsItems">No camera details available.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Residents -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Residents</h2>
+                            </div>
+                            <div class="dashboard-list" id="residentsDashboardList">
+                                <ul>
+                                    <li data-id="res001">
+                                        <span>Alice Smith - Unit: Block B, Flat 5 (Active)</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Resident', 'Alice Smith - Unit: Block B, Flat 5, Contact: 07012345678, Email: alice@example.com, Status: Active')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Resident Profile for Alice Smith')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Resident', 'Alice Smith')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Resident', 'Alice Smith')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noResidentsItems">No recent residents added.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Properties -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Properties</h2>
+                            </div>
+                            <div class="dashboard-list" id="propertyDashboardList">
+                                <ul>
+                                    <li data-id="prop001">
+                                        <span>Property ID: P001 - Address: 123 FHA Estate (Occupied)</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Property', 'Property ID: P001, Address: 123 FHA Estate, Type: Duplex, Owner: Mr. Ade, Status: Occupied')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Property Details for P001')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Property', 'P001')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Property', 'P001')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noPropertyItems">No recent properties added.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Gallery Uploads -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Gallery Uploads</h2>
+                            </div>
+                            <div class="dashboard-list" id="galleryDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>Community Event 2024 - Photos from the annual picnic.</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Gallery Photo', 'Photo Title: Community Event 2024, Description: Photos from the annual picnic.')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Gallery Photo: Community Event 2024')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Gallery Photo', 'Community Event 2024')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Gallery Photo', 'Community Event 2024')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noGalleryItems">No recent gallery uploads.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Document Uploads -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Document Uploads</h2>
+                            </div>
+                            <div class="dashboard-list" id="documentsDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>Q2 Financial Report - Type: Financial (2024-07-20)</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Document', 'Title: Q2 Financial Report, Type: Financial, Description: Q2 2024 financial summary.')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Document: Q2 Financial Report')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Document', 'Q2 Financial Report')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Document', 'Q2 Financial Report')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noDocumentsItems">No recent documents uploaded.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Polls Created -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Polls Created</h2>
+                            </div>
+                            <div class="dashboard-list" id="pollDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>New Security Gate Vote - Ends: 2024-08-31</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Poll', 'Question: Should we install a new security gate? Options: Yes, No. End Date: 2024-08-31')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Poll Details: New Security Gate Vote')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Poll', 'New Security Gate Vote')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Poll', 'New Security Gate Vote')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noPollItems">No recent polls created.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Lost & Found Submissions -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Lost & Found Submissions</h2>
+                            </div>
+                            <div class="dashboard-list" id="lostFoundDashboardList">
+                                <ul>
+                                    <li><span>Lost:</span> Keys (Black, with FHA tag) - Contact: John Doe (08012345678) - 2024-07-18
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Lost Item', 'Item: Keys, Description: Black, with FHA tag. Date: 2024-07-18, Contact: John Doe (08012345678)')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Lost Item Report: Keys')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Lost Item', 'Keys')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Lost Item', 'Keys')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                    <li><span>Found:</span> Child's Toy Car (Blue, near playground) - Contact: Jane Smith (09098765432) - 2024-07-19
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Found Item', 'Item: Child\'s Toy Car, Description: Blue, near playground. Date: 2024-07-19, Contact: Jane Smith (09098765432)')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Found Item Report: Child\'s Toy Car')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Found Item', 'Child\'s Toy Car')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Found Item', 'Child\'s Toy Car')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noLostFoundItems">No recent lost & found items.</p>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Events on Dashboard -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Upcoming Events</h2>
+                            </div>
+                            <div class="dashboard-list" id="eventsDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>Annual General Meeting - 2024-08-15 at 10:00 AM</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Event', 'Event: Annual General Meeting, Date: 2024-08-15, Time: 10:00 AM, Location: Community Hall, Description: Key discussions for the year.')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Event Details: Annual General Meeting')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Event', 'Annual General Meeting')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Event', 'Annual General Meeting')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noEventsItems">No upcoming events.</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Announcements on Dashboard -->
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h2>Recent Announcements</h2>
+                            </div>
+                            <div class="dashboard-list" id="announcementsDashboardList">
+                                <ul>
+                                    <li>
+                                        <span>Water Supply Schedule - Published: 2024-07-20</span>
+                                        <div class="item-actions">
+                                            <button onclick="viewItem('Announcement', 'Title: Water Supply Schedule, Content: Please note new water supply times. Published: 2024-07-20')"><i class="fas fa-eye"></i> View</button>
+                                            <button onclick="printItem('Announcement: Water Supply Schedule')"><i class="fas fa-print"></i> Print</button>
+                                            <button onclick="editItem('Announcement', 'Water Supply Schedule')"><i class="fas fa-edit"></i> Edit</button>
+                                            <button onclick="deleteItem('Announcement', 'Water Supply Schedule')"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p class="no-items-message hidden" id="noAnnouncementsItems">No recent announcements.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 1. Security Personnel Tab -->
+                <div id="security-personnel-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Security Personnel</h2>
+                        </div>
+                        <form id="security-personnel-form">
+                            <div class="form-group">
+                                <label for="securityName">Personnel Name</label>
+                                <input type="text" id="securityName" name="securityName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="securityID">Personnel ID</label>
+                                <input type="text" id="securityID" name="securityID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="securityContact">Contact Number</label>
+                                <input type="text" id="securityContact" name="securityContact">
+                            </div>
+                            <div class="form-group">
+                                <label for="securityShift">Shift</label>
+                                <select id="securityShift" name="securityShift">
+                                    <option value="day">Day</option>
+                                    <option value="night">Night</option>
+                                    <option value="flex">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="securityStatus">Status</label>
+                                <select id="securityStatus" name="securityStatus">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="on-leave">On Leave</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-plus-circle"></i> Add Personnel</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Security Personnel -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Security Personnel</h2>
+                        </div>
+                        <div class="page-list" id="allSecurityPersonnelList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllSecurityPersonnelItems">No security personnel added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Security Salary Tab -->
+                <div id="security-salary-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Security Salaries</h2>
+                        </div>
+                        <form id="security-salary-form">
+                            <div class="form-group">
+                                <label for="salaryPersonnelID">Personnel ID</label>
+                                <input type="text" id="salaryPersonnelID" name="salaryPersonnelID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlySalary">Monthly Salary (Naira)</label>
+                                <input type="number" id="monthlySalary" name="monthlySalary" min="0" value="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="allowances">Allowances (Naira)</label>
+                                <input type="number" id="allowances" name="allowances" min="0" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="deductions">Deductions (Naira)</label>
+                                <input type="number" id="deductions" name="deductions" min="0" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="netSalary">Net Salary (Naira)</label>
+                                <input type="text" id="netSalary" name="netSalary" value="0" readonly>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" id="calculateSalaryBtn" class="btn-info"><i class="fas fa-calculator"></i> Calculate Net Salary</button>
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Salary</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Security Salary Entries -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Security Salary Entries</h2>
+                        </div>
+                        <div class="page-list" id="allSecuritySalaryList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllSecuritySalaryItems">No salary entries added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Security Cams Tab -->
+                <div id="security-cams-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>View CCTV Camera Footage</h2>
+                        </div>
+                        <div class="cctv-grid">
+                            <div class="cctv-card">
+                                <h3>Camera 1 - Main Gate</h3>
+                                <div class="cctv-embed" data-camera-id="1">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-1"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 1</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera1Ip">Camera 1 IP/Embed Code</label>
+                                    <input type="text" id="camera1Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.100:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 2 - Community Hall</h3>
+                                <div class="cctv-embed" data-camera-id="2">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-2"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 2</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera2Ip">Camera 2 IP/Embed Code</label>
+                                    <input type="text" id="camera2Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.101:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 3 - Playground</h3>
+                                <div class="cctv-embed" data-camera-id="3">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-3"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 3</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera3Ip">Camera 3 IP/Embed Code</label>
+                                    <input type="text" id="camera3Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.102:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 4 - Perimeter East</h3>
+                                <div class="cctv-embed" data-camera-id="4">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-4"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 4</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera4Ip">Camera 4 IP/Embed Code</label>
+                                    <input type="text" id="camera4Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.103:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 5 - North Gate</h3>
+                                <div class="cctv-embed" data-camera-id="5">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-5"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 5</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera5Ip">Camera 5 IP/Embed Code</label>
+                                    <input type="text" id="camera5Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.104:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 6 - South Gate</h3>
+                                <div class="cctv-embed" data-camera-id="6">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-6"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 6</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera6Ip">Camera 6 IP/Embed Code</label>
+                                    <input type="text" id="camera6Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.105:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 7 - West Perimeter</h3>
+                                <div class="cctv-embed" data-camera-id="7">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-7"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 7</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera7Ip">Camera 7 IP/Embed Code</label>
+                                    <input type="text" id="camera7Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.106:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 8 - East Perimeter</h3>
+                                <div class="cctv-embed" data-camera-id="8">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-8"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 8</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera8Ip">Camera 8 IP/Embed Code</label>
+                                    <input type="text" id="camera8Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.107:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 9 - Club House</h3>
+                                <div class="cctv-embed" data-camera-id="9">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-9"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 9</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera9Ip">Camera 9 IP/Embed Code</label>
+                                    <input type="text" id="camera9Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.108:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 10 - Parking Area</h3>
+                                <div class="cctv-embed" data-camera-id="10">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-10"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 10</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera10Ip">Camera 10 IP/Embed Code</label>
+                                    <input type="text" id="camera10Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.109:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 11 - Main Entrance</h3>
+                                <div class="cctv-embed" data-camera-id="11">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-11"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 11</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera11Ip">Camera 11 IP/Embed Code</label>
+                                    <input type="text" id="camera11Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.110:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 12 - Service Gate</h3>
+                                <div class="cctv-embed" data-camera-id="12">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-12"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 12</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera12Ip">Camera 12 IP/Embed Code</label>
+                                    <input type="text" id="camera12Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.111:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 13 - Pool Area</h3>
+                                <div class="cctv-embed" data-camera-id="13">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-13"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 13</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera13Ip">Camera 13 IP/Embed Code</label>
+                                    <input type="text" id="camera13Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.112:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                            <div class="cctv-card">
+                                <h3>Camera 14 - Gym</h3>
+                                <div class="cctv-embed" data-camera-id="14">
+                                    <iframe src="about:blank" data-ip-src="http://your-camera-ip-14"></iframe>
+                                    <p class="embed-placeholder">Embed Area for Camera 14</p>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="camera14Ip">Camera 14 IP/Embed Code</label>
+                                    <input type="text" id="camera14Ip" class="camera-ip-input" placeholder="e.g., http://192.168.1.113:8080/video">
+                                    <button class="btn-primary btn-sm mt-2 update-camera-btn">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Residents Tab -->
+                <div id="residents-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Residents</h2>
+                        </div>
+                        <form id="residents-form">
+                            <div class="form-group">
+                                <label for="residentName">Resident Name</label>
+                                <input type="text" id="residentName" name="residentName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyUnit">Property Unit</label>
+                                <input type="text" id="propertyUnit" name="propertyUnit" placeholder="e.g., Block A, Flat 12B" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="residentContact">Contact Number</label>
+                                <input type="text" id="residentContact" name="residentContact">
+                            </div>
+                            <div class="form-group">
+                                <label for="residentEmail">Email Address</label>
+                                <input type="email" id="residentEmail" name="residentEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="residentStatus">Status</label>
+                                <select id="residentStatus" name="residentStatus">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending Approval</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-user-plus"></i> Add Resident</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Residents -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Residents</h2>
+                        </div>
+                        <div class="page-list" id="allResidentsList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllResidentsItems">No residents added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Property Tab -->
+                <div id="property-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Properties</h2>
+                        </div>
+                        <form id="property-form">
+                            <div class="form-group">
+                                <label for="propertyID">Property ID</label>
+                                <input type="text" id="propertyID" name="propertyID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyAddress">Address</label>
+                                <input type="text" id="propertyAddress" name="propertyAddress" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyType">Type</label>
+                                <select id="propertyType" name="propertyType">
+                                    <option value="apartment">Apartment</option>
+                                    <option value="duplex">Duplex</option>
+                                    <option value="bungalow">Bungalow</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyOwner">Owner Name</label>
+                                <input type="text" id="propertyOwner" name="propertyOwner">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyStatus">Status</label>
+                                <select id="propertyStatus" name="propertyStatus">
+                                    <option value="occupied">Occupied</option>
+                                    <option value="vacant">Vacant</option>
+                                    <option value="maintenance">Under Maintenance</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-plus"></i> Add Property</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Properties -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Properties</h2>
+                        </div>
+                        <div class="page-list" id="allPropertiesList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllPropertiesItems">No properties added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Gallery Adding Tab -->
+                <div id="gallery-adding-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Add Photos to Gallery</h2>
+                        </div>
+                        <form id="gallery-form">
+                            <div class="form-group">
+                                <label for="photoTitle">Photo Title</label>
+                                <input type="text" id="photoTitle" name="photoTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="photoDescription">Description</label>
+                                <textarea id="photoDescription" name="photoDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="photoFile">Upload Photo</label>
+                                <input type="file" id="photoFile" name="photoFile" accept="image/*" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-upload"></i> Upload Photo</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Gallery Photos -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>Uploaded Gallery Photos</h2>
+                        </div>
+                        <div class="page-list" id="allGalleryList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllGalleryItems">No gallery photos uploaded yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Documents Upload Tabs -->
+                <div id="documents-upload-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Upload Community Documents</h2>
+                        </div>
+                        <form id="document-upload-form">
+                            <div class="form-group">
+                                <label for="documentTitle">Document Title</label>
+                                <input type="text" id="documentTitle" name="documentTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentDescription">Description</label>
+                                <textarea id="documentDescription" name="documentDescription" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentType">Document Type</label>
+                                <select id="documentType" name="documentType">
+                                    <option value="minutes">Meeting Minutes</option>
+                                    <option value="financial">Financial Report</option>
+                                    <option value="policy">Policy Document</option>
+                                    <option value="announcement">Announcement</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentFile">Upload Document</label>
+                                <input type="file" id="documentFile" name="documentFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-upload"></i> Upload Document</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Documents -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Community Documents</h2>
+                        </div>
+                        <div class="page-list" id="allDocumentsList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllDocumentsItems">No documents uploaded yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Poll Adding Tab -->
+                <div id="poll-adding-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Create New Community Poll</h2>
+                        </div>
+                        <form id="poll-form">
+                            <div class="form-group">
+                                <label for="pollQuestion">Poll Question</label>
+                                <input type="text" id="pollQuestion" name="pollQuestion" required>
+                            </div>
+                            <div class="form-group" id="pollOptions">
+                                <label>Poll Options (Add at least 2)</label>
+                                <input type="text" class="poll-option-input" placeholder="Option 1" required>
+                                <input type="text" class="poll-option-input mt-2" placeholder="Option 2" required>
+                            </div>
+                            <button type="button" id="addOptionBtn" class="btn-info btn-sm mb-3"><i class="fas fa-plus"></i> Add Another Option</button>
+                            <div class="form-group">
+                                <label for="pollEndDate">End Date</label>
+                                <input type="date" id="pollEndDate" name="pollEndDate" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-check-circle"></i> Create Poll</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Polls -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Community Polls</h2>
+                        </div>
+                        <div class="page-list" id="allPollsList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllPollsItems">No polls created yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Lost and Found Tab -->
+                <div id="lost-and-found-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Report Lost or Found Items</h2>
+                        </div>
+                        <form id="lost-found-form">
+                            <div class="form-group">
+                                <label for="itemType">Type</label>
+                                <select id="itemType" name="itemType">
+                                    <option value="lost">Lost Item</option>
+                                    <option value="found">Found Item</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <input type="text" id="itemName" name="itemName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemDescription">Description</label>
+                                <textarea id="itemDescription" name="itemDescription" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemDate">Date Lost/Found</label>
+                                <input type="date" id="itemDate" name="itemDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemContact">Contact Information</label>
+                                <input type="text" id="itemContact" name="itemContact" placeholder="Name, Phone, Email" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Submit Report</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Lost & Found Items -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Lost & Found Items</h2>
+                        </div>
+                        <div class="page-list" id="allLostFoundList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllLostFoundItems">No lost or found items reported yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. Upcoming Events with timer countdown Tab -->
+                <div id="upcoming-events-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Add Upcoming Event</h2>
+                        </div>
+                        <form id="event-form">
+                            <div class="form-group">
+                                <label for="eventName">Event Name</label>
+                                <input type="text" id="eventName" name="eventName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Event Date</label>
+                                <input type="date" id="eventDate" name="eventDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventTime">Event Time</label>
+                                <input type="time" id="eventTime" name="eventTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventLocation">Location</label>
+                                <input type="text" id="eventLocation" name="eventLocation">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDescription">Description</label>
+                                <textarea id="eventDescription" name="eventDescription" rows="4"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-calendar-plus"></i> Add Event</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>Next Event Countdown</h2>
+                        </div>
+                        <div class="countdown-timer">
+                            <div id="countdownDisplay"></div>
+                            <p>Until: <span id="nextEventDetails">No upcoming event set.</span></p>
+                        </div>
+                    </div>
+                    <!-- List of Upcoming Events -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Upcoming Events</h2>
+                        </div>
+                        <div class="page-list" id="allEventsList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllEventsItems">No upcoming events added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. A tab for adding logo to the main site, and the name of the site -->
+                <div id="logo-site-name-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Customize Site Logo & Name</h2>
+                        </div>
+                        <form id="site-customization-form">
+                            <div class="form-group">
+                                <label for="siteName">Association Name</label>
+                                <input type="text" id="siteName" name="siteName" value="FHA Sharada Residents Association" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteLogo">Upload Logo Image</label>
+                                <input type="file" id="siteLogo" name="siteLogo" accept="image/*">
+                                <small class="form-text text-muted">Recommended size: 100x100 pixels</small>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 13. Other relevant tabs that can update information on the site (Announcements) -->
+                <div id="announcements-page" class="page-section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Announcements</h2>
+                        </div>
+                        <form id="announcement-form">
+                            <div class="form-group">
+                                <label for="announcementTitle">Announcement Title</label>
+                                <input type="text" id="announcementTitle" name="announcementTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="announcementContent">Content</label>
+                                <textarea id="announcementContent" name="announcementContent" rows="6" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="announcementDate">Publish Date</label>
+                                <input type="date" id="announcementDate" name="announcementDate" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary"><i class="fas fa-bullhorn"></i> Publish Announcement</button>
+                                <button type="reset" class="btn-secondary"><i class="fas fa-redo"></i> Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- List of Announcements -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h2>All Announcements</h2>
+                        </div>
+                        <div class="page-list" id="allAnnouncementsList">
+                            <ul>
+                                <!-- Dynamically added items will go here -->
+                            </ul>
+                            <p class="no-items-message" id="noAllAnnouncementsItems">No announcements published yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CCTV Camera Modal -->
+    <div class="modal-overlay" id="cctvModalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalCameraTitle">CCTV Camera View</h3>
+                <button class="modal-close-btn" id="modalCloseBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modalCameraIframe" src="about:blank" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu ul li a');
+            const pageSections = document.querySelectorAll('.page-section');
+            const currentPageTitle = document.getElementById('currentPageTitle');
+            const contentPageTitle = document.getElementById('contentPageTitle');
+            const associationLogo = document.getElementById('associationLogo');
+            const associationName = document.getElementById('associationName');
+
+            // Dashboard List Elements
+            const securityPersonnelDashboardList = document.getElementById('securityPersonnelDashboardList').querySelector('ul');
+            const noSecurityPersonnelItems = document.getElementById('noSecurityPersonnelItems');
+            const securitySalaryDashboardList = document.getElementById('securitySalaryDashboardList').querySelector('ul');
+            const noSecuritySalaryItems = document.getElementById('noSecuritySalaryItems');
+            const securityCamsDashboardList = document.getElementById('securityCamsDashboardList').querySelector('ul');
+            const noSecurityCamsItems = document.getElementById('noSecurityCamsItems');
+            const residentsDashboardList = document.getElementById('residentsDashboardList').querySelector('ul');
+            const noResidentsItems = document.getElementById('noResidentsItems');
+            const propertyDashboardList = document.getElementById('propertyDashboardList').querySelector('ul');
+            const noPropertyItems = document.getElementById('noPropertyItems');
+            const galleryDashboardList = document.getElementById('galleryDashboardList').querySelector('ul');
+            const noGalleryItems = document.getElementById('noGalleryItems');
+            const documentsDashboardList = document.getElementById('documentsDashboardList').querySelector('ul');
+            const noDocumentsItems = document.getElementById('noDocumentsItems');
+            const pollDashboardList = document.getElementById('pollDashboardList').querySelector('ul');
+            const noPollItems = document.getElementById('noPollItems');
+            const lostFoundDashboardList = document.getElementById('lostFoundDashboardList').querySelector('ul');
+            const noLostFoundItems = document.getElementById('noLostFoundItems');
+            const eventsDashboardList = document.getElementById('eventsDashboardList').querySelector('ul');
+            const noEventsItems = document.getElementById('noEventsItems');
+            const announcementsDashboardList = document.getElementById('announcementsDashboardList').querySelector('ul');
+            const noAnnouncementsItems = document.getElementById('noAnnouncementsItems');
+
+            // Individual Page List Elements (new)
+            const allSecurityPersonnelList = document.getElementById('allSecurityPersonnelList').querySelector('ul');
+            const noAllSecurityPersonnelItems = document.getElementById('noAllSecurityPersonnelItems');
+            const allSecuritySalaryList = document.getElementById('allSecuritySalaryList').querySelector('ul');
+            const noAllSecuritySalaryItems = document.getElementById('noAllSecuritySalaryItems');
+            const allResidentsList = document.getElementById('allResidentsList').querySelector('ul');
+            const noAllResidentsItems = document.getElementById('noAllResidentsItems');
+            const allPropertiesList = document.getElementById('allPropertiesList').querySelector('ul');
+            const noAllPropertiesItems = document.getElementById('noAllPropertiesItems');
+            const allGalleryList = document.getElementById('allGalleryList').querySelector('ul');
+            const noAllGalleryItems = document.getElementById('noAllGalleryItems');
+            const allDocumentsList = document.getElementById('allDocumentsList').querySelector('ul');
+            const noAllDocumentsItems = document.getElementById('noAllDocumentsItems');
+            const allPollsList = document.getElementById('allPollsList').querySelector('ul');
+            const noAllPollsItems = document.getElementById('noAllPollsItems');
+            const allLostFoundList = document.getElementById('allLostFoundList').querySelector('ul');
+            const noAllLostFoundItems = document.getElementById('noAllLostFoundItems');
+            const allEventsList = document.getElementById('allEventsList').querySelector('ul');
+            const noAllEventsItems = document.getElementById('noAllEventsItems');
+            const allAnnouncementsList = document.getElementById('allAnnouncementsList').querySelector('ul');
+            const noAllAnnouncementsItems = document.getElementById('noAllAnnouncementsItems');
+
+
+            // Modal Elements
+            const cctvModalOverlay = document.getElementById('cctvModalOverlay');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const modalCameraIframe = document.getElementById('modalCameraIframe');
+            const modalCameraTitle = document.getElementById('modalCameraTitle');
+
+
+            // Helper function to add view/print actions
+            window.viewItem = function(type, details) {
+                alert(`Viewing ${type} Details:\n\n${details}`);
+            };
+
+            window.printItem = function(reportName) {
+                alert(`Simulating print for: ${reportName}`);
+                // In a real application, you would trigger a print-friendly view or PDF generation
+            };
+
+            window.editItem = function(type, itemId) {
+                alert(`Simulating edit for ${type} with ID/Name: ${itemId}`);
+                // In a real application, this would populate the form fields for editing
+            };
+
+            window.deleteItem = function(type, itemId) {
+                if (confirm(`Are you sure you want to delete this ${type} (${itemId})?`)) {
+                    alert(`Simulating deletion of ${type} with ID/Name: ${itemId}`);
+                    // In a real application, this would remove the item from the database and UI
+                    // For demo, we can remove the list item if it exists
+                    const listItem = document.querySelector(`li[data-id="${itemId}"]`);
+                    if (listItem) {
+                        listItem.remove();
+                        // Re-check visibility of "no items" message for the relevant list
+                        // This would require passing the list element and message element to deleteItem
+                        // For simplicity in demo, we'll just show an alert.
+                    }
+                }
+            };
+
+
+            // Sidebar Toggle
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                mainContent.classList.toggle('expanded');
+            });
+
+            // Tab Switching Logic
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links
+                    sidebarLinks.forEach(item => item.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    // Hide all page sections
+                    pageSections.forEach(section => section.classList.add('hidden'));
+
+                    // Show the selected page section
+                    const pageId = this.dataset.page;
+                    document.getElementById(pageId).classList.remove('hidden');
+
+                    // Update header titles
+                    currentPageTitle.textContent = this.textContent.trim();
+                    contentPageTitle.textContent = this.textContent.trim() + ' Management';
+                });
+            });
+
+            // Initially show the dashboard page
+            document.getElementById('dashboard-page').classList.remove('hidden');
+            currentPageTitle.textContent = 'Dashboard';
+            contentPageTitle.textContent = 'Dashboard Overview';
+
+
+            // Form submissions (prevent default for demo)
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    let newItemHtml = '';
+                    let detailsForView = '';
+                    let listToAppendDashboard = null; // For dashboard list
+                    let noItemsMessageDashboard = null; // For dashboard no items message
+                    let listToAppendPage = null; // For individual page list
+                    let noItemsMessagePage = null; // For individual page no items message
+                    let successMessage = 'Form submitted! (This is a demo. In a real application, this would save to a database.)';
+                    let itemId = ''; // To be used for edit/delete functions
+                    let typeForActions = '';
+
+                    if (this.id === 'security-personnel-form') {
+                        const name = document.getElementById('securityName').value;
+                        const id = document.getElementById('securityID').value;
+                        const shift = document.getElementById('securityShift').value;
+                        const contact = document.getElementById('securityContact').value;
+                        const status = document.getElementById('securityStatus').value;
+                        newItemHtml = `<span>${name} - ID: ${id} (${shift.charAt(0).toUpperCase() + shift.slice(1)} Shift)</span>`;
+                        detailsForView = `Name: ${name}, ID: ${id}, Shift: ${shift}, Contact: ${contact}, Status: ${status}`;
+                        listToAppendDashboard = securityPersonnelDashboardList;
+                        noItemsMessageDashboard = noSecurityPersonnelItems;
+                        listToAppendPage = allSecurityPersonnelList;
+                        noItemsMessagePage = noAllSecurityPersonnelItems;
+                        successMessage = 'Security Personnel added!';
+                        itemId = id;
+                        typeForActions = 'Security Personnel';
+                    } else if (this.id === 'security-salary-form') {
+                        const personnelID = document.getElementById('salaryPersonnelID').value;
+                        const netSalary = document.getElementById('netSalary').value;
+                        const monthlySalary = document.getElementById('monthlySalary').value;
+                        const allowances = document.getElementById('allowances').value;
+                        const deductions = document.getElementById('deductions').value;
+                        newItemHtml = `<span>Personnel ID: ${personnelID} - Net Salary: ₦${netSalary} (Current Month)</span>`;
+                        detailsForView = `Personnel ID: ${personnelID}, Monthly Salary: ₦${monthlySalary}, Allowances: ₦${allowances}, Deductions: ₦${deductions}, Net: ₦${netSalary}`;
+                        listToAppendDashboard = securitySalaryDashboardList;
+                        noItemsMessageDashboard = noSecuritySalaryItems;
+                        listToAppendPage = allSecuritySalaryList;
+                        noItemsMessagePage = noAllSecuritySalaryItems;
+                        successMessage = 'Salary data submitted!';
+                        itemId = personnelID;
+                        typeForActions = 'Security Salary';
+                    } else if (this.id === 'residents-form') {
+                        const name = document.getElementById('residentName').value;
+                        const unit = document.getElementById('propertyUnit').value;
+                        const contact = document.getElementById('residentContact').value;
+                        const email = document.getElementById('residentEmail').value;
+                        const status = document.getElementById('residentStatus').value;
+                        newItemHtml = `<span>${name} - Unit: ${unit} (${status.charAt(0).toUpperCase() + status.slice(1)})</span>`;
+                        detailsForView = `Name: ${name}, Unit: ${unit}, Contact: ${contact}, Email: ${email}, Status: ${status}`;
+                        listToAppendDashboard = residentsDashboardList;
+                        noItemsMessageDashboard = noResidentsItems;
+                        listToAppendPage = allResidentsList;
+                        noItemsMessagePage = noAllResidentsItems;
+                        successMessage = 'Resident added!';
+                        itemId = name; // Using name as ID for demo purposes
+                        typeForActions = 'Resident';
+                    } else if (this.id === 'property-form') {
+                        const id = document.getElementById('propertyID').value;
+                        const address = document.getElementById('propertyAddress').value;
+                        const type = document.getElementById('propertyType').value;
+                        const owner = document.getElementById('propertyOwner').value;
+                        const status = document.getElementById('propertyStatus').value;
+                        newItemHtml = `<span>Property ID: ${id} - Address: ${address} (${status.charAt(0).toUpperCase() + status.slice(1)})</span>`;
+                        detailsForView = `Property ID: ${id}, Address: ${address}, Type: ${type}, Owner: ${owner}, Status: ${status}`;
+                        listToAppendDashboard = propertyDashboardList;
+                        noItemsMessageDashboard = noPropertyItems;
+                        listToAppendPage = allPropertiesList;
+                        noItemsMessagePage = noAllPropertiesItems;
+                        successMessage = 'Property added!';
+                        itemId = id;
+                        typeForActions = 'Property';
+                    } else if (this.id === 'gallery-form') {
+                        const title = document.getElementById('photoTitle').value;
+                        const description = document.getElementById('photoDescription').value;
+                        const file = document.getElementById('photoFile').files[0];
+                        newItemHtml = `<span>${title} - ${description.substring(0, 30)}${description.length > 30 ? '...' : ''}</span>`;
+                        detailsForView = `Title: ${title}, Description: ${description}, File: ${file ? file.name : 'N/A'}`;
+                        listToAppendDashboard = galleryDashboardList;
+                        noItemsMessageDashboard = noGalleryItems;
+                        listToAppendPage = allGalleryList;
+                        noItemsMessagePage = noAllGalleryItems;
+                        successMessage = 'Photo uploaded!';
+                        itemId = title;
+                        typeForActions = 'Gallery Photo';
+                    } else if (this.id === 'document-upload-form') {
+                        const title = document.getElementById('documentTitle').value;
+                        const description = document.getElementById('documentDescription').value;
+                        const type = document.getElementById('documentType').value;
+                        const file = document.getElementById('documentFile').files[0];
+                        const date = new Date().toISOString().slice(0,10); // Current date
+                        newItemHtml = `<span>${title} - Type: ${type.charAt(0).toUpperCase() + type.slice(1)} (${date})</span>`;
+                        detailsForView = `Title: ${title}, Description: ${description}, Type: ${type}, File: ${file ? file.name : 'N/A'}, Date: ${date}`;
+                        listToAppendDashboard = documentsDashboardList;
+                        noItemsMessageDashboard = noDocumentsItems;
+                        listToAppendPage = allDocumentsList;
+                        noItemsMessagePage = noAllDocumentsItems;
+                        successMessage = 'Document uploaded!';
+                        itemId = title;
+                        typeForActions = 'Document';
+                    } else if (this.id === 'poll-form') {
+                        const question = document.getElementById('pollQuestion').value;
+                        const endDate = document.getElementById('pollEndDate').value;
+                        const options = Array.from(document.querySelectorAll('.poll-option-input')).map(input => input.value).filter(val => val.trim() !== '');
+                        newItemHtml = `<span>${question} - Ends: ${endDate}</span>`;
+                        detailsForView = `Question: ${question}, Options: ${options.join(', ')}, End Date: ${endDate}`;
+                        listToAppendDashboard = pollDashboardList;
+                        noItemsMessageDashboard = noPollItems;
+                        listToAppendPage = allPollsList;
+                        noItemsMessagePage = noAllPollsItems;
+                        successMessage = 'Poll created!';
+                        itemId = question;
+                        typeForActions = 'Poll';
+                    } else if (this.id === 'lost-found-form') {
+                        const itemType = document.getElementById('itemType').value;
+                        const itemName = document.getElementById('itemName').value;
+                        const itemDescription = document.getElementById('itemDescription').value;
+                        const itemDate = document.getElementById('itemDate').value;
+                        const itemContact = document.getElementById('itemContact').value;
+                        newItemHtml = `<span>${itemType.charAt(0).toUpperCase() + itemType.slice(1)}:</span> ${itemName} (${itemDescription}) - Contact: ${itemContact} - ${itemDate}`;
+                        detailsForView = `Type: ${itemType}, Item: ${itemName}, Description: ${itemDescription}, Date: ${itemDate}, Contact: ${itemContact}`;
+                        listToAppendDashboard = lostFoundDashboardList;
+                        noItemsMessageDashboard = noLostFoundItems;
+                        listToAppendPage = allLostFoundList;
+                        noItemsMessagePage = noAllLostFoundItems;
+                        successMessage = 'Lost/Found item submitted!';
+                        itemId = itemName;
+                        typeForActions = 'Lost/Found Item';
+                    } else if (this.id === 'event-form') {
+                        const eventName = document.getElementById('eventName').value;
+                        const eventDate = document.getElementById('eventDate').value;
+                        const eventTime = document.getElementById('eventTime').value;
+                        const eventLocation = document.getElementById('eventLocation').value;
+                        const eventDescription = document.getElementById('eventDescription').value;
+                        newItemHtml = `<span>${eventName} - ${eventDate} at ${eventTime}</span>`;
+                        detailsForView = `Event: ${eventName}, Date: ${eventDate}, Time: ${eventTime}, Location: ${eventLocation}, Description: ${eventDescription}`;
+                        listToAppendDashboard = eventsDashboardList;
+                        noItemsMessageDashboard = noEventsItems;
+                        listToAppendPage = allEventsList;
+                        noItemsMessagePage = noAllEventsItems;
+                        successMessage = 'Event added!';
+                        updateCountdownDisplay(); // Update countdown after adding event
+                        itemId = eventName;
+                        typeForActions = 'Event';
+                    } else if (this.id === 'site-customization-form') {
+                        const newName = document.getElementById('siteName').value;
+                        const logoFile = document.getElementById('siteLogo').files[0];
+                        associationName.textContent = newName;
+                        if (logoFile) {
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                associationLogo.innerHTML = `<img src="${event.target.result}" alt="Association Logo">`;
+                            };
+                            reader.readAsDataURL(logoFile);
+                            successMessage = `Site name updated to "${newName}" and logo uploaded! (This is a demo)`;
+                        } else {
+                            successMessage = `Site name updated to "${newName}"! (This is a demo)`;
+                        }
+                    } else if (this.id === 'announcement-form') {
+                        const title = document.getElementById('announcementTitle').value;
+                        const content = document.getElementById('announcementContent').value;
+                        const date = document.getElementById('announcementDate').value;
+                        newItemHtml = `<span>${title} - Published: ${date}</span>`;
+                        detailsForView = `Title: ${title}, Content: ${content}, Publish Date: ${date}`;
+                        listToAppendDashboard = announcementsDashboardList;
+                        noItemsMessageDashboard = noAnnouncementsItems;
+                        listToAppendPage = allAnnouncementsList;
+                        noItemsMessagePage = noAllAnnouncementsItems;
+                        successMessage = 'Announcement published!';
+                        itemId = title;
+                        typeForActions = 'Announcement';
+                    }
+
+                    if (newItemHtml) {
+                        const createListItem = (itemHtml, viewDetails, itemType, id) => {
+                            const li = document.createElement('li');
+                            li.setAttribute('data-id', id);
+                            li.innerHTML = `${itemHtml}
+                                <div class="item-actions">
+                                    <button onclick="viewItem('${itemType}', '${viewDetails}')"><i class="fas fa-eye"></i> View</button>
+                                    <button onclick="printItem('${itemType} Report: ${viewDetails.split(',')[0]}')"><i class="fas fa-print"></i> Print</button>
+                                    <button onclick="editItem('${itemType}', '${id}')"><i class="fas fa-edit"></i> Edit</button>
+                                    <button onclick="deleteItem('${itemType}', '${id}')"><i class="fas fa-trash"></i> Delete</button>
+                                </div>`;
+                            return li;
+                        };
+
+                        // Add to dashboard list
+                        if (listToAppendDashboard) {
+                            listToAppendDashboard.prepend(createListItem(newItemHtml, detailsForView, typeForActions, itemId));
+                            if (noItemsMessageDashboard) {
+                                noItemsMessageDashboard.classList.add('hidden');
+                            }
+                        }
+
+                        // Add to individual page list
+                        if (listToAppendPage) {
+                            listToAppendPage.prepend(createListItem(newItemHtml, detailsForView, typeForActions, itemId));
+                            if (noItemsMessagePage) {
+                                noItemsMessagePage.classList.add('hidden');
+                            }
+                        }
+                    }
+                    alert(successMessage);
+                    this.reset();
+                });
+            });
+
+            // Security Salary Calculation
+            const monthlySalaryInput = document.getElementById('monthlySalary');
+            const allowancesInput = document.getElementById('allowances');
+            const deductionsInput = document.getElementById('deductions');
+            const netSalaryInput = document.getElementById('netSalary');
+            const calculateSalaryBtn = document.getElementById('calculateSalaryBtn');
+
+            function calculateNetSalary() {
+                const monthlySalary = parseFloat(monthlySalaryInput.value) || 0;
+                const allowances = parseFloat(allowancesInput.value) || 0;
+                const deductions = parseFloat(deductionsInput.value) || 0;
+                const netSalary = monthlySalary + allowances - deductions;
+                netSalaryInput.value = netSalary.toFixed(2); // Format to 2 decimal places
+            }
+
+            if (monthlySalaryInput) monthlySalaryInput.addEventListener('input', calculateNetSalary);
+            if (allowancesInput) allowancesInput.addEventListener('input', calculateNetSalary);
+            if (deductionsInput) deductionsInput.addEventListener('input', calculateSalary);
+            if (calculateSalaryBtn) calculateSalaryBtn.addEventListener('click', calculateNetSalary);
+
+
+            // Add Poll Option
+            const addOptionBtn = document.getElementById('addOptionBtn');
+            const pollOptionsDiv = document.getElementById('pollOptions');
+            if (addOptionBtn) {
+                addOptionBtn.addEventListener('click', function() {
+                    const newOptionInput = document.createElement('input');
+                    newOptionInput.type = 'text';
+                    newOptionInput.className = 'poll-option-input mt-2';
+                    newOptionInput.placeholder = `Option ${pollOptionsDiv.children.length}`; // Adjust placeholder for new options
+                    newOptionInput.required = true;
+                    pollOptionsDiv.appendChild(newOptionInput);
+                });
+            }
+
+
+            // CCTV Camera Embed Logic and Modal Interaction
+            document.querySelectorAll('.cctv-embed').forEach(embedDiv => {
+                embedDiv.addEventListener('click', function() {
+                    const iframe = this.querySelector('iframe');
+                    const camTitle = this.closest('.cctv-card').querySelector('h3').textContent;
+                    
+                    modalCameraTitle.textContent = camTitle;
+                    modalCameraIframe.src = iframe.dataset.ipSrc; // Use data-ip-src for modal
+                    cctvModalOverlay.classList.add('active');
+                });
+            });
+
+            modalCloseBtn.addEventListener('click', function() {
+                cctvModalOverlay.classList.remove('active');
+                modalCameraIframe.src = 'about:blank'; // Clear iframe src when closing
+            });
+
+            cctvModalOverlay.addEventListener('click', function(e) {
+                if (e.target === cctvModalOverlay) {
+                    cctvModalOverlay.classList.remove('active');
+                    modalCameraIframe.src = 'about:blank'; // Clear iframe src when closing
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && cctvModalOverlay.classList.contains('active')) {
+                    cctvModalOverlay.classList.remove('active');
+                    modalCameraIframe.src = 'about:blank'; // Clear iframe src when closing
+                }
+            });
+
+
+            // Countdown Timer for Upcoming Events
+            const countdownDisplay = document.getElementById('countdownDisplay');
+            const nextEventDetails = document.getElementById('nextEventDetails');
+            let countdownInterval;
+
+            function updateCountdownDisplay() {
+                // In a real application, you would fetch the next event from a database
+                // For this demo, we'll use the values from the event form if available.
+                const eventDateInput = document.getElementById('eventDate');
+                const eventTimeInput = document.getElementById('eventTime');
+                const eventNameInput = document.getElementById('eventName');
+
+                let eventDateTimeString = '';
+                let eventName = 'Unnamed Event';
+
+                if (eventDateInput && eventDateInput.value && eventTimeInput && eventTimeInput.value) {
+                    eventDateTimeString = `${eventDateInput.value}T${eventTimeInput.value}:00`;
+                    eventName = eventNameInput.value || 'Unnamed Event';
+                }
+
+                const countdownTarget = new Date(eventDateTimeString).getTime();
+
+                if (isNaN(countdownTarget) || eventDateTimeString === 'T:00') {
+                    countdownDisplay.textContent = "N/A";
+                    nextEventDetails.textContent = "No valid upcoming event set.";
+                    clearInterval(countdownInterval);
+                    return;
+                }
+
+                nextEventDetails.textContent = `${eventName} on ${new Date(countdownTarget).toLocaleString()}`;
+
+                clearInterval(countdownInterval); // Clear any existing interval
+
+                countdownInterval = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = countdownTarget - now;
+
+                    if (distance < 0) {
+                        countdownDisplay.textContent = "Event has passed!";
+                        clearInterval(countdownInterval);
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }, 1000);
+            }
+
+            // Call once on page load to initialize countdown if an event is set (or just show placeholder)
+            updateCountdownDisplay();
+
+
+            // Responsive adjustments for sidebar
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 992) {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('expanded');
+                }
+            });
+
+            // Initial check for dashboard list items and hide "no items" message if content exists
+            function checkAndHideNoItemsMessage(listElement, messageElement) {
+                if (listElement.children.length > 0) {
+                    messageElement.classList.add('hidden');
+                } else {
+                    messageElement.classList.remove('hidden');
+                }
+            }
+
+            checkAndHideNoItemsMessage(securityPersonnelDashboardList, noSecurityPersonnelItems);
+            checkAndHideNoItemsMessage(securitySalaryDashboardList, noSecuritySalaryItems);
+            checkAndHideNoItemsMessage(securityCamsDashboardList, noSecurityCamsItems);
+            checkAndHideNoItemsMessage(residentsDashboardList, noResidentsItems);
+            checkAndHideNoItemsMessage(propertyDashboardList, noPropertyItems);
+            checkAndHideNoItemsMessage(galleryDashboardList, noGalleryItems);
+            checkAndHideNoItemsMessage(documentsDashboardList, noDocumentsItems);
+            checkAndHideNoItemsMessage(pollDashboardList, noPollItems);
+            checkAndHideNoItemsMessage(lostFoundDashboardList, noLostFoundItems);
+            checkAndHideNoItemsMessage(eventsDashboardList, noEventsItems);
+            checkAndHideNoItemsMessage(announcementsDashboardList, noAnnouncementsItems);
+
+            // Initial checks for individual page lists (new)
+            checkAndHideNoItemsMessage(allSecurityPersonnelList, noAllSecurityPersonnelItems);
+            checkAndHideNoItemsMessage(allSecuritySalaryList, noAllSecuritySalaryItems);
+            checkAndHideNoItemsMessage(allResidentsList, noAllResidentsItems);
+            checkAndHideNoItemsMessage(allPropertiesList, noAllPropertiesItems);
+            checkAndHideNoItemsMessage(allGalleryList, noAllGalleryItems);
+            checkAndHideNoItemsMessage(allDocumentsList, noAllDocumentsItems);
+            checkAndHideNoItemsMessage(allPollsList, noAllPollsItems);
+            checkAndHideNoItemsMessage(allLostFoundList, noAllLostFoundItems);
+            checkAndHideNoItemsMessage(allEventsList, noAllEventsItems);
+            checkAndHideNoItemsMessage(allAnnouncementsList, noAllAnnouncementsItems);
+        });
+    </script>
+</body>
+</html>

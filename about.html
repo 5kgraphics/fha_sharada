@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHA Sharada Residents Association - About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset */
+        :root {
+            /* New Vibrant & Engaging Theme Colors */
+            --primary: #2196F3; /* Bright, inviting blue */
+            --secondary: #1976D2; /* Deeper blue */
+            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
+            --dark: #263238; /* Very dark grey-blue, almost black */
+            --light: #F5F8FA; /* Soft, light grey-blue background */
+            --success: #4CAF50; /* Standard green */
+            --warning: #FFC107; /* Standard amber */
+            --danger: #F44336; /* Standard red */
+            --gray: #9E9E9E; /* Medium grey */
+
+            /* New Shadow & Depth Variables */
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility; /* Smoother text rendering */
+        }
+
+        /* Awesome Header with Glass Morphism */
+        header {
+            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
+            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light); /* Lighter initial shadow */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
+            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
+        }
+
+        header.scrolled .nav-link {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
+        }
+
+        header.scrolled .association-name {
+            color: white;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .association-logo {
+            width: 55px; /* Slightly larger logo */
+            height: 55px;
+            border-radius: 15px; /* Softer rounded corners */
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .association-name {
+            font-size: 1.6rem; /* Slightly larger name */
+            font-weight: 800; /* Bolder for impact */
+            color: var(--primary);
+            transition: all 0.3s ease;
+            letter-spacing: -0.5px; /* Tighter letter spacing */
+        }
+
+        /* Awesome Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem; /* More spacing */
+        }
+
+        .nav-menu li {
+            position: relative; /* Needed for submenu positioning */
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600; /* Bolder links */
+            font-size: 1.15rem; /* Slightly larger font */
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+            display: block; /* Ensure full clickable area */
+            padding: 0.5rem 0; /* Add padding for better touch targets */
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            background: var(--accent);
+            bottom: -8px; /* Lower underline */
+            left: 0;
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* Submenu Styling */
+        .sub-menu {
+            list-style: none;
+            position: absolute;
+            top: 100%; /* Position below the parent link */
+            left: 0;
+            background: rgba(255, 255, 255, 0.95); /* Slightly opaque white background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: var(--shadow-medium);
+            min-width: 200px; /* Ensure enough width for content */
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px); /* Initial slight drop */
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 100; /* Ensure it's above other content */
+        }
+
+        .nav-menu li:hover > .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0); /* Lift to original position */
+        }
+
+        .sub-menu li {
+            padding: 0; /* Reset padding for submenu items */
+        }
+
+        .sub-menu a {
+            color: var(--dark);
+            padding: 0.8rem 1.5rem; /* Padding for submenu links */
+            display: block;
+            white-space: nowrap; /* Prevent text wrapping */
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none; /* Ensure no default underline */
+        }
+
+        .sub-menu a::after {
+            content: none; /* Remove underline pseudo-element */
+        }
+
+        .sub-menu a:hover {
+            background-color: var(--primary); /* Highlight on hover */
+            color: white;
+            border-radius: 5px; /* Slight rounding for hover effect */
+            transform: translateX(5px); /* Slight slide on hover */
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
+            top: 10px;
+        }
+
+        .hamburger span:nth-child(4) {
+            top: 20px;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .hamburger.open span:nth-child(4) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%; /* Slightly wider mobile menu */
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem; /* More space between links */
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
+                z-index: 1000;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            header.scrolled .hamburger span {
+                background: white;
+            }
+
+            /* Mobile Submenu adjustments */
+            .sub-menu {
+                position: static; /* Stack vertically in mobile */
+                width: 100%;
+                background: none; /* No background for nested list */
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                opacity: 1; /* Always visible when parent is active */
+                visibility: visible;
+                transform: none;
+                margin-top: 0.5rem; /* Space below parent link */
+                text-align: center; /* Center submenu items */
+            }
+
+            .sub-menu a {
+                padding: 0.6rem 1rem; /* Adjust padding for mobile submenu links */
+                font-size: 1rem;
+                color: var(--dark); /* Keep dark color */
+                background-color: rgba(0, 0, 0, 0.05); /* Light background for submenu items */
+                border-radius: 5px;
+                margin: 0.3rem 0; /* Space between submenu items */
+            }
+
+            .sub-menu a:hover {
+                background-color: var(--primary);
+                color: white;
+                transform: none; /* No slide effect on mobile */
+            }
+
+            .nav-menu li:hover > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+        }
+
+        /* Spectacular Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
+                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px; /* Taller fade effect */
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px; /* Wider content area */
+            padding: 0 2.5rem; /* More padding */
+            position: relative;
+            z-index: 2;
+            transform: translateY(70px); /* Deeper initial drop */
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
+        }
+
+        .hero-content.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem; /* Larger, more impactful heading */
+            margin-bottom: 1.8rem;
+            line-height: 1.15;
+            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
+            font-weight: 800; /* Extra bold */
+            letter-spacing: -1px; /* Tighter spacing for headlines */
+        }
+
+        .hero p {
+            font-size: 1.45rem; /* Larger sub-heading */
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 300; /* Lighter weight for contrast */
+        }
+
+        .hero-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem; /* Larger button */
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
+            letter-spacing: 0.5px;
+        }
+
+        .hero-btn:hover {
+            background: #e64a19; /* Slightly darker accent */
+            transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+
+        /* Main Content Container */
+        .main-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 6rem auto; /* More vertical spacing */
+            position: relative;
+            z-index: 50; /* Ensure content is above hero's pseudo-element */
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 7rem; /* More spacing between sections */
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem; /* Larger section titles */
+            color: var(--primary);
+            margin-bottom: 3.5rem; /* More space below title */
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%; /* Longer underline */
+            height: 5px; /* Thicker underline */
+            background: var(--accent);
+            bottom: -15px; /* Lower underline */
+            left: 0;
+            border-radius: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 2.5rem; /* More padding */
+            position: relative;
+            border-top-left-radius: 30px; /* Rounded top corners */
+            border-top-right-radius: 30px;
+            overflow: hidden; /* Ensures content stays within rounded corners */
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .footer-logo {
+            width: 70px; /* Larger logo */
+            height: 70px;
+            border-radius: 18px; /* More rounded */
+            margin-bottom: 1.8rem;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .footer-title {
+            font-size: 1.8rem; /* Larger title */
+            margin-bottom: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            opacity: 0.9; /* Slightly less transparent */
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 1rem;
+        }
+
+        .footer-link a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--accent);
+            padding-left: 8px; /* More pronounced slide */
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem; /* More spacing */
+            margin-top: 1.8rem;
+        }
+
+        .social-link {
+            width: 45px; /* Larger social icons */
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem; /* Larger social icons */
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1); /* More pronounced lift and scale */
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.8;
+            font-size: 1rem;
+            color: white; /* Ensure copyright text is white */
+        }
+
+        .copyright a {
+            color: #FFD700; /* Gold color for the link */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent); /* Accent color on hover */
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            footer {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: normal;
+            }
+
+            .hero p {
+                font-size: 1.15rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .welcome-section,
+            .rules-section,
+            .faq-section,
+            .more-info-section {
+                padding: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .welcome-section,
+            .rules-section,
+            .faq-section,
+            .more-info-section {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title::after {
+                bottom: -10px;
+                width: 50%;
+            }
+
+            .hero-btn, .more-info-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px); /* More float */
+            }
+        }
+
+        .floating {
+            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
+        }
+
+        /* About Us Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(33, 150, 243, 0.85)),
+                        url('https://placehold.co/1920x1080/1976D2/ffffff?text=About+Us'); /* Placeholder image for About Us */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 70vh; /* Shorter hero for content pages */
+            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
+        }
+
+        .about-hero .hero-content {
+            transform: translateY(50px);
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .about-content-section h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .about-content-section h3::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .about-content-section p {
+            margin-bottom: 1.2rem;
+        }
+
+        .about-values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .value-item {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .value-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+            background: rgba(33, 150, 243, 0.05);
+        }
+
+        .value-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .value-item h4 {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Team Section Styles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .team-member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .team-member h4 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-member p.position {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p.description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Founding Members Section */
+        .founding-members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .founding-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .founding-member:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .founding-member h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .founding-member p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Awesome Header with Navigation -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/55" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada RA</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spectacular Hero Section for About Us -->
+    <section class="hero about-hero">
+        <div class="hero-content animate">
+            <h1>About Our Community</h1>
+            <p>Dedicated to fostering a vibrant, secure, and harmonious community for all residents.</p>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Our Mission Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Our Mission</h2>
+            <p>Our mission is to enhance the quality of life for all residents of FHA Sharada Phase 1 by promoting a safe, clean, and well-maintained environment. We strive to foster a strong sense of community, encourage active participation, and ensure effective communication among residents and the association leadership.</p>
+            <p>We are committed to transparent governance, responsible resource management, and continuous improvement in all aspects of community living.</p>
+        </section>
+
+        <!-- Our Vision Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Our Vision</h2>
+            <p>To be a model residential community in Abuja, recognized for its exceptional living standards, proactive community engagement, and a harmonious environment where every resident feels proud and secure.</p>
+            <p>We envision a future where FHA Sharada Phase 1 is synonymous with excellence, innovation, and sustainable development, driven by the collective efforts of its residents.</p>
+        </section>
+
+        <!-- Our Values Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="about-values-grid">
+                <div class="value-item">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Community</h4>
+                    <p>Fostering strong bonds, mutual respect, and a supportive network among all residents.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Security</h4>
+                    <p>Ensuring a safe and secure environment through proactive measures and vigilance.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Innovation</h4>
+                    <p>Embracing new ideas and technologies to improve community services and living standards.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-balance-scale"></i>
+                    <h4>Transparency</h4>
+                    <p>Operating with openness, honesty, and accountability in all association matters.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Sustainability</h4>
+                    <p>Promoting environmentally friendly practices and long-term community well-being.</p>
+                </div>
+                <div class="value-item">
+                    <i class="fas fa-comments"></i>
+                    <h4>Communication</h4>
+                    <p>Maintaining clear, timely, and effective communication channels with all residents.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our History Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Our History</h2>
+            <p>The FHA Sharada Phase 1 Residents Association was established in 2008 by a group of visionary residents who recognized the need for a unified body to manage and improve the estate's common facilities and foster community spirit.</p>
+            <p>Since its inception, the association has been instrumental in numerous developmental projects, including the construction of the Community Hall, upgrading of security infrastructure, and implementation of effective waste management systems. We have grown from a small group of committed individuals to a robust and inclusive organization, continuously striving to meet the evolving needs of our growing community.</p>
+            <p>Our journey has been marked by dedication, collaboration, and the unwavering support of our residents, making FHA Sharada Phase 1 a truly desirable place to live.</p>
+        </section>
+
+        <!-- Our Team Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
+                    <h4>John Doe</h4>
+                    <p class="position">Chairman</p>
+                    <p class="description">Leading the association with vision and dedication since 2015.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
+                    <h4>Jane Smith</h4>
+                    <p class="position">Vice Chairman</p>
+                    <p class="description">Overseeing daily operations and community initiatives.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
+                    <h4>Michael Johnson</h4>
+                    <p class="position">Secretary</p>
+                    <p class="description">Managing communications and official documentation.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
+                    <h4>Sarah Williams</h4>
+                    <p class="position">Treasurer</p>
+                    <p class="description">Responsible for financial management and budgeting.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founding Members Section -->
+        <section class="section about-content-section">
+            <h2 class="section-title">Founding Members</h2>
+            <div class="founding-members-grid">
+                <div class="founding-member">
+                    <h4>Chief Adebayo</h4>
+                    <p>First Chairman (2008-2012)</p>
+                </div>
+                <div class="founding-member">
+                    <h4>Dr. Ngozi Okonjo</h4>
+                    <p>First Secretary</p>
+                </div>
+                <div class="founding-member">
+                    <h4>Engr. Mohammed Bello</h4>
+                    <p>First Treasurer</p>
+                </div>
+                <div class="founding-member">
+                    <h4>Mrs. Funke Adeleke</h4>
+                    <p>First Welfare Officer</p>
+                </div>
+                <div class="founding-member">
+                    <h4>Mr. Chukwuma Eze</h4>
+                    <p>First Security Coordinator</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Awesome Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="https://via.placeholder.com/70" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Phase 1 RA</h3>
+                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
+                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="#">Dues Payment</a></li>
+                    <li class="footer-link"><a href="#">Security Updates</a></li>
+                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Abuja<br>
+                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
+                    <i class="fas fa-envelope"></i> info@fhasharada.org
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year"></span> FHA Sharada Phase 1 Residents Association. All Rights Reserved. <br>
+            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link (including submenu links)
+            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Hero animation
+            const heroContent = document.querySelector('.hero-content');
+            setTimeout(() => {
+                heroContent.classList.add('animate');
+            }, 300);
+
+            // Scroll animations for sections
+            const sections = document.querySelectorAll('.section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

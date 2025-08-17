@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHA Sharada Residents Association - News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset */
+        :root {
+            /* New Vibrant & Engaging Theme Colors */
+            --primary: #2196F3; /* Bright, inviting blue */
+            --secondary: #1976D2; /* Deeper blue */
+            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
+            --dark: #263238; /* Very dark grey-blue, almost black */
+            --light: #F5F8FA; /* Soft, light grey-blue background */
+            --success: #4CAF50; /* Standard green */
+            --warning: #FFC107; /* Standard amber */
+            --danger: #F44336; /* Standard red */
+            --gray: #9E9E9E; /* Medium grey */
+
+            /* New Shadow & Depth Variables */
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility; /* Smoother text rendering */
+        }
+        
+        /* Awesome Header with Glass Morphism */
+        header {
+            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
+            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light); /* Lighter initial shadow */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
+            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
+        }
+        
+        header.scrolled .nav-link {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
+        }
+        
+        header.scrolled .association-name {
+            color: white;
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .association-logo {
+            width: 55px; /* Slightly larger logo */
+            height: 55px;
+            border-radius: 15px; /* Softer rounded corners */
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .association-name {
+            font-size: 1.6rem; /* Slightly larger name */
+            font-weight: 800; /* Bolder for impact */
+            color: var(--primary);
+            transition: all 0.3s ease;
+            letter-spacing: -0.5px; /* Tighter letter spacing */
+        }
+        
+        /* Awesome Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem; /* More spacing */
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600; /* Bolder links */
+            font-size: 1.15rem; /* Slightly larger font */
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px; /* Thicker underline */
+            background: var(--accent);
+            bottom: -8px; /* Lower underline */
+            left: 0;
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+        
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
+            top: 10px;
+        }
+        
+        .hamburger span:nth-child(4) {
+            top: 20px;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+        
+        .hamburger.open span:nth-child(4) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%; /* Slightly wider mobile menu */
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem; /* More space between links */
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
+                z-index: 1000;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            header.scrolled .hamburger span {
+                background: white;
+            }
+        }
+        
+        /* Spectacular Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
+                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px; /* Taller fade effect */
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 900px; /* Wider content area */
+            padding: 0 2.5rem; /* More padding */
+            position: relative;
+            z-index: 2;
+            transform: translateY(70px); /* Deeper initial drop */
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
+        }
+        
+        .hero-content.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem; /* Larger, more impactful heading */
+            margin-bottom: 1.8rem;
+            line-height: 1.15;
+            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
+            font-weight: 800; /* Extra bold */
+            letter-spacing: -1px; /* Tighter spacing for headlines */
+        }
+        
+        .hero p {
+            font-size: 1.45rem; /* Larger sub-heading */
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 300; /* Lighter weight for contrast */
+        }
+        
+        .hero-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem; /* Larger button */
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-btn:hover {
+            background: #e64a19; /* Slightly darker accent */
+            transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+        
+        /* Main Content Container */
+        .main-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 6rem auto; /* More vertical spacing */
+            position: relative;
+            z-index: 50; /* Ensure content is above hero's pseudo-element */
+        }
+        
+        /* Section Styling */
+        .section {
+            margin-bottom: 7rem; /* More spacing between sections */
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
+        }
+        
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-size: 3rem; /* Larger section titles */
+            color: var(--primary);
+            margin-bottom: 3.5rem; /* More space below title */
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%; /* Longer underline */
+            height: 5px; /* Thicker underline */
+            background: var(--accent);
+            bottom: -15px; /* Lower underline */
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        /* Announcements Section */
+        .announcements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); /* Larger min-width for cards */
+            gap: 2.5rem; /* More gap */
+        }
+        
+        .announcement-card {
+            background: white;
+            border-radius: 20px; /* More rounded corners */
+            overflow: hidden;
+            box-shadow: var(--shadow-light); /* Refined shadow */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother hover */
+            position: relative;
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-15px); /* More pronounced lift */
+            box-shadow: var(--shadow-medium); /* Stronger shadow on hover */
+        }
+        
+        .announcement-badge {
+            position: absolute;
+            top: 25px; /* More padding */
+            right: 25px;
+            background: var(--accent);
+            color: white;
+            padding: 0.4rem 1.2rem; /* Larger badge */
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+        
+        .announcement-content {
+            padding: 2.5rem; /* More padding inside card */
+        }
+        
+        .announcement-date {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        
+        .announcement-title {
+            font-size: 1.8rem; /* Larger title */
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        .announcement-text {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+        
+        .announcement-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .announcement-btn:hover {
+            color: var(--accent);
+            gap: 1.2rem; /* More pronounced arrow movement */
+        }
+        
+        /* Events Section */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Slightly wider event cards */
+            gap: 2.5rem;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 2rem; /* Increased padding */
+        }
+        
+        .event-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .event-title {
+            font-size: 1.6rem; /* Larger event title */
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem; /* More spacing in meta */
+            margin-bottom: 1.5rem;
+            color: #666; /* Slightly darker grey for better contrast */
+            font-size: 1rem; /* Slightly larger font */
+        }
+        
+        .event-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .event-meta i {
+            color: var(--primary);
+            font-size: 1.2em; /* Larger icons */
+        }
+
+        .countdown {
+            font-size: 1.3rem; /* Larger countdown text */
+            font-weight: 800; /* Bolder countdown */
+            color: var(--accent);
+            margin-top: 2rem; /* More space above countdown */
+            text-align: center;
+            padding: 1.2rem; /* More padding */
+            background-color: rgba(255, 87, 34, 0.12); /* Light background for countdown */
+            border-radius: 12px;
+            border: 2px dashed var(--accent); /* Thicker dashed border */
+            letter-spacing: 1px;
+        }
+
+        .countdown.finished {
+            color: var(--gray);
+            background-color: rgba(158, 158, 158, 0.15);
+            border-color: var(--gray);
+        }
+        
+        /* Important Blocks Section */
+        .blocks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly larger min-width */
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .block-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem; /* More padding */
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-align: center;
+        }
+        
+        .block-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .block-icon {
+            width: 80px; /* Larger icon container */
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 25px; /* More rounded */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem; /* More margin */
+            color: white;
+            font-size: 2.2rem; /* Larger icon */
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.35); /* Stronger primary shadow */
+        }
+        
+        .block-title {
+            font-size: 1.5rem; /* Larger title */
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .block-text {
+            color: #555;
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+        
+        .block-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .block-link:hover {
+            color: var(--accent);
+            gap: 1.2rem;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem; /* More padding */
+            box-shadow: var(--shadow-medium); /* Stronger shadow */
+            margin-bottom: 6rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05); /* Subtle border */
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 7px; /* Thicker accent line */
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 20px 0 0 20px;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem; /* Larger title */
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .welcome-text {
+            margin-bottom: 1.8rem;
+            color: #444; /* Slightly darker text */
+            font-size: 1.1rem;
+        }
+        
+        .chairman-signature {
+            margin-top: 2.5rem;
+            font-style: italic;
+            color: var(--dark);
+            font-size: 1.15rem;
+        }
+        
+        .chairman-name {
+            font-weight: 800; /* Bolder name */
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 5rem 2.5rem; /* More padding */
+            margin-bottom: 6rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/always-grey.png'); /* Subtle pattern */
+            opacity: 0.15; /* Slightly more visible */
+            mix-blend-mode: overlay; /* Blends better */
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Slightly larger stats items */
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            padding: 2rem;
+        }
+        
+        .stat-number {
+            font-size: 3.8rem; /* Larger numbers */
+            font-weight: 800; /* Bolder numbers */
+            margin-bottom: 0.8rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stat-label {
+            font-size: 1.25rem; /* Larger label */
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        /* Rules and Regulations Section */
+        .rules-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .rules-list {
+            list-style-type: none;
+            counter-reset: rules-counter;
+        }
+        
+        .rules-list li {
+            counter-increment: rules-counter;
+            margin-bottom: 1.8rem; /* More spacing */
+            padding-left: 3.5rem; /* More indent */
+            position: relative;
+            color: #555;
+            font-size: 1.05rem;
+        }
+        
+        .rules-list li::before {
+            content: counter(rules-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            width: 2.2rem; /* Larger number badge */
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* More Info Section */
+        .more-info-section {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(25, 118, 210, 0.15));
+            border-radius: 20px;
+            padding: 4rem; /* More padding */
+            text-align: center;
+            margin-bottom: 6rem;
+            border: 2px dashed var(--primary); /* Thicker dashed border */
+            box-shadow: var(--shadow-light);
+        }
+        
+        .more-info-title {
+            font-size: 2.5rem; /* Larger title */
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .more-info-text {
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 800px; /* Wider text area */
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.15rem;
+        }
+        
+        .more-info-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem; /* Larger button */
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
+        }
+        
+        .more-info-btn:hover {
+            background: #e64a19;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .faq-item {
+            margin-bottom: 1.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 1.8rem;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 1.3rem; /* Larger question */
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem; /* Larger icon */
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+            transform: rotate(180deg); /* Rotate for smoother effect */
+        }
+        
+        .faq-answer {
+            color: #555;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease-out; /* Smoother slide */
+            font-size: 1.05rem;
+        }
+        
+        .faq-answer.show {
+            max-height: 500px; /* Sufficient height for content */
+            padding-top: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 2.5rem; /* More padding */
+            position: relative;
+            border-top-left-radius: 30px; /* Rounded top corners */
+            border-top-right-radius: 30px;
+            overflow: hidden; /* Ensures content stays within rounded corners */
+        }
+        
+        .footer-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+        
+        .footer-logo {
+            width: 70px; /* Larger logo */
+            height: 70px;
+            border-radius: 18px; /* More rounded */
+            margin-bottom: 1.8rem;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+        
+        .footer-title {
+            font-size: 1.8rem; /* Larger title */
+            margin-bottom: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .footer-text {
+            opacity: 0.9; /* Slightly less transparent */
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-link a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--accent);
+            padding-left: 8px; /* More pronounced slide */
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.2rem; /* More spacing */
+            margin-top: 1.8rem;
+        }
+        
+        .social-link {
+            width: 45px; /* Larger social icons */
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem; /* Larger social icons */
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1); /* More pronounced lift and scale */
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.8;
+            font-size: 1rem;
+            color: white; /* Ensure copyright text is white */
+        }
+
+        .copyright a {
+            color: #FFD700; /* Gold color for the link */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent); /* Accent color on hover */
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .announcements-container,
+            .events-container,
+            .blocks-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .stat-number {
+                font-size: 3.2rem;
+            }
+
+            footer {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: normal;
+            }
+            
+            .hero p {
+                font-size: 1.15rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .event-card {
+                padding: 1.5rem;
+            }
+
+            .countdown {
+                font-size: 1.1rem;
+            }
+
+            .welcome-section,
+            .rules-section,
+            .faq-section,
+            .more-info-section {
+                padding: 2.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.8rem;
+            }
+            .stat-label {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .announcements-container,
+            .events-container,
+            .blocks-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-section,
+            .rules-section,
+            .faq-section,
+            .more-info-section {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title::after {
+                bottom: -10px;
+                width: 50%;
+            }
+
+            .hero-btn, .more-info-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo, .block-icon {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px); /* More float */
+            }
+        }
+        
+        .floating {
+            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
+        }
+
+        /* News Page Specific Styles */
+        .news-hero {
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(33, 150, 243, 0.85)),
+                        url('https://placehold.co/1920x1080/1976D2/ffffff?text=Latest+News');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 70vh; /* Shorter hero for content pages */
+            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
+        }
+
+        .news-hero .hero-content {
+            transform: translateY(50px);
+        }
+
+        .news-hero h1 {
+            font-size: 3.5rem;
+        }
+
+        .news-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .news-thumbnail {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .news-content {
+            padding: 2rem;
+            flex-grow: 1; /* Allows content to push footer down */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-date {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.7rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .news-snippet {
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            flex-grow: 1; /* Allows snippet to take available space */
+        }
+
+        .news-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            margin-top: auto; /* Pushes button to the bottom */
+        }
+
+        .news-read-more:hover {
+            color: var(--accent);
+            gap: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .news-hero {
+                height: 50vh;
+            }
+            .news-hero h1 {
+                font-size: 2.8rem;
+            }
+            .news-hero p {
+                font-size: 1.1rem;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 576px) {
+            .news-hero {
+                height: 40vh;
+            }
+            .news-hero h1 {
+                font-size: 2.2rem;
+            }
+            .news-hero p {
+                font-size: 1rem;
+            }
+            .news-card {
+                padding: 1.5rem;
+            }
+            .news-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Awesome Header with Navigation -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/55" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada RA</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="index.html#announcements" class="nav-link">Announcements</a></li>
+                    <li><a href="index.html#events" class="nav-link">Events</a></li>
+                    <li><a href="index.html#rules" class="nav-link">Rules</a></li>
+                    <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Spectacular Hero Section for News -->
+    <section class="hero news-hero">
+        <div class="hero-content animate">
+            <h1>Stay Updated with FHA Sharada News</h1>
+            <p>Catch up on the latest happenings, community updates, and important information.</p>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- News Articles Section -->
+        <section class="section" id="news-articles">
+            <h2 class="section-title">Latest Articles</h2>
+            <div class="news-grid" id="news-grid-container">
+                <!-- News articles will be loaded here dynamically -->
+                <div class="loading">Loading news articles...</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Awesome Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="https://via.placeholder.com/70" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Phase 1 RA</h3>
+                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
+                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="#">Dues Payment</a></li>
+                    <li class="footer-link"><a href="#">Security Updates</a></li>
+                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Abuja<br>
+                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
+                    <i class="fas fa-envelope"></i> info@fhasharada.org
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year"></span> FHA Sharada Phase 1 Residents Association. All Rights Reserved. <br>
+            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Hero animation
+            const heroContent = document.querySelector('.hero-content');
+            setTimeout(() => {
+                heroContent.classList.add('animate');
+            }, 300);
+
+            // Scroll animations for sections
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Simulate loading news articles
+            function loadNewsArticles() {
+                const newsArticles = [
+                    {
+                        id: 1,
+                        title: "New Security Cameras Installed Across the Estate",
+                        image: "https://placehold.co/600x400/2196F3/ffffff?text=Security+Update",
+                        date: "July 20, 2023",
+                        snippet: "To enhance the safety and security of our residents, new high-definition security cameras have been strategically installed at key points throughout FHA Sharada Phase 1.",
+                        fullContent: "The installation of these advanced security cameras is a significant step in our ongoing commitment to ensuring a safe and peaceful living environment for everyone. The cameras cover all entry and exit points, common areas, and playgrounds. This initiative, approved during the last general meeting, aims to deter criminal activities and provide valuable surveillance data if needed. Residents are encouraged to continue reporting any suspicious activities to the estate security team immediately. We believe this new infrastructure will greatly contribute to the overall security of our community."
+                    },
+                    {
+                        id: 2,
+                        title: "Community Garden Project Kicks Off with Great Enthusiasm",
+                        image: "https://placehold.co/600x400/FF5722/ffffff?text=Community+Garden",
+                        date: "July 15, 2023",
+                        snippet: "The long-awaited community garden project officially began this past weekend, drawing a large turnout of enthusiastic residents ready to get their hands dirty.",
+                        fullContent: "The FHA Sharada Community Garden, located near the central park, saw its first planting day on Saturday. Over 50 residents, including children, participated in preparing the soil, planting various vegetables, and herbs. This project aims to foster community bonding, promote sustainable living, and provide fresh produce for participating households. Future workshops on organic gardening and composting are planned. We invite more residents to join this green initiative and help our garden flourish."
+                    },
+                    {
+                        id: 3,
+                        title: "Road Maintenance Work Completed on Main Access Roads",
+                        image: "https://placehold.co/600x400/1976D2/ffffff?text=Road+Maintenance",
+                        date: "July 10, 2023",
+                        snippet: "Major road maintenance and rehabilitation work on the main access roads within FHA Sharada Phase 1 have been successfully completed ahead of schedule.",
+                        fullContent: "The extensive roadwork, which began two weeks ago, has significantly improved the driving conditions within the estate. Pot-holes have been filled, drainage systems cleared, and speed bumps repainted for better visibility. We appreciate the patience and cooperation of all residents during this period of inconvenience. This project is part of our commitment to maintaining high-quality infrastructure within our community, ensuring smooth and safe transit for all residents."
+                    },
+                    {
+                        id: 4,
+                        title: "Youth Empowerment Workshop Held at Community Hall",
+                        image: "https://placehold.co/600x400/4CAF50/ffffff?text=Youth+Workshop",
+                        date: "July 05, 2023",
+                        snippet: "A successful youth empowerment workshop, focusing on digital skills and entrepreneurship, was organized by the association this past weekend.",
+                        fullContent: "The workshop, attended by over 80 young residents, featured sessions on coding basics, digital marketing, and starting a small business. Guest speakers from various industries shared their experiences and offered mentorship. The initiative aims to equip the youth of FHA Sharada with valuable skills for the future, promoting self-reliance and innovation within the community. We plan to host more such workshops in the coming months, covering a wider range of topics."
+                    }
+                ];
+
+                const container = document.getElementById('news-grid-container');
+                container.innerHTML = ''; // Clear loading message
+
+                newsArticles.forEach(article => {
+                    const articleEl = document.createElement('div');
+                    articleEl.className = 'news-card';
+                    articleEl.innerHTML = `
+                        <img src="${article.image}" alt="${article.title}" class="news-thumbnail">
+                        <div class="news-content">
+                            <div class="news-date"><i class="far fa-calendar-alt"></i> ${article.date}</div>
+                            <h3 class="news-title">${article.title}</h3>
+                            <p class="news-snippet">${article.snippet}</p>
+                            <a href="#" class="news-read-more" data-full-content="${encodeURIComponent(article.fullContent)}">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                    container.appendChild(articleEl);
+                });
+
+                // Add event listeners for "Read More"
+                document.querySelectorAll('.news-read-more').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const fullContent = decodeURIComponent(this.dataset.fullContent);
+                        // In a real application, you might open a modal or navigate to a detail page
+                        alert('Full Article:\n\n' + fullContent);
+                    });
+                });
+            }
+
+            loadNewsArticles(); // Load news articles on page load
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

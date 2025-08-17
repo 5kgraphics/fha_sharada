@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Incident - FHA Sharada Residents Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset - Copied from index.html for consistency */
+        :root {
+            --primary: #2196F3;
+            --secondary: #1976D2;
+            --accent: #FF5722;
+            --dark: #263238;
+            --light: #F5F8FA;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --gray: #9E9E9E;
+
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Header - Copied from index.html */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(33, 150, 243, 0.95);
+            box-shadow: var(--shadow-medium);
+        }
+
+        header.scrolled .nav-link {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .association-name {
+            color: white;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .association-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .association-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            letter-spacing: -0.5px;
+        }
+
+        /* Navigation - Copied from index.html */
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.15rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            bottom: -8px;
+            left: 0;
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Submenu Styling - Copied from index.html */
+        .sub-menu {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: var(--shadow-medium);
+            min-width: 200px;
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-menu li:hover > .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sub-menu li {
+            padding: 0;
+        }
+
+        .sub-menu a {
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            display: block;
+            white-space: nowrap;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .sub-menu a::after {
+            content: none;
+        }
+
+        .sub-menu a:hover {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+
+        /* Hamburger Menu - Copied from index.html */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
+            top: 10px;
+        }
+
+        .hamburger span:nth-child(4) {
+            top: 20px;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .hamburger.open span:nth-child(4) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+
+        /* Mobile Menu - Copied from index.html */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9);
+                z-index: 1000;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            header.scrolled .hamburger span {
+                background: white;
+            }
+
+            /* Mobile Submenu adjustments */
+            .sub-menu {
+                position: static;
+                width: 100%;
+                background: none;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                margin-top: 0.5rem;
+                text-align: center;
+            }
+
+            .sub-menu a {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+                color: var(--dark);
+                background-color: rgba(0, 0, 0, 0.05);
+                border-radius: 5px;
+                margin: 0.3rem 0;
+            }
+
+            .sub-menu a:hover {
+                background-color: var(--primary);
+                color: white;
+                transform: none;
+            }
+
+            .nav-menu li:hover > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+        }
+
+        /* Main Content Container - Copied from index.html */
+        .main-container {
+            width: 90%;
+            max-width: 1000px; /* Consistent max-width */
+            margin: 10rem auto 6rem auto; /* Adjusted top margin for fixed header */
+            position: relative;
+            z-index: 50;
+        }
+
+        /* Section Styling - Copied from index.html */
+        .section {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        /* --- Report Incident Form Specific Styles --- */
+        .report-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem; /* Consistent padding with other main sections */
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(0,0,0,0.05);
+            text-align: center; /* Center form content initially */
+        }
+
+        .report-form-card p {
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Spacing between form elements */
+            max-width: 700px; /* Max width for the form itself */
+            margin: 0 auto; /* Center the form */
+            text-align: left; /* Align labels/inputs left */
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--gray);
+            border-radius: 10px; /* Rounded inputs */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--light); /* Light background for inputs */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Focus shadow */
+        }
+
+        .form-group textarea {
+            min-height: 150px; /* Taller textarea */
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary); /* Style checkbox with primary color */
+            cursor: pointer;
+        }
+
+        .form-submit-btn {
+            background: var(--accent); /* Use accent for report button */
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
+            letter-spacing: 0.5px;
+            margin-top: 2rem; /* Space above button */
+            align-self: center; /* Center the button */
+            min-width: 200px; /* Ensure a decent width */
+        }
+
+        .form-submit-btn:hover {
+            background: #e64a19; /* Slightly darker accent */
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+
+        .message-box {
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+        }
+
+        .message-box.show {
+            opacity: 1;
+            max-height: 150px; /* Sufficient height for messages */
+        }
+
+        .message-box.success {
+            background-color: rgba(76, 175, 80, 0.1); /* Light green */
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .message-box.error {
+            background-color: rgba(244, 67, 54, 0.1); /* Light red */
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        /* Footer - Copied from index.html */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 2.5rem;
+            position: relative;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            margin-bottom: 1.8rem;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            opacity: 0.9;
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 1rem;
+        }
+
+        .footer-link a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.8;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .copyright a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .report-form-card {
+                padding: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .report-form-card {
+                padding: 2.5rem;
+            }
+
+            .form-group input, .form-group select, .form-group textarea {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .form-submit-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .report-form-card {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title::after {
+                bottom: -10px;
+                width: 50%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animation Keyframes - Copied from index.html */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .floating {
+            animation: float 3.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Awesome Header with Navigation -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/55" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada Residents</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container for Report Incident Form -->
+    <div class="main-container">
+        <section class="section" id="report-incident-form">
+            <h2 class="section-title">Report a Security Incident</h2>
+            <div class="report-form-card">
+                <p>Please use this form to report any security incidents, suspicious activities, or concerns directly to the estate security team. Your prompt and detailed report is crucial for maintaining a safe environment for everyone.</p>
+                <form id="incidentReportForm" class="report-form">
+                    <div class="form-group">
+                        <label for="incidentType">Type of Incident:</label>
+                        <select id="incidentType" name="incidentType" required>
+                            <option value="">Select Incident Type</option>
+                            <option value="Suspicious Activity">Suspicious Activity</option>
+                            <option value="Theft/Burglary">Theft/Burglary</option>
+                            <option value="Vandalism">Vandalism</option>
+                            <option value="Assault/Threat">Assault/Threat</option>
+                            <option value="Unauthorised Entry">Unauthorised Entry</option>
+                            <option value="Disturbance">Disturbance (Noise, Public Order)</option>
+                            <option value="Other">Other (Please specify in description)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incidentDate">Date of Incident:</label>
+                        <input type="date" id="incidentDate" name="incidentDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incidentTime">Time of Incident:</label>
+                        <input type="time" id="incidentTime" name="incidentTime" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incidentLocation">Location of Incident (House No., Street, Landmark):</label>
+                        <input type="text" id="incidentLocation" name="incidentLocation" placeholder="e.g., House 12B, Green Street, near playground" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incidentDescription">Detailed Description of Incident:</label>
+                        <textarea id="incidentDescription" name="incidentDescription" rows="10" placeholder="Please provide as much detail as possible: what happened, who was involved (description of individuals, vehicles), direction of movement, any items stolen/damaged, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="witnesses">Witnesses (Optional - names/contact if available):</label>
+                        <input type="text" id="witnesses" name="witnesses" placeholder="e.g., Mr. John Doe (House 5A), Mrs. Jane Smith (080...)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporterName">Your Name (Optional):</label>
+                        <input type="text" id="reporterName" name="reporterName" placeholder="Your Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporterContact">Your Contact (Optional - Email or Phone for follow-up):</label>
+                        <input type="text" id="reporterContact" name="reporterContact" placeholder="e.g., your_email@example.com or 080XXXXXXXX">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="reportAnonymous" name="reportAnonymous">
+                        <label for="reportAnonymous">Report Anonymously (Your name and contact will not be shared with security)</label>
+                    </div>
+
+                    <button type="submit" class="form-submit-btn">Submit Report</button>
+                </form>
+                <div id="formMessageBox" class="message-box"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Awesome Footer - Copied from index.html -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="https://via.placeholder.com/70" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Phase 1 RA</h3>
+                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
+                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="#">Dues Payment</a></li>
+                    <li class="footer-link"><a href="security_updates.html">Security & Safety</a></li>
+                    <li class="footer-link"><a href="maintenance.html">Maintenance Requests</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Abuja<br>
+                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
+                    <i class="fas fa-envelope"></i> info@fhasharada.org
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year"></span> FHA Sharada Phase 1 Residents Association. All Rights Reserved. <br>
+            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect - Copied from index.html
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle - Copied from index.html
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link (including submenu links) - Copied from index.html
+            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Scroll animations for sections - Adapted from index.html
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    } else {
+                        entry.target.classList.remove('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Form Submission Logic
+            const incidentReportForm = document.getElementById('incidentReportForm');
+            const formMessageBox = document.getElementById('formMessageBox');
+            const reportAnonymousCheckbox = document.getElementById('reportAnonymous');
+            const reporterNameInput = document.getElementById('reporterName');
+            const reporterContactInput = document.getElementById('reporterContact');
+
+            // Disable/enable name and contact fields based on anonymity checkbox
+            reportAnonymousCheckbox.addEventListener('change', function() {
+                reporterNameInput.disabled = this.checked;
+                reporterContactInput.disabled = this.checked;
+                if (this.checked) {
+                    reporterNameInput.value = ''; // Clear fields if anonymous
+                    reporterContactInput.value = '';
+                }
+            });
+
+            incidentReportForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                // Clear previous messages
+                formMessageBox.classList.remove('show', 'success', 'error');
+                formMessageBox.textContent = '';
+
+                // Collect form data
+                const incidentData = {
+                    incidentType: document.getElementById('incidentType').value,
+                    incidentDate: document.getElementById('incidentDate').value,
+                    incidentTime: document.getElementById('incidentTime').value,
+                    incidentLocation: document.getElementById('incidentLocation').value,
+                    incidentDescription: document.getElementById('incidentDescription').value,
+                    witnesses: document.getElementById('witnesses').value,
+                    reporterName: reportAnonymousCheckbox.checked ? 'Anonymous' : reporterNameInput.value,
+                    reporterContact: reportAnonymousCheckbox.checked ? 'N/A' : reporterContactInput.value,
+                    isAnonymous: reportAnonymousCheckbox.checked
+                };
+
+                console.log('Incident Report Submitted:', incidentData);
+
+                // Simulate API call to security backend
+                // In a real application, you would use fetch() here to send data to your server
+                // Example:
+                /*
+                fetch('/api/report-incident', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(incidentData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        formMessageBox.textContent = 'Report submitted successfully! Thank you for helping keep our community safe.';
+                        formMessageBox.classList.add('show', 'success');
+                        incidentReportForm.reset(); // Clear the form on success
+                        reporterNameInput.disabled = false; // Re-enable if it was disabled
+                        reporterContactInput.disabled = false;
+                    } else {
+                        formMessageBox.textContent = 'Failed to submit report. Please try again or contact security directly.';
+                        formMessageBox.classList.add('show', 'error');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    formMessageBox.textContent = 'An error occurred. Please check your internet connection and try again.';
+                    formMessageBox.classList.add('show', 'error');
+                });
+                */
+
+                // --- DEMO SUCCESS/ERROR SIMULATION ---
+                const isSuccess = Math.random() > 0.1; // 90% chance of success for demo
+
+                if (isSuccess) {
+                    formMessageBox.textContent = 'Report submitted successfully! Thank you for helping keep our community safe.';
+                    formMessageBox.classList.add('show', 'success');
+                    incidentReportForm.reset(); // Clear the form
+                    reporterNameInput.disabled = false; // Re-enable if it was disabled
+                    reporterContactInput.disabled = false;
+                } else {
+                    formMessageBox.textContent = 'Failed to submit report. Please try again or contact security directly.';
+                    formMessageBox.classList.add('show', 'error');
+                }
+
+                // Hide message after a few seconds
+                setTimeout(() => {
+                    formMessageBox.classList.remove('show');
+                }, 7000); // Message disappears after 7 seconds
+            });
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHA Sharada Residents Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset */
+        :root {
+            --primary: #2196F3;
+            --secondary: #1976D2;
+            --accent: #FF5722;
+            --dark: #263238;
+            --light: #F5F8FA;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --gray: #9E9E9E;
+
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(33, 150, 243, 0.95);
+            box-shadow: var(--shadow-medium);
+        }
+
+        header.scrolled .nav-link, header.scrolled .association-name {
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .association-logo {
+            width: 70px;
+            height: 55px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .association-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.15rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            bottom: -8px;
+            left: 0;
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .sub-menu {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: var(--shadow-medium);
+            min-width: 200px;
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-menu li.has-submenu:hover > .sub-menu, .nav-menu li.has-submenu:focus-within > .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sub-menu li {
+            padding: 0;
+        }
+
+        .sub-menu a {
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            display: block;
+            white-space: nowrap;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .sub-menu a::after {
+            content: none;
+        }
+
+        .sub-menu a:hover {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) { top: 10px; }
+        .hamburger span:nth-child(4) { top: 20px; }
+
+        .hamburger.open span:nth-child(1) { top: 10px; width: 0%; left: 50%; }
+        .hamburger.open span:nth-child(2) { transform: rotate(45deg); }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
+        .hamburger.open span:nth-child(4) { top: 10px; width: 0%; left: 50%; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(98, 199, 246, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9);
+                z-index: 1000;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            }
+            .nav-menu.active { right: 0; }
+            header.scrolled .hamburger span { background: white; }
+
+            .sub-menu {
+                position: static;
+                width: 100%;
+                background: none;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                margin-top: 0.5rem;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+            }
+
+            .nav-menu li.has-submenu.open > .sub-menu {
+                max-height: 500px;
+            }
+
+            .sub-menu a {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+                color: var(--dark);
+                background-color: rgba(0, 0, 0, 0.05);
+                border-radius: 5px;
+                margin: 0.3rem 0;
+            }
+            .sub-menu a:hover {
+                background-color: var(--primary);
+                color: white;
+                transform: none;
+            }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)),
+                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, var(--light), transparent);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2.5rem;
+            position: relative;
+            z-index: 2;
+            transform: translateY(70px);
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .hero-content.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.8rem;
+            line-height: 1.15;
+            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.45rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
+            letter-spacing: 0.5px;
+            text-decoration: none; /* Add this to make it behave like a link */
+        }
+
+        .hero-btn:hover {
+            background: #e64a19;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+
+        .main-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 6rem auto;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .announcements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .announcement-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .announcement-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--accent);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        .announcement-content { padding: 2.5rem; }
+
+        .announcement-date {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .announcement-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .announcement-text {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .announcement-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .announcement-btn:hover {
+            color: var(--accent);
+            gap: 1.2rem;
+        }
+
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 2rem;
+        }
+
+        .event-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .event-title {
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .event-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .event-meta i {
+            color: var(--primary);
+            font-size: 1.2em;
+        }
+
+        .countdown {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 2rem;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: rgba(255, 87, 34, 0.12);
+            border-radius: 15px;
+            border: 3px dashed var(--accent);
+            letter-spacing: 1.5px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .countdown.finished {
+            color: var(--gray);
+            background-color: rgba(158, 158, 158, 0.15);
+            border-color: var(--gray);
+            animation: none;
+        }
+
+        .blocks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .block-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-align: center;
+        }
+
+        .block-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .block-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem;
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.35);
+        }
+
+        .block-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+
+        .block-text {
+            color: #555;
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+
+        .block-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .block-link:hover {
+            color: var(--accent);
+            gap: 1.2rem;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 7px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 20px 0 0 20px;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-weight: 700;
+        }
+
+        .welcome-text {
+            margin-bottom: 1.8rem;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        .chairman-signature {
+            margin-top: 2.5rem;
+            font-style: italic;
+            color: var(--dark);
+            font-size: 1.15rem;
+        }
+
+        .chairman-name {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 5rem 2.5rem;
+            margin-bottom: 6rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/always-grey.png');
+            opacity: 0.15;
+            mix-blend-mode: overlay;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item { padding: 2rem; }
+
+        .stat-number {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .rules-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .rules-list {
+            list-style-type: none;
+            counter-reset: rules-counter;
+        }
+
+        .rules-list li {
+            counter-increment: rules-counter;
+            margin-bottom: 1.8rem;
+            padding-left: 3.5rem;
+            position: relative;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .rules-list li::before {
+            content: counter(rules-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .more-info-section {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(25, 118, 210, 0.15));
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            margin-bottom: 6rem;
+            border: 2px dashed var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .more-info-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-weight: 700;
+        }
+
+        .more-info-text {
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.15rem;
+        }
+
+        .more-info-btn {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
+            text-decoration: none;
+        }
+
+        .more-info-btn:hover {
+            background: #e64a19;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 6rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .faq-item {
+            margin-bottom: 1.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 1.8rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            color: #555;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            font-size: 1.05rem;
+        }
+
+        .faq-answer.show {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 2.5rem;
+            position: relative;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 55px;
+            border-radius: 18px;
+            margin-bottom: 1.8rem;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            opacity: 0.9;
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-links { list-style: none; }
+        .footer-link { margin-bottom: 1rem; }
+        .footer-link a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.8;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .copyright a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.2rem; }
+            .hero p { font-size: 1.3rem; }
+            .section-title { font-size: 2.5rem; }
+            .announcements-container, .events-container, .blocks-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+            .stat-number { font-size: 3.2rem; }
+            footer { border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: row; gap: 1rem; }
+            .nav-menu { gap: 1.5rem; }
+            .hero h1 { font-size: 2.5rem; letter-spacing: normal; }
+            .hero p { font-size: 1.15rem; }
+            .section-title { font-size: 2.2rem; }
+            .event-card { padding: 1.5rem; }
+            .countdown { font-size: 1.4rem; }
+            .welcome-section, .rules-section, .faq-section, .more-info-section { padding: 2.5rem; }
+            .stat-number { font-size: 2.8rem; }
+            .stat-label { font-size: 1.1rem; }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2rem; }
+            .announcements-container, .events-container, .blocks-container { grid-template-columns: 1fr; }
+            .welcome-section, .rules-section, .faq-section, .more-info-section { padding: 2rem; }
+            .section-title { font-size: 1.8rem; margin-bottom: 2.5rem; }
+            .section-title::after { bottom: -10px; width: 50%; }
+            .hero-btn, .more-info-btn { padding: 0.9rem 2rem; font-size: 1.1rem; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-logo, .block-icon { margin-left: auto; margin-right: auto; }
+            .social-links { justify-content: center; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .floating { animation: float 3.5s ease-in-out infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(255, 87, 34, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada Residents</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to FHA Sharada Residents Association</h1>
+            <p>A vibrant community committed to excellence, security, and harmonious living</p>
+            <a href="about.html" class="hero-btn">About Our Community</a>
+        </div>
+    </section>
+
+    <div class="main-container">
+        <section class="section" id="announcements">
+            <h2 class="section-title">Latest Announcements</h2>
+            <div class="announcements-container" id="announcements-container">
+                <div class="loading">Loading announcements...</div>
+            </div>
+        </section>
+
+        <section class="section" id="events">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="events-container" id="events-container">
+                <div class="loading">Loading events...</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Community Resources</h2>
+            <div class="blocks-container">
+                <div class="block-card">
+                    <div class="block-icon"> <i class="fas fa-shield-alt"></i> </div>
+                    <h3 class="block-title">Security Updates</h3>
+                    <p class="block-text">Latest security measures and protocols for our community</p>
+                    <a href="security_update.html" class="block-link">View Updates <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="block-card">
+                    <div class="block-icon"> <i class="fas fa-file-invoice-dollar"></i> </div>
+                    <h3 class="block-title">Dues Payment</h3>
+                    <p class="block-text">Information about monthly dues and payment methods</p>
+                    <a href="dues.html" class="block-link">Payment Info <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="block-card">
+                    <div class="block-icon"> <i class="fas fa-tools"></i> </div>
+                    <h3 class="block-title">Maintenance</h3>
+                    <p class="block-text">Report issues and view ongoing maintenance work</p>
+                    <a href="maintenance.html" class="block-link">Report Issue <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="block-card">
+                    <div class="block-icon"> <i class="fas fa-file-alt"></i> </div>
+                    <h3 class="block-title">Governing Docs</h3>
+                    <p class="block-text">Access our bylaws, meeting minutes, and regulations</p>
+                    <a href="doc_share.html" class="block-link">View Documents <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section rules-section" id="rules">
+            <h2 class="section-title">Community Rules and Regulations</h2>
+            <ul class="rules-list">
+                <li>All residents must pay their monthly dues by the 10th of every month to avoid penalties.</li>
+                <li>Parking is only allowed in designated areas. Street parking that obstructs traffic is prohibited.</li>
+                <li>Quiet hours are from 10:00 PM to 7:00 AM daily. Please keep noise to a minimum during these hours.</li>
+                <li>All construction or renovation work must be approved by the association and can only be done between 8:00 AM and 5:00 PM on weekdays.</li>
+                <li>Proper waste disposal is mandatory. All garbage must be properly bagged and placed in designated bins.</li>
+                <li>Residents are responsible for the conduct of their guests and domestic staff within the estate.</li>
+                <li>No commercial activities are allowed in residential properties without proper approval from the association.</li>
+                <li>All pets must be registered with the association and kept on leash when outside the owner's property.</li>
+                <li>Residents must maintain their property exteriors to community standards, including lawn care and painting.</li>
+                <li>Security gates must not be propped open and all visitors must be properly identified before entry is granted.</li>
+                <li>No burning of waste or any materials within the estate premises.</li>
+                <li>All vehicles must display valid resident parking stickers for identification.</li>
+                <li>Residents must report any security concerns or suspicious activities to the estate security immediately.</li>
+            </ul>
+        </section>
+
+        <section class="section welcome-section">
+            <h2 class="welcome-title">Message from the Chairman</h2>
+            <p class="welcome-text">Dear Esteemed Residents,</p>
+            <p class="welcome-text">It is with great pleasure that I welcome you to our official community platform. FHA Sharada Residents stands as a beacon of peaceful coexistence and progressive development in Abuja.</p>
+            <p class="welcome-text">This platform has been designed to keep you informed about all association matters, from important announcements to upcoming events. I encourage every resident to actively participate in our community activities and adhere to our estate regulations.</p>
+            <p class="welcome-text">Together, we will continue to uphold the standards that make our community exceptional.</p>
+            <p class="chairman-signature">Warm regards,<br><span class="chairman-name">Alhaji Mohammed Kabir</span><br>Chairman, FHA Sharada Residents Association</p>
+        </section>
+
+        <section class="section more-info-section">
+            <h2 class="more-info-title">Want More Information About Our Community?</h2>
+            <p class="more-info-text">Have questions about living in FHA Sharada Residents? Interested in becoming a resident? Our team is here to help with any inquiries you may have about our community.</p>
+            <a href="contact.html" class="more-info-btn">Message Us</a>
+        </section>
+
+        <section class="section faq-section" id="faq">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">How do I pay my monthly dues?</div>
+                <div class="faq-answer">
+                    Monthly dues can be paid through bank transfer to the association's account or at the monthly general meeting. Our account details are available on the Dues Payment page. Please ensure you include your house number as reference.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What should I do if I notice a security concern?</div>
+                <div class="faq-answer">
+                    Immediately contact the estate security through the emergency numbers provided to all residents. You can also report to any executive committee member or use the security update channel on our WhatsApp group.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How can I report a maintenance issue?</div>
+                <div class="faq-answer">
+                    Maintenance issues can be reported through the Maintenance Request form available on this website or by contacting the maintenance committee chairperson. For emergencies like water leaks or electrical issues, call the emergency maintenance line.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Are there restrictions on renovations?</div>
+                <div class="faq-answer">
+                    Yes, all major renovations must be approved by the association to ensure they comply with community standards. This includes structural changes, exterior modifications, and any work that might disturb neighbors. Submit your plans to the association for review before beginning work.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How do I get a resident parking sticker?</div>
+                <div class="faq-answer">
+                    Parking stickers are issued by the security committee. Bring proof of residence (utility bill or tenancy agreement) and vehicle registration documents to the monthly meeting or contact the security chairperson to arrange collection.
+                </div>
+            </div>
+        </section>
+
+        <section class="section stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" id="residents-count">1,245</div>
+                    <div class="stat-label">Registered Residents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="properties-count">856</div>
+                    <div class="stat-label">Properties</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="events-count">24</div>
+                    <div class="stat-label">Annual Events</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="years-count">15+</div>
+                    <div class="stat-label">Years Established</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Residents Association RA</h3>
+                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#announcements">Announcements</a></li>
+                    <li class="footer-link"><a href="#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="dues.html">Dues Payment</a></li>
+                    <li class="footer-link"><a href="security_update.html">Security Updates</a></li>
+                    <li class="footer-link"><a href="maintenance.html">Maintenance Requests</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Residents Association, Kano<br>
+                    <i class="fas fa-phone"></i> +234703 125 8982<br>
+                    <i class="fas fa-envelope"></i> info@fhasharada.org.ng
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
+            Powered by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphic Studio</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const hasSubmenu = document.querySelector('.has-submenu > a');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Mobile Submenu functionality
+            if (window.innerWidth <= 768) {
+                hasSubmenu.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('open');
+                });
+            }
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-link:not(.has-submenu > a), .sub-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Hero animation
+            const heroContent = document.querySelector('.hero-content');
+            setTimeout(() => {
+                heroContent.classList.add('animate');
+            }, 300);
+
+            // Scroll animations for sections
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => { observer.observe(section); });
+
+            // FAQ functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    question.classList.toggle('active');
+                    const answer = question.nextElementSibling;
+                    answer.classList.toggle('show');
+                });
+            });
+
+            // Number counting animation
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                if (!obj) return; // Prevent error if element doesn't exist
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            function loadAnnouncements() {
+                const announcements = [
+                    { id: 1, title: "Monthly General Meeting Announcement", content: "The June monthly general meeting will hold on the 30th at the Community Hall by 4pm. All residents are encouraged to attend as we'll be discussing important community matters.", date: "June 15, 2023", urgent: true },
+                    { id: 2, title: "Water Supply Maintenance Notice", content: "There will be temporary water interruption on June 15th from 8am to 5pm for scheduled maintenance work on our water treatment plant. Please store water accordingly.", date: "June 10, 2023", urgent: false },
+                    { id: 3, title: "Enhanced Security Measures", content: "New security protocols have been implemented at all estate gates effective immediately. Please ensure you have your resident ID card with you at all times.", date: "June 5, 2023", urgent: true }
+                ];
+
+                const container = document.getElementById('announcements-container');
+                container.innerHTML = ''; // Clear loading message
+
+                announcements.forEach(announcement => {
+                    const announcementEl = document.createElement('div');
+                    announcementEl.className = `announcement-card ${announcement.urgent ? 'urgent' : ''}`;
+                    announcementEl.innerHTML = `
+                        ${announcement.urgent ? '<div class="announcement-badge">URGENT</div>' : ''}
+                        <div class="announcement-content">
+                            <div class="announcement-date"><i class="far fa-calendar-alt"></i> ${announcement.date}</div>
+                            <h3 class="announcement-title">${announcement.title}</h3>
+                            <p class="announcement-text">${announcement.content}</p>
+                            <a href="#" class="announcement-btn">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                    container.appendChild(announcementEl);
+                });
+            }
+
+            function startCountdown(eventId, eventDateTimeString) {
+                const countdownElement = document.getElementById(eventId);
+                if (!countdownElement) return;
+
+                const eventDate = new Date(eventDateTimeString).getTime();
+
+                const updateCountdown = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = eventDate - now;
+
+                    if (distance < 0) {
+                        clearInterval(updateCountdown);
+                        countdownElement.innerHTML = "Event Ended!";
+                        countdownElement.classList.add('finished');
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }, 1000);
+            }
+
+            function loadEvents() {
+                const events = [
+                    { id: 1, title: "Annual General Meeting", dateTime: "2025-07-30T16:00:00", venue: "Community Hall" },
+                    { id: 2, title: "Children's Day Celebration", dateTime: "2025-08-15T10:00:00", venue: "Community Playground" },
+                    { id: 3, title: "Community Sanitation Day", dateTime: "2025-09-01T07:00:00", venue: "Entire Estate" }
+                ];
+
+                const container = document.getElementById('events-container');
+                container.innerHTML = ''; // Clear loading message
+                const countdownsToStart = [];
+
+                events.forEach(event => {
+                    const eventEl = document.createElement('div');
+                    eventEl.className = 'event-card';
+                    eventEl.innerHTML = `
+                        <div class="event-content">
+                            <h3 class="event-title">${event.title}</h3>
+                            <div class="event-meta">
+                                <div><i class="far fa-calendar-alt"></i> ${new Date(event.dateTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                                <div><i class="far fa-clock"></i> ${new Date(event.dateTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                                <div><i class="fas fa-map-marker-alt"></i> ${event.venue}</div>
+                            </div>
+                            <div class="countdown" id="event-countdown-${event.id}" data-event-date="${event.dateTime}">Loading countdown...</div>
+                        </div>
+                    `;
+                    container.appendChild(eventEl);
+                    countdownsToStart.push({ id: `event-countdown-${event.id}`, dateTime: event.dateTime });
+                });
+
+                countdownsToStart.forEach(item => {
+                    startCountdown(item.id, item.dateTime);
+                });
+            }
+
+            // Load dynamic content
+            loadAnnouncements();
+            loadEvents();
+
+            // Animate stats counting
+            const statsSection = document.querySelector('.stats-section');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateValue('residents-count', 0, 1245, 2000);
+                        animateValue('properties-count', 0, 856, 2000);
+                        animateValue('events-count', 0, 24, 2000);
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statsObserver.observe(statsSection);
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
