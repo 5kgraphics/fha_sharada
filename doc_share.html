@@ -572,15 +572,12 @@
             .hero h1 {
                 font-size: 3.2rem;
             }
-
             .hero p {
                 font-size: 1.3rem;
             }
-
             .section-title {
                 font-size: 2.5rem;
             }
-
             footer {
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
@@ -592,28 +589,20 @@
                 flex-direction: row;
                 gap: 1rem;
             }
-
             .nav-menu {
                 gap: 1.5rem;
             }
-
             .hero h1 {
                 font-size: 2.5rem;
                 letter-spacing: normal;
             }
-
             .hero p {
                 font-size: 1.15rem;
             }
-
             .section-title {
                 font-size: 2.2rem;
             }
-
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
+            .welcome-section, .rules-section, .faq-section, .more-info-section {
                 padding: 2.5rem;
             }
         }
@@ -623,43 +612,32 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-
             .hero h1 {
                 font-size: 2rem;
             }
-
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
+            .welcome-section, .rules-section, .faq-section, .more-info-section {
                 padding: 2rem;
             }
-
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 2.5rem;
             }
-
             .section-title::after {
                 bottom: -10px;
                 width: 50%;
             }
-
             .hero-btn, .more-info-btn {
                 padding: 0.9rem 2rem;
                 font-size: 1.1rem;
             }
-
             .footer-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-
             .footer-logo {
                 margin-left: auto;
                 margin-right: auto;
             }
-
             .social-links {
                 justify-content: center;
             }
@@ -674,15 +652,13 @@
                 transform: translateY(-12px); /* More float */
             }
         }
-
         .floating {
             animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
         }
 
         /* Documents Page Specific Styles */
         .documents-hero {
-            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(33, 150, 243, 0.85)),
-                        url('https://placehold.co/1920x1080/1976D2/ffffff?text=Community+Resources'); /* Placeholder image for Documents */
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(33, 150, 243, 0.85)), url('https://placehold.co/1920x1080/1976D2/ffffff?text=Community+Resources'); /* Placeholder image for Documents */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -697,17 +673,14 @@
             overflow: hidden;
             box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
         }
-
         .documents-hero .hero-content {
             transform: translateY(50px);
         }
-
         .documents-hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
         .documents-hero p {
             font-size: 1.2rem;
             max-width: 700px;
@@ -719,40 +692,95 @@
         .main-container {
             margin: 4rem auto; /* Adjusted margin for documents page */
         }
-
-        .category-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem; /* More space below tabs */
-            flex-wrap: wrap;
-            justify-content: center; /* Center tabs */
+        
+        /* Dropdown Container */
+        .category-dropdown-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            text-align: center;
+            width: 100%;
         }
 
-        .category-tab {
-            padding: 0.8rem 1.8rem; /* Larger tabs */
+        /* Dropdown Button */
+        .category-dropdown-btn {
+            padding: 0.8rem 1.8rem;
             background: white;
             border-radius: 50px;
             cursor: pointer;
-            font-weight: 600; /* Bolder text */
+            font-weight: 600;
             box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
             color: var(--dark);
+            display: inline-block;
+            min-width: 250px;
+            position: relative;
         }
 
-        .category-tab.active, .category-tab:hover {
+        .category-dropdown-btn::after {
+            content: "\f0d7"; /* FontAwesome caret down icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-dropdown-btn.active {
             background: var(--primary);
             color: white;
-            transform: translateY(-3px);
             box-shadow: var(--shadow-medium);
+            transform: translateY(-3px);
+        }
+        
+        .category-dropdown-btn.active::after {
+            transform: rotate(180deg);
         }
 
+        /* Dropdown Content (the menu) */
+        .category-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: var(--shadow-medium);
+            z-index: 10;
+            border-radius: 10px;
+            padding: 10px 0;
+            margin-top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-height: 200px; /* Limit height for scroll */
+            overflow-y: auto;
+        }
+        
+        .category-dropdown-content.show {
+            display: block;
+        }
+
+        .category-dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .category-dropdown-content a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Document Grid and Card Styles remain the same */
         .documents-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Slightly larger min-width */
             gap: 2rem; /* More gap */
         }
-
+        
         .document-card {
             background: white;
             border-radius: 20px; /* More rounded corners */
@@ -761,522 +789,504 @@
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Distribute content vertically */
+            justify-content: space-between;
         }
-
+        
         .document-card:hover {
-            transform: translateY(-10px); /* More pronounced lift */
-            box-shadow: var(--shadow-bold); /* Even stronger shadow on hover */
+            transform: translateY(-8px) scale(1.02); /* More lift and scale */
+            box-shadow: var(--shadow-bold); /* Bolder shadow on hover */
         }
-
-        .document-header {
-            padding: 1.8rem; /* More padding */
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Thicker border */
-            display: flex;
-            align-items: center;
-            gap: 1.2rem; /* More gap */
-            background: var(--light); /* Light background for header */
+        
+        .card-icon {
+            text-align: center;
+            padding: 2.5rem 1.5rem 1.5rem; /* Increased top padding */
+            font-size: 4rem; /* Larger icons */
+            color: var(--primary);
+            transition: transform 0.3s ease;
         }
-
-        .document-icon {
-            width: 60px; /* Larger icon container */
-            height: 60px;
-            border-radius: 15px; /* More rounded */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem; /* Larger icon */
-            color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        
+        .document-card:hover .card-icon {
+            transform: rotateY(180deg);
         }
-
-        .icon-pdf { background: #e74c3c; } /* Red */
-        .icon-doc { background: #3498db; } /* Blue */
-        .icon-xls { background: #2ecc71; } /* Green */
-        .icon-img { background: #f1c40f; } /* Yellow */
-        .icon-zip { background: #9b59b6; } /* Purple */
-        .icon-gen { background: var(--primary); }
-
-        .document-info {
-            flex: 1;
+        
+        .card-content {
+            padding: 0 1.5rem 1.5rem; /* Padding for content area */
         }
-
-        .document-title {
-            font-weight: 700; /* Bolder title */
-            font-size: 1.3rem; /* Larger title */
+        
+        .card-title {
+            font-size: 1.4rem; /* Larger title */
+            font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--dark);
         }
-
-        .document-meta {
-            font-size: 0.9rem; /* Slightly larger meta */
+        
+        .card-meta {
+            font-size: 0.9rem;
             color: var(--gray);
-            display: flex;
-            gap: 1.2rem; /* More spacing */
+            font-weight: 500;
         }
-
-        .document-body {
-            padding: 1.8rem; /* More padding */
-            flex-grow: 1; /* Allows description to take space */
-            display: flex;
-            flex-direction: column;
+        
+        .card-meta i {
+            margin-right: 5px;
         }
-
-        .document-description {
-            color: #555;
-            margin-bottom: 1.8rem; /* More margin */
-            font-size: 1rem; /* Slightly larger description */
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .document-actions {
+        
+        .card-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: auto; /* Pushes actions to bottom */
+            padding: 1rem 1.5rem 2rem;
+            border-top: 1px solid #f0f0f0;
+            gap: 1rem;
         }
-
-        .document-date {
-            font-size: 0.9rem; /* Slightly larger date */
-            color: var(--gray);
-        }
-
-        .view-btn { /* Renamed from download-btn */
-            background: var(--primary); /* Primary color for view button */
-            color: white;
-            padding: 0.8rem 1.5rem; /* Larger button */
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1rem; /* Larger font */
+        
+        .card-btn {
+            flex-grow: 1;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 10px; /* More rounded button corners */
             font-weight: 600;
+            text-decoration: none;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem; /* More gap */
-            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3); /* Primary color shadow */
+            white-space: nowrap; /* Prevent text from wrapping */
         }
-
-        .view-btn:hover { /* Renamed from download-btn:hover */
-            background: var(--secondary); /* Darker primary on hover */
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(33, 150, 243, 0.4);
+        
+        .view-btn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
         }
-
-        .no-documents {
+        
+        .view-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+        }
+        
+        .download-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-btn:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+        
+        /* Modal and Alert styles (no change) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding-top: 15%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .close-btn {
             color: var(--gray);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+        
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--dark);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-message {
             font-size: 1.2rem;
-            padding: 4rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow-light);
-            margin-top: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
         }
-
-        @media (max-width: 768px) {
-            .documents-hero {
-                height: 50vh;
-            }
-            .documents-hero h1 {
-                font-size: 2.8rem;
-            }
-            .documents-hero p {
-                font-size: 1.1rem;
-            }
-            .documents-grid {
-                grid-template-columns: 1fr;
-            }
-            .category-tabs {
-                justify-content: flex-start; /* Align tabs to start on smaller screens */
-                overflow-x: auto; /* Allow horizontal scrolling if many tabs */
-                padding-bottom: 0.5rem; /* Add padding for scrollbar */
-            }
-            .category-tab {
-                flex-shrink: 0; /* Prevent tabs from shrinking */
-            }
+        
+        .modal-btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
-        @media (max-width: 576px) {
-            .documents-hero {
-                height: 40vh;
-            }
-            .documents-hero h1 {
-                font-size: 2.2rem;
-            }
-            .documents-hero p {
-                font-size: 1rem;
-            }
-            .document-card {
-                padding: 1rem;
-            }
-            .document-title {
-                font-size: 1.2rem;
-            }
-            .document-description {
-                font-size: 0.95rem;
-            }
-            .view-btn { /* Renamed for small screens */
-                padding: 0.7rem 1.2rem;
-                font-size: 0.9rem;
-            }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
         }
+        
+        #modal-ok-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        #modal-ok-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        #modal-cancel-btn {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        #modal-cancel-btn:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
-    <header id="mainHeader">
+
+    <!-- Header Section -->
+    <header id="main-header">
         <div class="header-container">
             <div class="logo-container">
-                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
-                <h1 class="association-name">FHA Sharada</h1>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <img src="https://placehold.co/55x55/2196F3/ffffff?text=LOGO" alt="Association Logo" class="association-logo">
+                <span class="association-name">FHA Sharada</span>
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li class="has-submenu">
-                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li>
+                        <a href="#" class="nav-link">About Us <i class="fa-solid fa-caret-down"></i></a>
                         <ul class="sub-menu">
-                            <li><a href="doc_share.html">Documents</a></li>
-                            <li><a href="lost_and_found.html">Lost and Found</a></li>
-                            <li><a href="maintenance.html">Maintenance Request</a></li>
-                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
-                            <li><a href="security_update.html">Security Update</a></li>
+                            <li><a href="#">Our Mission</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">Contact Us</a></li>
                         </ul>
                     </li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li><a href="poll.html" class="nav-link">Poll</a></li>
-                    <li><a href="news.html" class="nav-link">News</a></li>
-                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                    <li><a href="#" class="nav-link">Community</a></li>
+                    <li><a href="#" class="nav-link">Resources</a></li>
                 </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Spectacular Hero Section for Documents -->
-    <section class="hero documents-hero">
-        <div class="hero-content animate">
-            <h1>Your Central Hub for Community Resources</h1>
-            <p>Effortlessly access all essential documents, reports, and guidelines for FHA Sharada Residents Association.</p>
+    <!-- Documents Hero Section -->
+    <section class="documents-hero hero">
+        <div class="hero-content" id="hero-content">
+            <h1>Community Documents</h1>
+            <p>Access and view important documents, announcements, and resources shared by the FHA Sharada Residents Association.</p>
         </div>
     </section>
 
-    <!-- Main Content Container -->
-    <div class="main-container">
-        <!-- Category Filters -->
-        <div class="category-tabs" id="category-tabs">
-            <div class="category-tab active" data-category="All">All Documents</div>
-            <div class="category-tab" data-category="Meeting Minutes">Meeting Minutes</div>
-            <div class="category-tab" data-category="Financial Reports">Financial Reports</div>
-            <div class="category-tab" data-category="Community Rules">Community Rules</div>
-            <div class="category-tab" data-category="Official Notices">Official Notices</div>
-            <div class="category-tab" data-category="Forms">Forms & Applications</div>
-            <div class="category-tab" data-category="Policies">Policies & Bylaws</div>
-        </div>
-
-        <!-- Documents Grid -->
-        <div class="documents-grid" id="documents-grid">
-            <!-- Documents will be loaded here dynamically -->
-            <div class="no-documents" style="grid-column: 1/-1; text-align: center;">
-                <p>Loading documents...</p>
+    <!-- Main Content Section -->
+    <main class="main-container">
+        <!-- Dropdown for Categories -->
+        <div class="category-dropdown-container">
+            <button class="category-dropdown-btn" id="category-dropdown-btn">
+                All Documents
+            </button>
+            <div id="category-dropdown-content" class="category-dropdown-content">
+                <a href="#" data-category="all" class="active">All Documents</a>
+                <a href="#" data-category="announcement">Announcements</a>
+                <a href="#" data-category="report">Reports</a>
+                <a href="#" data-category="form">Forms</a>
+                <a href="#" data-category="newsletter">Newsletters</a>
+                <a href="#" data-category="image">Images</a>
+                <a href="#" data-category="archive">Archives</a>
+                <a href="#" data-category="other">Other</a>
             </div>
         </div>
-    </div>
 
-    <!-- Awesome Footer -->
+        <div class="documents-grid" id="documents-grid">
+            <!-- Document cards will be dynamically inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer Section -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
-                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
-                <h3 class="footer-title">FHA Sharada Residents Association</h3>
-                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <img src="https://placehold.co/70x70/2196F3/ffffff?text=LOGO" alt="Association Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada</h3>
+                <p class="footer-text">
+                    Fostering a vibrant and secure community for all residents.
+                </p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h3 class="footer-title">Quick Links</h3>
+                <h4 class="footer-title">Quick Links</h4>
                 <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
-                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
-                    <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
-                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
+                    <li class="footer-link"><a href="#">Home</a></li>
+                    <li class="footer-link"><a href="#">About Us</a></li>
+                    <li class="footer-link"><a href="#">Community</a></li>
+                    <li class="footer-link"><a href="#">Resources</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3 class="footer-title">Contact Info</h3>
-                <p class="footer-text">
-                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 2, Kano<br>
-                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
-                    <i class="fas fa-envelope"></i> info@fhasharada.org
-                </p>
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-links">
+                    <li class="footer-link"><i class="fa-solid fa-map-marker-alt"></i> 123 Sharada Street, City, State</li>
+                    <li class="footer-link"><i class="fa-solid fa-phone"></i> +234 801 234 5678</li>
+                    <li class="footer-link"><i class="fa-solid fa-envelope"></i> info@fhasharada.org</li>
+                </ul>
             </div>
         </div>
-        <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
-        </div>
+        <p class="copyright">
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
+        </p>
     </footer>
+    
+    <!-- Custom Modal for Alerts -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="modal-close-btn">&times;</span>
+            <p class="modal-message" id="modal-message"></p>
+            <div class="modal-btn-container">
+                <button class="modal-btn" id="modal-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Header scroll effect
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            // Document data
+            const documents = [{
+                title: '2023 Annual General Meeting Report',
+                date: 'October 26, 2023',
+                category: 'report',
+                filename: '2023-AGM-Report.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'Community News & Updates',
+                date: 'October 25, 2023',
+                category: 'announcement',
+                filename: 'Community-Updates-Oct-2023.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'Resident Registration Form',
+                date: 'September 30, 2023',
+                category: 'form',
+                filename: 'Resident-Registration-Form.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'Q3 Financial Report',
+                date: 'October 20, 2023',
+                category: 'report',
+                filename: 'Q3-Financial-Report.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'October 2023 Newsletter',
+                date: 'October 1, 2023',
+                category: 'newsletter',
+                filename: 'October-Newsletter-2023.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'Security Committee Memo',
+                date: 'September 15, 2023',
+                category: 'announcement',
+                filename: 'Security-Memo.pdf',
+                fileType: 'pdf'
+            }, {
+                title: 'Community Picnic Photos',
+                date: 'August 12, 2023',
+                category: 'image',
+                filename: 'Picnic-Photos.zip',
+                fileType: 'archive'
+            }, ];
+
+            // DOM elements
+            const documentsGrid = document.getElementById('documents-grid');
+            const categoryDropdownBtn = document.getElementById('category-dropdown-btn');
+            const categoryDropdownContent = document.getElementById('category-dropdown-content');
+            const heroContent = document.getElementById('hero-content');
+            const mainHeader = document.getElementById('main-header');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const customModal = document.getElementById('custom-modal');
+            const modalMessage = document.getElementById('modal-message');
+            const modalOkBtn = document.getElementById('modal-ok-btn');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            // Show a custom modal message
+            function showModal(message, isAlert = true) {
+                modalMessage.textContent = message;
+                modalOkBtn.style.display = isAlert ? 'inline-block' : 'none';
+                customModal.style.display = 'block';
+            }
+
+            // Close the custom modal
+            function closeModal() {
+                customModal.style.display = 'none';
+            }
+
+            // Event listeners for modal
+            modalOkBtn.addEventListener('click', closeModal);
+            modalCloseBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', function(event) {
+                if (event.target == customModal) {
+                    closeModal();
                 }
             });
 
-            // Hamburger menu toggle
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
+            // Intersection Observer for animations
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+            };
 
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('open');
-                navMenu.classList.toggle('active');
-            });
-
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            // Hero animation
-            const heroContent = document.querySelector('.hero-content');
-            setTimeout(() => {
-                heroContent.classList.add('animate');
-            }, 300);
-
-            // Scroll animations for sections (if any on this page)
-            const sections = document.querySelectorAll('.section');
-            const observer = new IntersectionObserver((entries) => {
+            const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
-            sections.forEach(section => {
+            }, observerOptions);
+
+            // Add animation classes to elements
+            observer.observe(heroContent);
+            document.querySelectorAll('.section').forEach(section => {
                 observer.observe(section);
             });
 
-
-            // Category filter tabs
-            const tabs = document.querySelectorAll('.category-tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-
-                    const category = this.dataset.category; // Use data-category attribute
-                    filterDocuments(category);
-                });
+            // Scroll event for header
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    mainHeader.classList.add('scrolled');
+                } else {
+                    mainHeader.classList.remove('scrolled');
+                }
             });
 
-            // Simulate loading documents
-            function loadDocuments() {
-                // In a real application, this data would come from a database or API
-                const documents = [
-                    {
-                        id: 1,
-                        title: "Q2 2024 Financial Report",
-                        description: "Detailed financial overview for the second quarter of 2024, including income, expenditures, and budget adherence.",
-                        fileType: "PDF",
-                        fileSize: "2.5 MB",
-                        uploadDate: "July 10, 2024",
-                        category: "Financial Reports",
-                        fileName: "Q2_2024_Financial_Report.pdf"
-                    },
-                    {
-                        id: 2,
-                        title: "July 2024 Meeting Minutes",
-                        description: "Official minutes from the July 15, 2024 General Residents Meeting, outlining key discussions and resolutions.",
-                        fileType: "Word",
-                        fileSize: "800 KB",
-                        uploadDate: "July 16, 2024",
-                        category: "Meeting Minutes",
-                        fileName: "July_2024_Meeting_Minutes.docx"
-                    },
-                    {
-                        id: 3,
-                        title: "Revised Community Bylaws (2024)",
-                        description: "The latest revision of the FHA Sharada community bylaws, effective from August 1, 2024.",
-                        fileType: "PDF",
-                        fileSize: "1.8 MB",
-                        uploadDate: "July 25, 2024",
-                        category: "Community Rules",
-                        fileName: "Revised_Community_Bylaws_2024.pdf"
-                    },
-                    {
-                        id: 4,
-                        title: "Notice: Annual Estate Sanitation Drive",
-                        description: "Official notice regarding the upcoming annual estate-wide sanitation drive and resident participation guidelines.",
-                        fileType: "PDF",
-                        fileSize: "350 KB",
-                        uploadDate: "July 22, 2024",
-                        category: "Official Notices",
-                        fileName: "Sanitation_Drive_Notice.pdf"
-                    },
-                    {
-                        id: 5,
-                        title: "Resident Registration Form",
-                        description: "Form for new residents to register with the association and update their contact information.",
-                        fileType: "PDF",
-                        fileSize: "450 KB",
-                        uploadDate: "June 1, 2024",
-                        category: "Forms",
-                        fileName: "Resident_Registration_Form.pdf"
-                    },
-                    {
-                        id: 6,
-                        title: "Estate Security Policy Summary",
-                        description: "A summary of the current security policies and procedures within FHA Sharada.",
-                        fileType: "Word",
-                        fileSize: "600 KB",
-                        uploadDate: "May 10, 2024",
-                        category: "Policies",
-                        fileName: "Security_Policy_Summary.docx"
-                    },
-                    {
-                        id: 7,
-                        title: "Architectural Guidelines for Renovations",
-                        description: "Guidelines for residents planning renovations or external modifications to their properties.",
-                        fileType: "PDF",
-                        fileSize: "1.2 MB",
-                        uploadDate: "April 1, 2024",
-                        category: "Community Rules",
-                        fileName: "Architectural_Guidelines.pdf"
-                    },
-                    {
-                        id: 8,
-                        title: "Q1 2024 Financial Report",
-                        description: "Detailed financial overview for the first quarter of 2024.",
-                        fileType: "Excel",
-                        fileSize: "1.1 MB",
-                        uploadDate: "April 10, 2024",
-                        category: "Financial Reports",
-                        fileName: "Q1_2024_Financial_Report.xlsx"
-                    }
-                ];
+            // Hamburger menu functionality
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
 
-                const documentsGrid = document.getElementById('documents-grid');
-                documentsGrid.innerHTML = ''; // Clear loading message
+            // Dropdown menu functionality
+            categoryDropdownBtn.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent the document click from closing it immediately
+                categoryDropdownBtn.classList.toggle('active');
+                categoryDropdownContent.classList.toggle('show');
+            });
+            
+            // Filter documents based on dropdown selection
+            categoryDropdownContent.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.tagName === 'A') {
+                    event.preventDefault();
+                    const category = target.dataset.category;
+                    const categoryText = target.textContent;
+                    
+                    // Update button text and class
+                    categoryDropdownBtn.textContent = categoryText;
+                    categoryDropdownBtn.dataset.category = category;
+                    
+                    // Close the dropdown
+                    categoryDropdownBtn.classList.remove('active');
+                    categoryDropdownContent.classList.remove('show');
 
-                if (documents.length === 0) {
-                    documentsGrid.innerHTML = `
-                        <div class="no-documents" style="grid-column: 1/-1; text-align: center;">
-                            <p>No documents available yet. Please check back later.</p>
-                        </div>
-                    `;
+                    // Filter and render documents
+                    renderDocuments(category);
+                }
+            });
+            
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', function(event) {
+                if (!categoryDropdownBtn.contains(event.target) && !categoryDropdownContent.contains(event.target)) {
+                    categoryDropdownBtn.classList.remove('active');
+                    categoryDropdownContent.classList.remove('show');
+                }
+            });
+
+            // Render documents function
+            function renderDocuments(category = 'all') {
+                documentsGrid.innerHTML = ''; // Clear the grid
+
+                const filteredDocuments = category === 'all' ?
+                    documents :
+                    documents.filter(doc => doc.category === category);
+
+                if (filteredDocuments.length === 0) {
+                    documentsGrid.innerHTML = '<p style="text-align:center; font-size:1.2rem; color:var(--gray); margin-top: 5rem;">No documents found in this category.</p>';
                     return;
                 }
 
-                documents.forEach(doc => {
-                    const iconClass = getIconClass(doc.fileType);
-                    const iconIcon = getIconIcon(doc.fileType);
-
+                filteredDocuments.forEach(doc => {
                     const card = document.createElement('div');
                     card.className = 'document-card';
-                    card.dataset.category = doc.category; // Add data-category for filtering
                     card.innerHTML = `
-                        <div class="document-header">
-                            <div class="document-icon ${iconClass}">
-                                <i class="fas ${iconIcon}"></i>
-                            </div>
-                            <div class="document-info">
-                                <div class="document-title">${doc.title}</div>
-                                <div class="document-meta">
-                                    <span>${doc.fileType}</span>
-                                    <span>${doc.fileSize}</span>
-                                </div>
+                        <div class="card-icon">
+                            <i class="fa-solid ${getIconForFileType(doc.fileType)}"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${doc.title}</h3>
+                            <div class="card-meta">
+                                <i class="fa-solid fa-calendar"></i> ${doc.date}
                             </div>
                         </div>
-                        <div class="document-body">
-                            <p class="document-description">
-                                ${doc.description || 'No description provided.'}
-                            </p>
-                            <div class="document-actions">
-                                <span class="document-date">Uploaded: ${doc.uploadDate}</span>
-                                <a href="#" class="view-btn" onclick="viewDocument('${doc.fileName}', '${doc.fileType}')">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
-                            </div>
+                        <div class="card-actions">
+                            <a href="#" class="card-btn view-btn" onclick="viewDocument('${doc.filename}', '${doc.fileType}'); return false;">View</a>
+                            <a href="#" class="card-btn download-btn" download="${doc.filename}">Download</a>
                         </div>
                     `;
                     documentsGrid.appendChild(card);
                 });
             }
 
-            // Filter documents by category
-            function filterDocuments(category) {
-                const allCards = document.querySelectorAll('.document-card');
-                let foundDocuments = false;
-
-                allCards.forEach(card => {
-                    if (category === 'All' || card.dataset.category === category) {
-                        card.style.display = 'flex'; // Use flex to maintain layout
-                        foundDocuments = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                const documentsGrid = document.getElementById('documents-grid');
-                let noDocumentsMessage = documentsGrid.querySelector('.no-documents');
-
-                if (!foundDocuments) {
-                    if (!noDocumentsMessage) {
-                        noDocumentsMessage = document.createElement('div');
-                        noDocumentsMessage.className = 'no-documents';
-                        noDocumentsMessage.style.gridColumn = '1/-1';
-                        noDocumentsMessage.style.textAlign = 'center';
-                        documentsGrid.appendChild(noDocumentsMessage);
-                    }
-                    noDocumentsMessage.innerHTML = `<p>No ${category} documents available yet.</p>`;
-                } else {
-                    if (noDocumentsMessage) {
-                        noDocumentsMessage.remove();
-                    }
-                }
-            }
-
-            // Helper functions for file icons
-            function getIconClass(fileType) {
-                switch(fileType.toLowerCase()) {
-                    case 'pdf': return 'icon-pdf';
-                    case 'word': return 'icon-doc';
-                    case 'excel': return 'icon-xls';
-                    case 'image': return 'icon-img';
-                    case 'archive': return 'icon-zip';
-                    default: return 'icon-gen';
-                }
-            }
-
-            function getIconIcon(fileType) {
-                switch(fileType.toLowerCase()) {
-                    case 'pdf': return 'fa-file-pdf';
-                    case 'word': return 'fa-file-word';
-                    case 'excel': return 'fa-file-excel';
-                    case 'image': return 'fa-file-image';
-                    case 'archive': return 'fa-file-archive';
-                    default: return 'fa-file';
+            // Helper function to get FontAwesome icon class based on file type
+            function getIconForFileType(fileType) {
+                switch (fileType.toLowerCase()) {
+                    case 'pdf':
+                        return 'fa-file-pdf';
+                    case 'word':
+                        return 'fa-file-word';
+                    case 'excel':
+                        return 'fa-file-excel';
+                    case 'image':
+                        return 'fa-file-image';
+                    case 'archive':
+                        return 'fa-file-archive';
+                    default:
+                        return 'fa-file';
                 }
             }
 
@@ -1284,11 +1294,11 @@
             window.viewDocument = function(filename, fileType) {
                 if (fileType.toLowerCase() === 'pdf') {
                     // For PDFs, simulate opening in a new tab (real PDF URL would be here)
-                    alert(`Opening PDF: ${filename} in a new tab for viewing.`);
+                    showModal(`Opening PDF: ${filename} in a new tab for viewing.`);
                     // In a real scenario, you'd provide the actual URL to the PDF:
                     // window.open(`/documents/${filename}`, '_blank');
                 } else {
-                    alert(`Viewing of ${fileType} files like "${filename}" is enabled in a real application through an integrated document viewer. For this demo, only PDFs can be "opened".`);
+                    showModal(`Viewing of ${fileType} files like "${filename}" is enabled in a real application through an integrated document viewer. For this demo, only PDFs can be "opened".`);
                 }
                 return false;
             };
@@ -1296,11 +1306,11 @@
             // Disable right-click context menu
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
-                alert('Right-click is disabled on this page for content protection.');
+                showModal('Right-click is disabled on this page for content protection.');
             });
 
             // Initial load of documents
-            loadDocuments();
+            renderDocuments('all');
 
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
