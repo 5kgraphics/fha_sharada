@@ -832,7 +832,7 @@
         
         .card-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Center the single button */
             align-items: center;
             padding: 1rem 1.5rem 2rem;
             border-top: 1px solid #f0f0f0;
@@ -840,7 +840,6 @@
         }
         
         .card-btn {
-            flex-grow: 1;
             text-align: center;
             padding: 0.8rem;
             border-radius: 10px; /* More rounded button corners */
@@ -848,6 +847,7 @@
             text-decoration: none;
             transition: all 0.3s ease;
             white-space: nowrap; /* Prevent text from wrapping */
+            flex-grow: 1;
         }
         
         .view-btn {
@@ -862,17 +862,11 @@
             box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
         }
         
-        .download-btn {
-            background: var(--light);
-            color: var(--dark);
-            border: 1px solid #e0e0e0;
+        /* Custom styles for a single button */
+        .single-view-btn {
+            flex-grow: 1;
         }
-        
-        .download-btn:hover {
-            background: #e8e8e8;
-            transform: translateY(-2px);
-        }
-        
+
         /* Modal and Alert styles (no change) */
         .modal {
             display: none;
@@ -1092,43 +1086,50 @@
                 date: 'October 26, 2023',
                 category: 'report',
                 filename: '2023-AGM-Report.pdf',
-                fileType: 'pdf'
+                fileType: 'pdf',
+                url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
             }, {
                 title: 'Community News & Updates',
                 date: 'October 25, 2023',
                 category: 'announcement',
-                filename: 'Community-Updates-Oct-2023.pdf',
-                fileType: 'pdf'
+                filename: 'Community-Updates-Oct-2023.docx',
+                fileType: 'word',
+                url: 'https://file-examples.com/wp-content/uploads/2017/02/file-sample_1MB.docx'
             }, {
                 title: 'Resident Registration Form',
                 date: 'September 30, 2023',
                 category: 'form',
-                filename: 'Resident-Registration-Form.pdf',
-                fileType: 'pdf'
+                filename: 'Resident-Registration-Form.xlsx',
+                fileType: 'excel',
+                url: 'https://file-examples.com/wp-content/uploads/2017/02/file_example_XLSX_50.xlsx'
             }, {
                 title: 'Q3 Financial Report',
                 date: 'October 20, 2023',
                 category: 'report',
-                filename: 'Q3-Financial-Report.pdf',
-                fileType: 'pdf'
+                filename: 'Q3-Financial-Report.pptx',
+                fileType: 'powerpoint',
+                url: 'https://file-examples.com/wp-content/uploads/2017/08/file-sample_1MB.pptx'
             }, {
                 title: 'October 2023 Newsletter',
                 date: 'October 1, 2023',
                 category: 'newsletter',
                 filename: 'October-Newsletter-2023.pdf',
-                fileType: 'pdf'
+                fileType: 'pdf',
+                url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
             }, {
                 title: 'Security Committee Memo',
                 date: 'September 15, 2023',
                 category: 'announcement',
                 filename: 'Security-Memo.pdf',
-                fileType: 'pdf'
+                fileType: 'pdf',
+                url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
             }, {
                 title: 'Community Picnic Photos',
                 date: 'August 12, 2023',
                 category: 'image',
                 filename: 'Picnic-Photos.zip',
-                fileType: 'archive'
+                fileType: 'archive',
+                url: 'https://file-examples.com/wp-content/uploads/2017/02/zip_2MB.zip'
             }, ];
 
             // DOM elements
@@ -1264,8 +1265,7 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a href="#" class="card-btn view-btn" onclick="viewDocument('${doc.filename}', '${doc.fileType}'); return false;">View</a>
-                            <a href="#" class="card-btn download-btn" download="${doc.filename}">Download</a>
+                            <a href="#" class="card-btn view-btn single-view-btn" onclick="viewDocument('${doc.url}', '${doc.fileType}'); return false;">View</a>
                         </div>
                     `;
                     documentsGrid.appendChild(card);
@@ -1281,6 +1281,8 @@
                         return 'fa-file-word';
                     case 'excel':
                         return 'fa-file-excel';
+                    case 'powerpoint':
+                        return 'fa-file-powerpoint';
                     case 'image':
                         return 'fa-file-image';
                     case 'archive':
@@ -1290,17 +1292,18 @@
                 }
             }
 
-            // View function (simulated in this demo)
-            window.viewDocument = function(filename, fileType) {
-                if (fileType.toLowerCase() === 'pdf') {
-                    // For PDFs, simulate opening in a new tab (real PDF URL would be here)
-                    showModal(`Opening PDF: ${filename} in a new tab for viewing.`);
-                    // In a real scenario, you'd provide the actual URL to the PDF:
-                    // window.open(`/documents/${filename}`, '_blank');
-                } else {
-                    showModal(`Viewing of ${fileType} files like "${filename}" is enabled in a real application through an integrated document viewer. For this demo, only PDFs can be "opened".`);
+            // View function to open document in a new tab via Google Docs Viewer
+            window.viewDocument = function(fileUrl, fileType) {
+                if (!fileUrl) {
+                    showModal('File is unavailable for viewing.');
+                    return false;
                 }
-                return false;
+
+                // Construct a URL for Google Docs Viewer
+                const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`;
+                
+                // Open in a new tab
+                window.open(viewerUrl, '_blank');
             };
 
             // Disable right-click context menu
