@@ -179,12 +179,23 @@
             padding: 10px 0;
             border: 1px solid var(--border-color);
         }
-
-        .nav-menu li:hover > .sub-menu {
+        
+        /* New class for toggling */
+        .sub-menu.active {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
+
+        /* Retain hover for desktop */
+        @media (min-width: 769px) {
+            .nav-menu li:hover > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+        
 
         .sub-menu li {
             width: 100%; /* Full width for sub-menu items */
@@ -276,12 +287,11 @@
                 width: auto;
                 text-align: center;
                 margin-top: 10px;
+                display: none; /* Hide by default on mobile */
             }
 
-            .nav-menu li:hover > .sub-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
+            .sub-menu.active {
+                display: block; /* Show when active */
             }
 
             .sub-menu a {
@@ -356,15 +366,6 @@
             overflow: hidden;
         }
 
-        /* Chatango Chat Styling */
-        .chatango-container {
-            flex-grow: 1; /* Allow this container to grow and fill space */
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 0 auto;
-            width: 100%;
-        }
-
         /* Simple Footer */
         .simple-footer {
             background: var(--footer-bg);
@@ -424,7 +425,7 @@
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li class="has-submenu">
-                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <a href="#" class="nav-link submenu-toggle">Community <i class="fas fa-caret-down"></i></a>
                         <ul class="sub-menu">
                             <li><a href="doc_share.html">Documents</a></li>
                             <li><a href="lost_and_found.html">Lost and Found</a></li>
@@ -436,7 +437,7 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                     <li><a href="poll.html" class="nav-link">Poll</a></li>
                     <li><a href="news.html" class="nav-link">News</a></li>
-                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
+                    <li><a href="chart.html" class="nav-link active">Community chat</a></li>
                 </ul>
             </nav>
         </div>
@@ -451,17 +452,14 @@
 
     <div class="main-container">
         <div class="chat-container">
-            <div class="chatango-container">
-                <script id="cid0020000411419030696" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">{"handle":"fharesidents","arch":"js","styles":{"a":"00A7E6","b":100,"c":"2C3E50","d":"2C3E50","k":"00A7E6","l":"00A7E6","m":"00A7E6","p":"10","q":"00A7E6","r":100,"fwtickm":1}}</script>
-            </div>
+            <script id="cid0020000411419030696" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%; height: 100%;">{"handle":"fharesidents","arch":"js","styles":{"a":"00A7E6","b":100,"c":"2C3E50","d":"2C3E50","k":"00A7E6","l":"00A7E6","m":"00A7E6","p":"10","q":"00A7E6","r":100,"fwtickm":1}}</script>
         </div>
     </div>
 
     <footer class="simple-footer">
         <p class="copyright-text">
             &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com">5k Graphics Studio</a> -->
-        </p>
+            </p>
     </footer>
 
     <script>
@@ -484,12 +482,23 @@
                 this.classList.toggle('open');
                 navMenu.classList.toggle('active');
             });
+            
+            // Submenu toggle for desktop and mobile
+            const submenuToggle = document.querySelector('.submenu-toggle');
+            const subMenu = document.querySelector('.sub-menu');
+            
+            submenuToggle.addEventListener('click', function(e) {
+                // Prevent the default link behavior
+                e.preventDefault();
+                // Toggle the 'active' class on the submenu
+                subMenu.classList.toggle('active');
+            });
 
             // Close menu when clicking a link (including submenu links)
             document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
                 link.addEventListener('click', () => {
                     // Only close if it's a direct link, not a sub-menu parent
-                    if (!link.closest('.has-submenu')) {
+                    if (!link.classList.contains('submenu-toggle')) {
                         hamburger.classList.remove('open');
                         navMenu.classList.remove('active');
                     }
