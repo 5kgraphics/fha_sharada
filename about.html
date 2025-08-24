@@ -9,20 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modern CSS Reset */
+        /* General Styles & Variables */
         :root {
-            /* New Vibrant & Engaging Theme Colors */
-            --primary: #2196F3; /* Bright, inviting blue */
-            --secondary: #1976D2; /* Deeper blue */
-            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
-            --dark: #263238; /* Very dark grey-blue, almost black */
-            --light: #F5F8FA; /* Soft, light grey-blue background */
-            --success: #4CAF50; /* Standard green */
-            --warning: #FFC107; /* Standard amber */
-            --danger: #F44336; /* Standard red */
-            --gray: #9E9E9E; /* Medium grey */
-
-            /* New Shadow & Depth Variables */
+            --color-primary: #2196F3;
+            --color-secondary: #1976D2;
+            --color-accent: #FF5722;
+            --color-dark: #263238;
+            --color-light: #F5F8FA;
+            --color-gray: #9E9E9E;
             --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
             --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
@@ -37,44 +31,78 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.7;
-            color: var(--dark);
-            background-color: var(--light);
+            color: var(--color-dark);
+            background-color: var(--color-light);
             overflow-x: hidden;
-            text-rendering: optimizeLegibility; /* Smoother text rendering */
+            text-rendering: optimizeLegibility;
         }
 
-        /* Awesome Header with Glass Morphism */
+        /* Reusable Components */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--color-primary);
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--color-accent);
+            bottom: -15px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
-            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow-light); /* Lighter initial shadow */
+            box-shadow: var(--shadow-light);
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             transition: all 0.4s ease;
         }
 
         header.scrolled {
-            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
-            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
+            background: rgba(33, 150, 243, 0.95);
+            box-shadow: var(--shadow-medium);
         }
 
-        header.scrolled .nav-link {
-            color: white;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
-        }
-
+        header.scrolled .nav-link,
         header.scrolled .association-name {
             color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .header-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -88,59 +116,49 @@
         }
 
         .association-logo {
-            width: 55px; /* Slightly larger logo */
+            width: 55px;
             height: 55px;
-            border-radius: 15px; /* Softer rounded corners */
+            border-radius: 15px;
             object-fit: cover;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .association-name {
-            font-size: 1.6rem; /* Slightly larger name */
-            font-weight: 800; /* Bolder for impact */
-            color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--color-primary);
             transition: all 0.3s ease;
-            letter-spacing: -0.5px; /* Tighter letter spacing */
-        }
-
-        /* Awesome Navigation */
-        nav {
-            display: flex;
-            align-items: center;
+            letter-spacing: -0.5px;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.2rem; /* More spacing */
-        }
-
-        .nav-menu li {
-            position: relative; /* Needed for submenu positioning */
+            gap: 2.2rem;
         }
 
         .nav-link {
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 600; /* Bolder links */
-            font-size: 1.15rem; /* Slightly larger font */
+            color: var(--color-dark);
+            font-weight: 600;
+            font-size: 1.15rem;
             position: relative;
             transition: all 0.3s ease;
             letter-spacing: 0.2px;
-            display: block; /* Ensure full clickable area */
-            padding: 0.5rem 0; /* Add padding for better touch targets */
+            display: block;
+            padding: 0.5rem 0;
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 3px; /* Thicker underline */
-            background: var(--accent);
-            bottom: -8px; /* Lower underline */
+            height: 3px;
+            background: var(--color-accent);
+            bottom: -8px;
             left: 0;
-            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .nav-link:hover::after {
@@ -148,60 +166,51 @@
         }
 
         .nav-link:hover {
-            color: var(--accent);
-            transform: translateY(-2px); /* Slight lift on hover */
+            color: var(--color-accent);
+            transform: translateY(-2px);
         }
 
-        /* Submenu Styling */
         .sub-menu {
             list-style: none;
             position: absolute;
-            top: 100%; /* Position below the parent link */
+            top: 100%;
             left: 0;
-            background: rgba(255, 255, 255, 0.95); /* Slightly opaque white background */
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 10px;
             box-shadow: var(--shadow-medium);
-            min-width: 200px; /* Ensure enough width for content */
+            min-width: 200px;
             padding: 1rem 0;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px); /* Initial slight drop */
+            transform: translateY(10px);
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-            z-index: 100; /* Ensure it's above other content */
+            z-index: 100;
         }
 
         .nav-menu li:hover > .sub-menu {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0); /* Lift to original position */
-        }
-
-        .sub-menu li {
-            padding: 0; /* Reset padding for submenu items */
+            transform: translateY(0);
         }
 
         .sub-menu a {
-            color: var(--dark);
-            padding: 0.8rem 1.5rem; /* Padding for submenu links */
+            color: var(--color-dark);
+            padding: 0.8rem 1.5rem;
             display: block;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap;
             font-size: 1rem;
             font-weight: 500;
             transition: all 0.2s ease;
-            text-decoration: none; /* Ensure no default underline */
-        }
-
-        .sub-menu a::after {
-            content: none; /* Remove underline pseudo-element */
+            text-decoration: none;
         }
 
         .sub-menu a:hover {
-            background-color: var(--primary); /* Highlight on hover */
+            background-color: var(--color-primary);
             color: white;
-            border-radius: 5px; /* Slight rounding for hover effect */
-            transform: translateX(5px); /* Slight slide on hover */
+            border-radius: 5px;
+            transform: translateX(5px);
         }
 
         /* Hamburger Menu */
@@ -219,7 +228,7 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: var(--dark);
+            background: var(--color-dark);
             border-radius: 3px;
             opacity: 1;
             left: 0;
@@ -227,115 +236,21 @@
             transition: .25s ease-in-out;
         }
 
-        .hamburger span:nth-child(1) {
-            top: 0px;
-        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) { top: 10px; }
+        .hamburger span:nth-child(4) { top: 20px; }
 
-        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
-            top: 10px;
-        }
+        .hamburger.open span:nth-child(1) { top: 10px; width: 0; left: 50%; }
+        .hamburger.open span:nth-child(2) { transform: rotate(45deg); }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
+        .hamburger.open span:nth-child(4) { top: 10px; width: 0; left: 50%; }
 
-        .hamburger span:nth-child(4) {
-            top: 20px;
-        }
-
-        .hamburger.open span:nth-child(1) {
-            top: 10px;
-            width: 0%;
-            left: 50%;
-        }
-
-        .hamburger.open span:nth-child(2) {
-            transform: rotate(45deg);
-        }
-
-        .hamburger.open span:nth-child(3) {
-            transform: rotate(-45deg);
-        }
-
-        .hamburger.open span:nth-child(4) {
-            top: 10px;
-            width: 0%;
-            left: 50%;
-        }
-
-        /* Mobile Menu */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 75%; /* Slightly wider mobile menu */
-                height: 100vh;
-                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2.5rem; /* More space between links */
-                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
-                z-index: 1000;
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            header.scrolled .hamburger span {
-                background: white;
-            }
-
-            /* Mobile Submenu adjustments */
-            .sub-menu {
-                position: static; /* Stack vertically in mobile */
-                width: 100%;
-                background: none; /* No background for nested list */
-                box-shadow: none;
-                border-radius: 0;
-                padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
-                transform: none;
-                margin-top: 0.5rem; /* Space below parent link */
-                text-align: center; /* Center submenu items */
-            }
-
-            .sub-menu a {
-                padding: 0.6rem 1rem; /* Adjust padding for mobile submenu links */
-                font-size: 1rem;
-                color: var(--dark); /* Keep dark color */
-                background-color: rgba(0, 0, 0, 0.05); /* Light background for submenu items */
-                border-radius: 5px;
-                margin: 0.3rem 0; /* Space between submenu items */
-            }
-
-            .sub-menu a:hover {
-                background-color: var(--primary);
-                color: white;
-                transform: none; /* No slide effect on mobile */
-            }
-
-            .nav-menu li:hover > .sub-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-            }
-        }
-
-        /* Spectacular Hero Section */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
-                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            height: 100vh;
+            height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -344,28 +259,22 @@
             padding-top: 80px;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
+            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px; /* Taller fade effect */
-            background: linear-gradient(to top, var(--light), transparent);
-            z-index: 1;
+        .hero-about {
+            background: linear-gradient(135deg, rgba(103, 58, 183, 0.9), rgba(81, 45, 168, 0.85)),
+                        url('https://placehold.co/1920x1080/673AB7/ffffff?text=FHA+Sharada+Community');
         }
 
         .hero-content {
-            max-width: 900px; /* Wider content area */
-            padding: 0 2.5rem; /* More padding */
+            max-width: 900px;
+            padding: 0 2.5rem;
             position: relative;
             z-index: 2;
-            transform: translateY(70px); /* Deeper initial drop */
+            transform: translateY(50px);
             opacity: 0;
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .hero-content.animate {
@@ -374,123 +283,268 @@
         }
 
         .hero h1 {
-            font-size: 4rem; /* Larger, more impactful heading */
-            margin-bottom: 1.8rem;
-            line-height: 1.15;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            font-weight: 800; /* Extra bold */
-            letter-spacing: -1px; /* Tighter spacing for headlines */
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .hero p {
-            font-size: 1.45rem; /* Larger sub-heading */
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            font-weight: 300; /* Lighter weight for contrast */
-        }
-
-        .hero-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
             font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
             font-weight: 700;
-            cursor: pointer;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
             transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
-            letter-spacing: 0.5px;
+            text-align: center;
         }
 
-        .hero-btn:hover {
-            background: #e64a19; /* Slightly darker accent */
-            transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
         }
 
-        /* Main Content Container */
-        .main-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 6rem auto; /* More vertical spacing */
-            position: relative;
-            z-index: 50; /* Ensure content is above hero's pseudo-element */
+        .member-image {
+            height: 300px;
+            overflow: hidden;
         }
 
-        /* Section Styling */
-        .section {
-            margin-bottom: 7rem; /* More spacing between sections */
-            opacity: 0;
-            transform: translateY(70px);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .section.animate {
-            opacity: 1;
-            transform: translateY(0);
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
         }
 
-        .section-title {
-            font-size: 3rem; /* Larger section titles */
-            color: var(--primary);
-            margin-bottom: 3.5rem; /* More space below title */
-            position: relative;
-            display: inline-block;
+        .member-info {
+            padding: 1.8rem;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
-        .section-title::after {
+        .member-role {
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* History Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
             content: '';
             position: absolute;
-            width: 60%; /* Longer underline */
-            height: 5px; /* Thicker underline */
-            background: var(--accent);
-            bottom: -15px; /* Lower underline */
-            left: 0;
-            border-radius: 3px;
+            width: 6px;
+            background: var(--color-primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: white;
+            border: 4px solid var(--color-primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after { right: -13px; }
+        .timeline-item:nth-child(even)::after { left: -13px; }
+
+        .timeline-content {
+            padding: 20px;
+            background: var(--color-light);
+            border-radius: 10px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
         }
 
         /* Footer */
         footer {
-            background: var(--dark);
+            background: var(--color-dark);
             color: white;
-            padding: 6rem 0 2.5rem; /* More padding */
+            padding: 6rem 0 2.5rem;
             position: relative;
-            border-top-left-radius: 30px; /* Rounded top corners */
+            border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            overflow: hidden; /* Ensures content stays within rounded corners */
+            overflow: hidden;
         }
 
         .footer-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 3.5rem;
             margin-bottom: 3.5rem;
         }
 
         .footer-logo {
-            width: 70px; /* Larger logo */
+            width: 70px;
             height: 70px;
-            border-radius: 18px; /* More rounded */
+            border-radius: 18px;
             margin-bottom: 1.8rem;
             object-fit: cover;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
         }
 
         .footer-title {
-            font-size: 1.8rem; /* Larger title */
+            font-size: 1.8rem;
             margin-bottom: 1.8rem;
             color: white;
             font-weight: 700;
         }
 
         .footer-text {
-            opacity: 0.9; /* Slightly less transparent */
+            opacity: 0.9;
             margin-bottom: 1.8rem;
             line-height: 1.8;
             font-size: 1.05rem;
@@ -498,10 +552,6 @@
 
         .footer-links {
             list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 1rem;
         }
 
         .footer-link a {
@@ -512,34 +562,10 @@
             font-size: 1.05rem;
         }
 
-        .footer-link a:hover {
-            opacity: 1;
-            color: var(--accent);
-            padding-left: 8px; /* More pronounced slide */
-        }
-
         .social-links {
             display: flex;
-            gap: 1.2rem; /* More spacing */
+            gap: 1.2rem;
             margin-top: 1.8rem;
-        }
-
-        .social-link {
-            width: 45px; /* Larger social icons */
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem; /* Larger social icons */
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--accent);
-            transform: translateY(-5px) scale(1.1); /* More pronounced lift and scale */
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
         }
 
         .copyright {
@@ -548,328 +574,84 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             opacity: 0.8;
             font-size: 1rem;
-            color: white; /* Ensure copyright text is white */
-        }
-
-        .copyright a {
-            color: #FFD700; /* Gold color for the link */
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .copyright a:hover {
-            color: var(--accent); /* Accent color on hover */
-            text-decoration: underline;
+            color: white;
         }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            footer {
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
+            .hero h1 { font-size: 3.2rem; }
+            .hero p { font-size: 1.3rem; }
+            .section-title { font-size: 2.5rem; }
         }
 
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                gap: 1rem;
-            }
-
+            .hamburger { display: block; }
             .nav-menu {
-                gap: 1.5rem;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9);
+                z-index: 1000;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+            }
+            .nav-menu.active { right: 0; }
+            header.scrolled .hamburger span { background: white; }
+
+            /* Mobile Submenu Adjustments */
+            .sub-menu {
+                position: static;
+                width: 100%;
+                background: none;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+                opacity: 0;
+                visibility: hidden;
+                margin-top: 0.5rem;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: normal;
+            .sub-menu.active {
+                max-height: 500px; /* A large enough value to show the full submenu */
+                opacity: 1;
+                visibility: visible;
             }
 
-            .hero p {
-                font-size: 1.15rem;
+            .sub-menu a {
+                padding: 0.6rem 2rem;
+                font-size: 1rem;
+                color: var(--color-dark);
+                background-color: rgba(0, 0, 0, 0.05);
+                border-radius: 5px;
+                margin: 0.3rem 0;
+                text-align: center; /* Align items under the center-aligned parent */
             }
 
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
-                padding: 2.5rem;
-            }
+            .about-content { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
         }
 
         @media (max-width: 576px) {
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
-                padding: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .section-title::after {
-                bottom: -10px;
-                width: 50%;
-            }
-
-            .hero-btn, .more-info-btn {
-                padding: 0.9rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-logo {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        /* Animation Keyframes */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px); /* More float */
-            }
-        }
-
-        .floating {
-            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
-        }
-
-        /* About Us Page Specific Styles */
-        .about-hero {
-            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(33, 150, 243, 0.85)),
-                        url('https://placehold.co/1920x1080/1976D2/ffffff?text=About+Us'); /* Placeholder image for About Us */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 70vh; /* Shorter hero for content pages */
-            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
-        }
-
-        .about-hero .hero-content {
-            transform: translateY(50px);
-        }
-
-        .about-hero h1 {
-            font-size: 3.5rem;
-        }
-
-        .about-hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .about-content-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-medium);
-            margin-bottom: 6rem;
-            border: 1px solid rgba(0,0,0,0.05);
-            line-height: 1.8;
-            font-size: 1.1rem;
-            color: #444;
-        }
-
-        .about-content-section h3 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .about-content-section h3::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            bottom: 0;
-            left: 0;
-            border-radius: 2px;
-        }
-
-        .about-content-section p {
-            margin-bottom: 1.2rem;
-        }
-
-        .about-values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .value-item {
-            background: var(--light);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .value-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-medium);
-            background: rgba(33, 150, 243, 0.05);
-        }
-
-        .value-item i {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .value-item h4 {
-            font-size: 1.4rem;
-            color: var(--dark);
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-
-        .value-item p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Team Section Styles */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2.5rem;
-        }
-
-        .team-member {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .team-member-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1.5rem;
-            border: 3px solid var(--primary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .team-member h4 {
-            font-size: 1.3rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .team-member p.position {
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .team-member p.description {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Founding Members Section */
-        .founding-members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .founding-member {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--light);
-            border-radius: 12px;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-        }
-
-        .founding-member:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .founding-member h4 {
-            font-size: 1.2rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .founding-member p {
-            font-size: 0.9rem;
-            color: #666;
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.15rem; }
+            .section-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
-        <div class="header-container">
+        <div class="header-container container">
             <div class="logo-container">
                 <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
                 <h1 class="association-name">FHA Sharada</h1>
@@ -883,7 +665,7 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
                     <li class="has-submenu">
                         <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
                         <ul class="sub-menu">
@@ -903,150 +685,206 @@
         </div>
     </header>
 
-    <!-- Spectacular Hero Section for About Us -->
-    <section class="hero about-hero">
-        <div class="hero-content animate">
-            <h1>About Our Community</h1>
-            <p>Dedicated to fostering a vibrant, secure, and harmonious community for all residents.</p>
+    <main>
+        <section class="hero hero-about">
+            <div class="hero-content animate">
+                <h1>About FHA Sharada</h1>
+                <p>Discover our community's rich history, values, and the people who make FHA Sharada a wonderful place to live.</p>
+            </div>
+        </section>
+
+        <div class="main-container container">
+            <section class="section about-section">
+                <h2 class="section-title">Our Community</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://placehold.co/600x400/2196F3/ffffff?text=FHA+Sharada" alt="A photo showing the FHA Sharada community">
+                    </div>
+                    <div class="about-text">
+                        <h3>Welcome to FHA Sharada</h3>
+                        <p>FHA Sharada is a vibrant residential community located in Kano, Nigeria. Established in 2008, our community has grown into a thriving neighborhood that values peace, security, and development.</p>
+                        <p>We take pride in our well-maintained infrastructure, beautiful green spaces, and strong sense of community. Our residents enjoy a high quality of life with access to excellent amenities and a supportive neighborhood environment.</p>
+                        <p>The FHA Sharada Residents Association works tirelessly to ensure that our community remains a safe, clean, and enjoyable place for all residents. Through various initiatives and programs, we foster a spirit of cooperation and mutual respect among our diverse residents.</p>
+                        <div class="about-features">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="feature-content">
+                                    <h4>Security</h4>
+                                    <p>24/7 security surveillance and patrols</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-tree"></i></div>
+                                <div class="feature-content">
+                                    <h4>Environment</h4>
+                                    <p>Beautiful green spaces and parks</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                                <div class="feature-content">
+                                    <h4>Community</h4>
+                                    <p>Active and engaged residents association</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fas fa-home"></i></div>
+                                <div class="feature-content">
+                                    <h4>Amenities</h4>
+                                    <p>Well-maintained facilities and services</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section team-section">
+                <h2 class="section-title">Our Leadership Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image"><img src="https://placehold.co/400x500/2196F3/ffffff?text=Alhaji+Aminu" alt="Photo of Alhaji Aminu, the Chairman"></div>
+                        <div class="member-info">
+                            <h3 class="member-name">Alhaji Aminu</h3>
+                            <p class="member-role">Chairman</p>
+                            <p class="member-desc">Dedicated community leader with 10+ years of service to FHA Sharada.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image"><img src="https://placehold.co/400x500/2196F3/ffffff?text=Mrs+Chinedu" alt="Photo of Mrs. Chinedu, the Vice Chairman"></div>
+                        <div class="member-info">
+                            <h3 class="member-name">Mrs. Chinedu</h3>
+                            <p class="member-role">Vice Chairman</p>
+                            <p class="member-desc">Passionate about community development and resident welfare.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image"><img src="https://placehold.co/400x500/2196F3/ffffff?text=Mr+Gabriel" alt="Photo of Mr. Gabriel, the Secretary"></div>
+                        <div class="member-info">
+                            <h3 class="member-name">Mr. Gabriel</h3>
+                            <p class="member-role">Secretary</p>
+                            <p class="member-desc">Ensures smooth administration and communication within the community.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section history-section">
+                <h2 class="section-title">Our History</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2008</h3>
+                            <p class="timeline-text">FHA Sharada was established with the vision of creating a modern, secure residential community in Kano.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2010</h3>
+                            <p class="timeline-text">Formation of the first Residents Association to manage community affairs and development.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2013</h3>
+                            <p class="timeline-text">Implementation of 24/7 security surveillance system, significantly improving community safety.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2016</h3>
+                            <p class="timeline-text">Major infrastructure upgrade including road repairs, drainage systems, and street lighting.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2020</h3>
+                            <p class="timeline-text">Establishment of community digital platform for better communication and service delivery.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-year">2023</h3>
+                            <p class="timeline-text">Celebration of 15 years of FHA Sharada with new community center and enhanced amenities.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section values-section">
+                <h2 class="section-title">Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                        <h3 class="value-title">Unity</h3>
+                        <p class="value-desc">We believe in the power of togetherness and collaborative effort to build a stronger community.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="value-title">Security</h3>
+                        <p class="value-desc">The safety and well-being of our residents is our top priority at all times.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                        <h3 class="value-title">Sustainability</h3>
+                        <p class="value-desc">We are committed to environmentally responsible practices and sustainable development.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-heart"></i></div>
+                        <h3 class="value-title">Care</h3>
+                        <p class="value-desc">We foster a culture of mutual respect, empathy, and support for all community members.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="value-title">Progress</h3>
+                        <p class="value-desc">We continuously strive for improvement and innovation in all aspects of community life.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+                        <h3 class="value-title">Transparency</h3>
+                        <p class="value-desc">We maintain open communication and accountability in all our operations and decisions.</p>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 
-    <!-- Main Content Container -->
-    <div class="main-container">
-        <!-- Our Mission Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Our Mission</h2>
-            <p>Our mission is to enhance the quality of life for all residents of FHA Sharada by promoting a safe, clean, and well-maintained environment. We strive to foster a strong sense of community, encourage active participation, and ensure effective communication among residents and the association leadership.</p>
-            <p>We are committed to transparent governance, responsible resource management, and continuous improvement in all aspects of community living.</p>
-        </section>
-
-        <!-- Our Vision Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Our Vision</h2>
-            <p>To be a model residential community in Abuja, recognized for its exceptional living standards, proactive community engagement, and a harmonious environment where every resident feels proud and secure.</p>
-            <p>We envision a future where FHA Sharada is synonymous with excellence, innovation, and sustainable development, driven by the collective efforts of its residents.</p>
-        </section>
-
-        <!-- Our Values Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Our Core Values</h2>
-            <div class="about-values-grid">
-                <div class="value-item">
-                    <i class="fas fa-handshake"></i>
-                    <h4>Community</h4>
-                    <p>Fostering strong bonds, mutual respect, and a supportive network among all residents.</p>
-                </div>
-                <div class="value-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Security</h4>
-                    <p>Ensuring a safe and secure environment through proactive measures and vigilance.</p>
-                </div>
-                <div class="value-item">
-                    <i class="fas fa-lightbulb"></i>
-                    <h4>Innovation</h4>
-                    <p>Embracing new ideas and technologies to improve community services and living standards.</p>
-                </div>
-                <div class="value-item">
-                    <i class="fas fa-balance-scale"></i>
-                    <h4>Transparency</h4>
-                    <p>Operating with openness, honesty, and accountability in all association matters.</p>
-                </div>
-                <div class="value-item">
-                    <i class="fas fa-leaf"></i>
-                    <h4>Sustainability</h4>
-                    <p>Promoting environmentally friendly practices and long-term community well-being.</p>
-                </div>
-                <div class="value-item">
-                    <i class="fas fa-comments"></i>
-                    <h4>Communication</h4>
-                    <p>Maintaining clear, timely, and effective communication channels with all residents.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our History Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Our History</h2>
-            <p>The FHA Sharada Residents Association was established in 2008 by a group of visionary residents who recognized the need for a unified body to manage and improve the estate's common facilities and foster community spirit.</p>
-            <p>Since its inception, the association has been instrumental in numerous developmental projects, including the construction of the Community Hall, upgrading of security infrastructure, and implementation of effective waste management systems. We have grown from a small group of committed individuals to a robust and inclusive organization, continuously striving to meet the evolving needs of our growing community.</p>
-            <p>Our journey has been marked by dedication, collaboration, and the unwavering support of our residents, making FHA Sharada Phase 1 a truly desirable place to live.</p>
-        </section>
-
-        <!-- Our Team Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
-                    <h4>John Doe</h4>
-                    <p class="position">Chairman</p>
-                    <p class="description">Leading the association with vision and dedication since 2015.</p>
-                </div>
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
-                    <h4>Jane Smith</h4>
-                    <p class="position">Vice Chairman</p>
-                    <p class="description">Overseeing daily operations and community initiatives.</p>
-                </div>
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
-                    <h4>Michael Johnson</h4>
-                    <p class="position">Secretary</p>
-                    <p class="description">Managing communications and official documentation.</p>
-                </div>
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/120" alt="Team Member" class="team-member-photo">
-                    <h4>Sarah Williams</h4>
-                    <p class="position">Treasurer</p>
-                    <p class="description">Responsible for financial management and budgeting.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Founding Members Section -->
-        <section class="section about-content-section">
-            <h2 class="section-title">Founding Members</h2>
-            <div class="founding-members-grid">
-                <div class="founding-member">
-                    <h4>Chief Adebayo</h4>
-                    <p>First Chairman (2008-2012)</p>
-                </div>
-                <div class="founding-member">
-                    <h4>Dr. Ngozi Okonjo</h4>
-                    <p>First Secretary</p>
-                </div>
-                <div class="founding-member">
-                    <h4>Engr. Mohammed Bello</h4>
-                    <p>First Treasurer</p>
-                </div>
-                <div class="founding-member">
-                    <h4>Mrs. Funke Adeleke</h4>
-                    <p>First Welfare Officer</p>
-                </div>
-                <div class="founding-member">
-                    <h4>Mr. Chukwuma Eze</h4>
-                    <p>First Security Coordinator</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Awesome Footer -->
     <footer>
-        <div class="footer-container">
+        <div class="footer-container container">
             <div class="footer-col">
                 <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
                 <h3 class="footer-title">FHA Sharada Residents Association</h3>
                 <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
             <div class="footer-col">
                 <h3 class="footer-title">Quick Links</h3>
                 <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
-                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
-                    <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
-                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
+                    <li><a href="index.html#announcements">Announcements</a></li>
+                    <li><a href="index.html#events">Events Calendar</a></li>
+                    <li><a href="#">Dues Payment</a></li>
+                    <li><a href="#">Security Updates</a></li>
+                    <li><a href="maintenance.html">Maintenance Requests</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -1059,8 +897,7 @@
             </div>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
         </div>
     </footer>
 
@@ -1069,11 +906,7 @@
             // Header scroll effect
             const header = document.getElementById('mainHeader');
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                header.classList.toggle('scrolled', window.scrollY > 50);
             });
 
             // Hamburger menu toggle
@@ -1085,36 +918,57 @@
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
+            // Mobile submenu toggle functionality
+            const submenuParents = document.querySelectorAll('.has-submenu > .nav-link');
+            
+            submenuParents.forEach(parentLink => {
+                parentLink.addEventListener('click', function(e) {
+                    // Only run this logic on mobile screen sizes
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault(); // Prevent the main link from navigating
+                        const submenu = this.nextElementSibling;
+                        const isSubmenuOpen = submenu.classList.contains('active');
+
+                        // Close all other active submenus
+                        document.querySelectorAll('.sub-menu.active').forEach(openSubmenu => {
+                            if (openSubmenu !== submenu) {
+                                openSubmenu.classList.remove('active');
+                            }
+                        });
+
+                        // Toggle the current submenu
+                        submenu.classList.toggle('active');
+                    }
                 });
             });
 
-            // Hero animation
+            // Close the main mobile menu when a link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    // Wait for the submenu to toggle, if any
+                    setTimeout(() => {
+                        if (!link.closest('.has-submenu') || link.classList.contains('active')) {
+                            hamburger.classList.remove('open');
+                            navMenu.classList.remove('active');
+                        }
+                    }, 400); // Wait for the transition
+                });
+            });
+
+            // Hero and section animations
             const heroContent = document.querySelector('.hero-content');
-            setTimeout(() => {
-                heroContent.classList.add('animate');
-            }, 300);
+            setTimeout(() => heroContent.classList.add('animate'), 300);
 
-            // Scroll animations for sections
             const sections = document.querySelectorAll('.section');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
 
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
