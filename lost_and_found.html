@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modern CSS Reset */
+        /* Modern CSS Reset - Copied from index.html for consistency */
         :root {
             /* New Vibrant & Engaging Theme Colors */
             --primary: #2196F3; /* Bright, inviting blue */
@@ -299,11 +299,20 @@
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0; /* Hidden by default on mobile */
+                visibility: hidden;
                 transform: none;
                 margin-top: 0.5rem; /* Space below parent link */
                 text-align: center; /* Center submenu items */
+                display: none; /* Hide submenu */
+            }
+            
+            /* Show submenu when parent li has the 'open' class */
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
@@ -329,13 +338,13 @@
         }
 
         /* Spectacular Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
-                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
+        .lost-found-hero {
+            background: linear-gradient(135deg, rgba(255, 87, 34, 0.9), rgba(244, 67, 54, 0.85)), /* Accent/Danger colors for L&F */
+                        url('https://placehold.co/1920x1080/FF5722/ffffff?text=Lost+and+Found'); /* New hero image */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            height: 100vh;
+            height: 70vh; /* Shorter hero for content pages */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -344,80 +353,36 @@
             padding-top: 80px;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
+            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px; /* Taller fade effect */
-            background: linear-gradient(to top, var(--light), transparent);
-            z-index: 1;
+        .lost-found-hero .hero-content {
+            transform: translateY(50px);
         }
 
-        .hero-content {
-            max-width: 900px; /* Wider content area */
-            padding: 0 2.5rem; /* More padding */
-            position: relative;
-            z-index: 2;
-            transform: translateY(70px); /* Deeper initial drop */
-            opacity: 0;
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
+        .lost-found-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .hero-content.animate {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem; /* Larger, more impactful heading */
-            margin-bottom: 1.8rem;
-            line-height: 1.15;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            font-weight: 800; /* Extra bold */
-            letter-spacing: -1px; /* Tighter spacing for headlines */
-        }
-
-        .hero p {
-            font-size: 1.45rem; /* Larger sub-heading */
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            font-weight: 300; /* Lighter weight for contrast */
-        }
-
-        .hero-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
+        .lost-found-hero p {
             font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
-            letter-spacing: 0.5px;
-        }
-
-        .hero-btn:hover {
-            background: #e64a19; /* Slightly darker accent */
-            transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
         }
 
         /* Main Content Container */
         .main-container {
             width: 90%;
             max-width: 1400px;
-            margin: 6rem auto; /* More vertical spacing */
+            margin: 4rem auto; /* Adjusted margin for content pages */
             position: relative;
             z-index: 50; /* Ensure content is above hero's pseudo-element */
         }
-
+        
         /* Section Styling */
         .section {
             margin-bottom: 7rem; /* More spacing between sections */
@@ -430,7 +395,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-
+        
         .section-title {
             font-size: 3rem; /* Larger section titles */
             color: var(--primary);
@@ -1013,7 +978,6 @@
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
@@ -1049,7 +1013,6 @@
         </div>
     </header>
 
-    <!-- Spectacular Hero Section -->
     <section class="lost-found-hero">
         <div class="hero-content">
             <h1>Lost & Found</h1>
@@ -1057,9 +1020,7 @@
         </div>
     </section>
 
-    <!-- Main Content Container -->
     <div class="main-container">
-        <!-- Report Form Section -->
         <section class="section">
             <div class="report-form-container">
                 <h3>Report a Lost or Found Item</h3>
@@ -1105,11 +1066,9 @@
             </div>
         </section>
 
-        <!-- Recent Items Section -->
         <section class="section">
             <h2 class="section-title">Recent Lost & Found Items</h2>
             <div class="lost-found-grid">
-                <!-- Item 1 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1136,7 +1095,6 @@
                     </div>
                 </div>
 
-                <!-- Item 2 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1163,7 +1121,6 @@
                     </div>
                 </div>
 
-                <!-- Item 3 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1190,7 +1147,6 @@
                     </div>
                 </div>
 
-                <!-- Item 4 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1217,7 +1173,6 @@
                     </div>
                 </div>
 
-                <!-- Item 5 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1244,7 +1199,6 @@
                     </div>
                 </div>
 
-                <!-- Item 6 -->
                 <div class="item-card">
                     <div class="item-card-header">
                         <div class="item-card-icon">
@@ -1274,47 +1228,43 @@
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <div class="footer-about">
+            <div class="footer-col">
                 <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
                 <h3 class="footer-title">FHA Sharada Residents Association</h3>
-                <p class="footer-text">A vibrant community dedicated to creating a harmonious living environment for all residents. Together we make our neighborhood a better place.</p>
+                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            <div class="footer-links">
+            <div class="footer-col">
                 <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links-list">
-                    <li class="footer-link"><a href="index.html">Home</a></li>
-                    <li class="footer-link"><a href="about.html">About Us</a></li>
-                    <li class="footer-link"><a href="doc_share.html">Document Share</a></li>
-                    <li class="footer-link"><a href="lost_and_found.html">Lost & Found</a></li>
-                    <li class="footer-link"><a href="maintenance.html">Maintenance Request</a></li>
-                    <li class="footer-link"><a href="suggestion_box.html">Suggestion Box</a></li>
-                    <li class="footer-link"><a href="security_update.html">Security Updates</a></li>
-                    <li class="footer-link"><a href="contact.html">Contact Us</a></li>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
+                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="#">Dues Payment</a></li>
+                    <li class="footer-link"><a href="security_updates.html">Security & Safety</a></li>
+                    <li class="footer-link"><a href="maintenance.html">Maintenance Requests</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h3 class="footer-title">Contact Us</h3>
-                <p class="footer-text"><i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Sector 2, Kharghar, Navi Mumbai - 410210</p>
-                <p class="footer-text"><i class="fas fa-phone"></i> +91 98765 43210</p>
-                <p class="footer-text"><i class="fas fa-envelope"></i> info@fhsharada.org</p>
-                <p class="footer-text"><i class="fas fa-clock"></i> Office Hours: Mon-Sat 9:00 AM - 5:00 PM</p>
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 2, Kano<br>
+                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
+                    <i class="fas fa-envelope"></i> info@fhasharada.org
+                </p>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 FHA Sharada Residents Association. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #FFD700;"></i> by <a href="#" target="_blank">Community Volunteers</a></p>
-        </div>
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
+            </div>
     </footer>
-
-    <!-- Modal for Form Submission -->
+    
     <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1331,105 +1281,125 @@
     </div>
 
     <script>
-        // DOM Elements
-        const header = document.getElementById('mainHeader');
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        const heroContent = document.querySelector('.hero-content');
-        const sections = document.querySelectorAll('.section');
-        const reportForm = document.getElementById('reportForm');
-        const modal = document.getElementById('successModal');
-        const closeButton = document.querySelector('.close-button');
-        const okButton = document.getElementById('modalOkButton');
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile menu toggle
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
                 }
             });
-        }, observerOptions);
 
-        // Observe sections for animation
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
 
-        // Animate hero content on page load
-        window.addEventListener('load', () => {
-            heroContent.classList.add('animate');
-        });
-
-        // Form submission handling
-        reportForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(reportForm);
-            const formObject = Object.fromEntries(formData);
-            
-            // In a real application, you would send this data to a server
-            console.log('Form submitted:', formObject);
-            
-            // Show success modal
-            modal.classList.add('show');
-            
-            // Reset form
-            reportForm.reset();
-        });
-
-        // Close modal functionality
-        function closeModal() {
-            modal.classList.remove('show');
-        }
-
-        closeButton.addEventListener('click', closeModal);
-        okButton.addEventListener('click', closeModal);
-
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Set today's date as default for the date field
-        document.getElementById('itemDate').valueAsDate = new Date();
-
-        // Contact button functionality
-        document.querySelectorAll('.item-card-contact-btn:not([disabled])').forEach(button => {
-            button.addEventListener('click', () => {
-                alert('In a real application, this would show contact information or open a contact form.');
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
             });
+
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default navigation if on a touch device or when the menu is active
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
+                    }
+                });
+            });
+
+            // Close mobile menu when any nav or submenu link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check if this is a submenu link and prevent closing the menu on the first click
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        // Allow the submenu to toggle open/close, but don't close the main menu
+                        // The `e.preventDefault()` above already handles this for the parent link
+                        return;
+                    }
+
+                    // For all other links, close the menu
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Scroll animations for sections
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    } else {
+                        entry.target.classList.remove('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // Observe sections for animation
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Form submission handling
+            const reportForm = document.getElementById('reportForm');
+            const modal = document.getElementById('successModal');
+            const closeButton = document.querySelector('.close-button');
+            const okButton = document.getElementById('modalOkButton');
+
+            reportForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(reportForm);
+                const formObject = Object.fromEntries(formData);
+                
+                // In a real application, you would send this data to a server
+                console.log('Form submitted:', formObject);
+                
+                // Show success modal
+                modal.classList.add('show');
+                
+                // Reset form
+                reportForm.reset();
+            });
+
+            // Close modal functionality
+            function closeModal() {
+                modal.classList.remove('show');
+            }
+
+            closeButton.addEventListener('click', closeModal);
+            okButton.addEventListener('click', closeModal);
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Set today's date as default for the date field
+            document.getElementById('itemDate').valueAsDate = new Date();
+
+            // Contact button functionality
+            document.querySelectorAll('.item-card-contact-btn:not([disabled])').forEach(button => {
+                button.addEventListener('click', () => {
+                    alert('In a real application, this would show contact information or open a contact form.');
+                });
+            });
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
         });
     </script>
 </body>
