@@ -299,11 +299,20 @@
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0; /* Hidden by default on mobile */
+                visibility: hidden;
                 transform: none;
                 margin-top: 0.5rem; /* Space below parent link */
                 text-align: center; /* Center submenu items */
+                display: none; /* Hide submenu */
+            }
+            
+            /* Show submenu when parent li has the 'open' class */
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
@@ -563,7 +572,7 @@
             border-collapse: collapse;
         }
 
-        .payment-table th, 
+        .payment-table th,
         .payment-table td {
             padding: 1rem;
             text-align: left;
@@ -742,7 +751,6 @@
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
@@ -772,13 +780,13 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                     <li><a href="poll.html" class="nav-link">Poll</a></li>
                     <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="payments.html" class="nav-link">Payments</a></li>
                     <li><a href="chart.html" class="nav-link">Community chat</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Payment Hero Section -->
     <section class="payment-hero">
         <div class="payment-hero-content">
             <h1>Payment Portal</h1>
@@ -786,9 +794,7 @@
         </div>
     </section>
 
-    <!-- Main Content Container -->
     <div class="main-container">
-        <!-- Payment Cards Section -->
         <section class="payment-cards">
             <div class="payment-card">
                 <div class="payment-card-header">
@@ -872,7 +878,6 @@
             </div>
         </section>
 
-        <!-- Bank Information Section -->
         <section class="bank-info">
             <h2>Bank Transfer Information</h2>
             <div class="bank-details">
@@ -880,24 +885,20 @@
                     <h3 class="bank-name"><i class="fas fa-university"></i> Zenith Bank</h3>
                     <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
                     <div class="bank-detail"><strong>Account Number:</strong> 1012345678</div>
-                    <!-- <div class="bank-detail"><strong>Reference:</strong> Your House Number</div> -->
-                </div>
+                    </div>
                 <div class="bank-card">
                     <h3 class="bank-name"><i class="fas fa-university"></i> GTBank</h3>
                     <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
                     <div class="bank-detail"><strong>Account Number:</strong> 0123456789</div>
-                    <!-- <div class="bank-detail"><strong>Reference:</strong> Your House Number</div> -->
-                </div>
+                    </div>
                 <div class="bank-card">
                     <h3 class="bank-name"><i class="fas fa-university"></i> Access Bank</h3>
                     <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
                     <div class="bank-detail"><strong>Account Number:</strong> 1234567890</div>
-                    <!-- <div class="bank-detail"><strong>Reference:</strong> Your House Number</div> -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Payment List Section -->
         <section class="payment-list">
             <h2>Other Community Payments</h2>
             <table class="payment-table">
@@ -951,7 +952,6 @@
         </section>
     </div>
 
-    <!-- Awesome Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -986,8 +986,7 @@
         </div>
         <div class="copyright">
             &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
-        </div>
+            </div>
     </footer>
 
     <script>
@@ -1011,11 +1010,33 @@
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default navigation if on a touch device or when the menu is active
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
+                    }
+                });
+            });
+
+            // Close mobile menu when any nav or submenu link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check if this is a submenu link and prevent closing the menu on the first click
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        // Allow the submenu to toggle open/close, but don't close the main menu
+                        // The `e.preventDefault()` above already handles this for the parent link
+                        return;
+                    }
+
+                    // For all other links, close the menu
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
                 });
             });
 
@@ -1037,11 +1058,11 @@
                 'electricity_maintenance': 'Electricity Maintenance',
                 'water_facility': 'Water Facility Fee'
             };
-            
+
             const paymentName = paymentNames[type] || type;
-            
+
             const confirmPayment = confirm(`You are about to pay ₦${amount.toLocaleString()} for ${paymentName}. Proceed?`);
-            
+
             if (confirmPayment) {
                 alert(`Payment of ₦${amount.toLocaleString()} for ${paymentName} initiated successfully!\n\nYou will be redirected to the payment gateway.`);
                 // In a real app, you would redirect to payment gateway here
