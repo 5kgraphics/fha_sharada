@@ -153,12 +153,13 @@
             color: var(--accent);
         }
 
+        /* Fix for active link */
         .nav-link.active {
-            color: var(--accent);
+            color: var(--text-main); /* Ensure the link is black */
         }
-
+        
         .nav-link.active::after {
-            width: 100%;
+            width: 0; /* Remove the underline effect */
         }
 
         /* Sub-menu styles */
