@@ -275,7 +275,7 @@
                 right: -100%;
                 width: 75%; /* Slightly wider mobile menu */
                 height: 100vh;
-                background: rgba(98, 199, 246, 0.98); /* Almost opaque */
+                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
@@ -303,11 +303,20 @@
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0; /* Hidden by default on mobile */
+                visibility: hidden;
                 transform: none;
                 margin-top: 0.5rem; /* Space below parent link */
                 text-align: center; /* Center submenu items */
+                display: none; /* Hide submenu */
+            }
+            
+            /* Show submenu when parent li has the 'open' class */
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
@@ -502,10 +511,6 @@
 
         .footer-links {
             list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 1rem;
         }
 
         .footer-link a {
@@ -966,38 +971,41 @@
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header id="main-header">
+    <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
-                <img src="https://placehold.co/55x55/2196F3/ffffff?text=LOGO" alt="Association Logo" class="association-logo">
-                <span class="association-name">FHA Sharada</span>
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada</h1>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#" class="nav-link">Home</a></li>
-                    <li>
-                        <a href="#" class="nav-link">About Us <i class="fa-solid fa-caret-down"></i></a>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
                         <ul class="sub-menu">
-                            <li><a href="#">Our Mission</a></li>
-                            <li><a href="#">Leadership</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="nav-link">Community</a></li>
-                    <li><a href="#" class="nav-link">Resources</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
                 </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Documents Hero Section -->
     <section class="documents-hero hero">
         <div class="hero-content" id="hero-content">
             <h1>Community Documents</h1>
@@ -1005,9 +1013,7 @@
         </div>
     </section>
 
-    <!-- Main Content Section -->
     <main class="main-container">
-        <!-- Dropdown for Categories -->
         <div class="category-dropdown-container">
             <button class="category-dropdown-btn" id="category-dropdown-btn">
                 All Documents
@@ -1025,23 +1031,22 @@
         </div>
 
         <div class="documents-grid" id="documents-grid">
-            <!-- Document cards will be dynamically inserted here by JavaScript -->
-        </div>
+            </div>
     </main>
 
-    <!-- Footer Section -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
-                <img src="https://placehold.co/70x70/2196F3/ffffff?text=LOGO" alt="Association Logo" class="footer-logo">
-                <h3 class="footer-title">FHA Sharada</h3>
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Residents Association</h3>
                 <p class="footer-text">
-                    Fostering a vibrant and secure community for all residents.
+                    Promoting peace, security, and development in our community since 2008.
                 </p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-col">
@@ -1066,8 +1071,7 @@
             &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
         </p>
     </footer>
-    
-    <!-- Custom Modal for Alerts -->
+
     <div id="custom-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="modal-close-btn">&times;</span>
@@ -1080,6 +1084,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navMenu.classList.toggle('active');
+            });
+
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default navigation if on a touch device or when the menu is active
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
+                    }
+                });
+            });
+
+            // Close mobile menu when any nav or submenu link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check if this is a submenu link and prevent closing the menu on the first click
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        // Allow the submenu to toggle open/close, but don't close the main menu
+                        // The `e.preventDefault()` above already handles this for the parent link
+                        return;
+                    }
+
+                    // For all other links, close the menu
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
             // Document data
             const documents = [{
                 title: '2023 Annual General Meeting Report',
@@ -1137,9 +1189,7 @@
             const categoryDropdownBtn = document.getElementById('category-dropdown-btn');
             const categoryDropdownContent = document.getElementById('category-dropdown-content');
             const heroContent = document.getElementById('hero-content');
-            const mainHeader = document.getElementById('main-header');
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.querySelector('.nav-menu');
+            const mainHeader = document.getElementById('mainHeader');
             const customModal = document.getElementById('custom-modal');
             const modalMessage = document.getElementById('modal-message');
             const modalOkBtn = document.getElementById('modal-ok-btn');
@@ -1195,13 +1245,6 @@
                     mainHeader.classList.remove('scrolled');
                 }
             });
-
-            // Hamburger menu functionality
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('open');
-                navMenu.classList.toggle('active');
-            });
-
             // Dropdown menu functionality
             categoryDropdownBtn.addEventListener('click', function(event) {
                 event.stopPropagation(); // Prevent the document click from closing it immediately
