@@ -299,11 +299,20 @@
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0; /* Hidden by default on mobile */
+                visibility: hidden;
                 transform: none;
                 margin-top: 0.5rem; /* Space below parent link */
                 text-align: center; /* Center submenu items */
+                display: none; /* Hide submenu */
+            }
+            
+            /* Show submenu when parent li has the 'open' class */
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
@@ -701,7 +710,6 @@
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
@@ -737,7 +745,6 @@
         </div>
     </header>
 
-    <!-- Contact Hero Section -->
     <section class="contact-hero">
         <div class="contact-hero-content">
             <h1>Contact Us</h1>
@@ -745,9 +752,7 @@
         </div>
     </section>
 
-    <!-- Main Content Container -->
     <div class="main-container">
-        <!-- Contact Section -->
         <section class="contact-section">
             <div class="contact-info">
                 <h2>Contact Information</h2>
@@ -778,8 +783,7 @@
                         <div class="contact-text">
                             <h3>Email</h3>
                             <p><a href="mailto:info@fhasharada.org">info@fhasharada.org</a></p>
-                            <!-- <p><a href="mailto:support@fhasharada.org">support@fhasharada.org</a></p> -->
-                        </div>
+                            </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
@@ -788,8 +792,7 @@
                         <div class="contact-text">
                             <h3>Office Hours</h3>
                             <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-                            <!-- <p>Saturday: 10:00 AM - 2:00 PM</p> -->
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -824,7 +827,6 @@
             </div>
         </section>
 
-        <!-- Map Section -->
         <section class="map-section">
             <h2>Our Location</h2>
             <div class="map-container">
@@ -833,14 +835,12 @@
         </section>
     </div>
 
-    <!-- WhatsApp Sticky Button -->
     <div class="whatsapp-sticky">
         <a href="https://wa.me/2347031258982" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
-    <!-- Awesome Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -874,7 +874,7 @@
             </div>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
+            © <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
         </div>
     </footer>
 
@@ -899,11 +899,28 @@
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default navigation if on a touch device or when the menu is active
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
                 link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
+                    // Timeout to allow the submenu to toggle first on mobile
+                    setTimeout(() => {
+                        if (navMenu.classList.contains('active')) {
+                            hamburger.classList.remove('open');
+                            navMenu.classList.remove('active');
+                        }
+                    }, 150); 
                 });
             });
 
