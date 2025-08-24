@@ -911,7 +911,7 @@
             box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
         }
 
-        /* Custom Modal for Alerts */
+        /* Custom Modal for Alerts - FIXED */
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -924,7 +924,6 @@
             background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
@@ -1050,310 +1049,386 @@
         </div>
     </header>
 
-    <!-- Spectacular Hero Section for Lost & Found -->
-    <section class="hero lost-found-hero">
-        <div class="hero-content animate">
-            <h1>Lost & Found: Connecting Our Community</h1>
-            <p>A dedicated platform to help residents report lost items and reunite found treasures with their rightful owners.</p>
-            <!-- <button class="hero-btn" onclick="document.getElementById('report-lost-section').scrollIntoView({ behavior: 'smooth' });">Report an Item</button> -->
+    <!-- Spectacular Hero Section -->
+    <section class="lost-found-hero">
+        <div class="hero-content">
+            <h1>Lost & Found</h1>
+            <p>Report lost items or check if your found items have been claimed in our community</p>
         </div>
     </section>
 
     <!-- Main Content Container -->
     <div class="main-container">
-        <!-- Report Lost Item Section -->
-        <section class="section" id="report-lost-section">
-            <h2 class="section-title">Report a Lost Item</h2>
+        <!-- Report Form Section -->
+        <section class="section">
             <div class="report-form-container">
-                <h3>Tell us what you've misplaced</h3>
-                <form id="lost-item-form">
+                <h3>Report a Lost or Found Item</h3>
+                <form id="reportForm">
                     <div class="form-group">
-                        <label for="lost-item-name">Item Name</label>
-                        <input type="text" id="lost-item-name" placeholder="e.g., Brown leather wallet" required>
+                        <label for="itemType">I want to report a:</label>
+                        <select id="itemType" name="itemType" required>
+                            <option value="">-- Please select --</option>
+                            <option value="lost">Lost Item</option>
+                            <option value="found">Found Item</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="lost-item-description">Description</label>
-                        <textarea id="lost-item-description" rows="4" placeholder="Color, size, unique features, contents (if any)" required></textarea>
+                        <label for="itemName">Item Name/Description:</label>
+                        <input type="text" id="itemName" name="itemName" placeholder="e.g., Black iPhone 12, Blue Wallet" required>
                     </div>
                     <div class="form-group">
-                        <label for="lost-item-location">Last Seen Location</label>
-                        <input type="text" id="lost-item-location" placeholder="e.g., Community Hall, Block 5 Playground" required>
+                        <label for="itemLocation">Location (Where lost/found):</label>
+                        <input type="text" id="itemLocation" name="itemLocation" placeholder="e.g., Near Building C, Playground area" required>
                     </div>
                     <div class="form-group">
-                        <label for="lost-item-date">Date Lost</label>
-                        <input type="date" id="lost-item-date" required>
+                        <label for="itemDate">Date:</label>
+                        <input type="date" id="itemDate" name="itemDate" required>
                     </div>
                     <div class="form-group">
-                        <label for="lost-contact-name">Your Name</label>
-                        <input type="text" id="lost-contact-name" placeholder="John Doe" required>
+                        <label for="contactName">Your Name:</label>
+                        <input type="text" id="contactName" name="contactName" placeholder="Your full name" required>
                     </div>
                     <div class="form-group">
-                        <label for="lost-contact-phone">Your Phone Number</label>
-                        <input type="tel" id="lost-contact-phone" placeholder="+234 80XXXXXXXX" required>
+                        <label for="contactEmail">Your Email:</label>
+                        <input type="email" id="contactEmail" name="contactEmail" placeholder="Your email address" required>
                     </div>
                     <div class="form-group">
-                        <label for="lost-contact-email">Your Email (Optional)</label>
-                        <input type="email" id="lost-contact-email" placeholder="your.email@example.com">
+                        <label for="contactPhone">Your Phone:</label>
+                        <input type="tel" id="contactPhone" name="contactPhone" placeholder="Your phone number" required>
                     </div>
-                    <button type="submit" class="submit-btn">Submit Lost Item Report</button>
+                    <div class="form-group">
+                        <label for="additionalInfo">Additional Information:</label>
+                        <textarea id="additionalInfo" name="additionalInfo" placeholder="Any additional details about the item or circumstances"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Report</button>
                 </form>
             </div>
         </section>
 
-        <!-- Report Found Item Section -->
-        <section class="section" id="report-found-section">
-            <h2 class="section-title">Report a Found Item</h2>
-            <div class="report-form-container">
-                <h3>Help us return a found item</h3>
-                <form id="found-item-form">
-                    <div class="form-group">
-                        <label for="found-item-name">Item Name</label>
-                        <input type="text" id="found-item-name" placeholder="e.g., Set of car keys" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-item-description">Description</label>
-                        <textarea id="found-item-description" rows="4" placeholder="Color, size, unique features, brand" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-item-location">Location Found</label>
-                        <input type="text" id="found-item-location" placeholder="e.g., Near Main Gate, By the basketball court" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-item-date">Date Found</label>
-                        <input type="date" id="found-item-date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-contact-name">Your Name</label>
-                        <input type="text" id="found-contact-name" placeholder="Jane Smith" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-contact-phone">Your Phone Number</label>
-                        <input type="tel" id="found-contact-phone" placeholder="+234 80XXXXXXXX" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="found-contact-email">Your Email (Optional)</label>
-                        <input type="email" id="found-contact-email" placeholder="your.email@example.com">
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Found Item Report</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Recently Lost Items Section -->
-        <section class="section" id="recently-lost-items">
-            <h2 class="section-title">Recently Lost Items</h2>
-            <div class="lost-found-grid" id="lost-items-container">
-                <!-- Lost items will be dynamically loaded here -->
+        <!-- Recent Items Section -->
+        <section class="section">
+            <h2 class="section-title">Recent Lost & Found Items</h2>
+            <div class="lost-found-grid">
+                <!-- Item 1 -->
                 <div class="item-card">
-                    <div class="item-card-status lost">LOST</div>
                     <div class="item-card-header">
-                        <i class="fas fa-question-circle item-card-icon"></i>
-                        <h3 class="item-card-title">Missing Wallet</h3>
-                    </div>
-                    <div class="item-card-content">
-                        <p class="item-card-description">Brown leather wallet with FHA Sharada ID card and some cash. Last seen near the Community Hall.</p>
-                        <p class="item-card-meta"><i class="far fa-calendar-alt"></i> Lost on: 2025-07-18</p>
-                        <p class="item-card-meta"><i class="fas fa-map-marker-alt"></i> Location: Community Hall</p>
-                        <button class="item-card-contact-btn" onclick="showModal('Contact Owner', 'Please contact John Doe at +2348012345678 or john.doe@example.com to claim this item.')">Contact Owner</button>
-                    </div>
-                </div>
-                <div class="item-card">
-                    <div class="item-card-status lost">LOST</div>
-                    <div class="item-card-header">
-                        <i class="fas fa-key item-card-icon"></i>
+                        <div class="item-card-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
                         <h3 class="item-card-title">Set of Keys</h3>
                     </div>
                     <div class="item-card-content">
-                        <p class="item-card-description">Small set of silver keys, includes a car key and two house keys, on a blue keyring.</p>
-                        <p class="item-card-meta"><i class="far fa-calendar-alt"></i> Lost on: 2025-07-17</p>
-                        <p class="item-card-meta"><i class="fas fa-map-marker-alt"></i> Location: Near Block 10 Playground</p>
-                        <button class="item-card-contact-btn" onclick="showModal('Contact Owner', 'Please contact Mary Jane at +2348098765432 or mary.jane@example.com to claim this item.')">Contact Owner</button>
+                        <p class="item-card-description">Found a set of keys with a blue keychain near the main gate.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Near Main Gate</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Found on: 15 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Ramesh K.</span>
+                        </div>
+                        <span class="item-card-status found">Found</span>
+                        <button class="item-card-contact-btn">Contact Finder <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Recently Found Items Section -->
-        <section class="section" id="recently-found-items">
-            <h2 class="section-title">Recently Found Items</h2>
-            <div class="lost-found-grid" id="found-items-container">
-                <!-- Found items will be dynamically loaded here -->
+                <!-- Item 2 -->
                 <div class="item-card">
-                    <div class="item-card-status found">FOUND</div>
                     <div class="item-card-header">
-                        <i class="fas fa-laptop item-card-icon"></i>
-                        <h3 class="item-card-title">Black Laptop Bag</h3>
+                        <div class="item-card-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="item-card-title">Samsung Phone</h3>
                     </div>
                     <div class="item-card-content">
-                        <p class="item-card-description">Black Targus laptop bag containing a Dell laptop and some documents. Found near the main gate security post.</p>
-                        <p class="item-card-meta"><i class="far fa-calendar-alt"></i> Found on: 2025-07-19</p>
-                        <p class="item-card-meta"><i class="fas fa-map-marker-alt"></i> Location: Main Gate Security</p>
-                        <button class="item-card-contact-btn" onclick="showModal('Contact Finder', 'Please contact Estate Security at +2348012345678 to inquire about this item.')">Contact Finder</button>
+                        <p class="item-card-description">Lost a black Samsung Galaxy phone near the playground.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Playground Area</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Lost on: 14 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Sunita M.</span>
+                        </div>
+                        <span class="item-card-status lost">Lost</span>
+                        <button class="item-card-contact-btn">Contact Owner <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
+
+                <!-- Item 3 -->
                 <div class="item-card">
-                    <div class="item-card-status found">FOUND</div>
                     <div class="item-card-header">
-                        <i class="fas fa-id-card item-card-icon"></i>
-                        <h3 class="item-card-title">Resident ID Card</h3>
+                        <div class="item-card-icon">
+                            <i class="fas fa-glasses"></i>
+                        </div>
+                        <h3 class="item-card-title">Reading Glasses</h3>
                     </div>
                     <div class="item-card-content">
-                        <p class="item-card-description">FHA Sharada Resident ID Card belonging to Mr. Ahmed Bello. Found by the basketball court.</p>
-                        <p class="item-card-meta"><i class="far fa-calendar-alt"></i> Found on: 2025-07-16</p>
-                        <p class="item-card-meta"><i class="fas fa-map-marker-alt"></i> Location: Basketball Court</p>
-                        <button class="item-card-contact-btn" onclick="showModal('Contact Finder', 'Please contact Jane Doe at +2348055554444 to inquire about this item.')">Contact Finder</button>
+                        <p class="item-card-description">Found a pair of black reading glasses in the community hall.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Community Hall</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Found on: 13 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Vikram J.</span>
+                        </div>
+                        <span class="item-card-status resolved">Resolved</span>
+                        <button class="item-card-contact-btn" disabled>Claimed <i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <div class="item-card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3 class="item-card-title">Leather Wallet</h3>
+                    </div>
+                    <div class="item-card-content">
+                        <p class="item-card-description">Lost a brown leather wallet containing ID and credit cards.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Near Parking Area</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Lost on: 12 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Amit S.</span>
+                        </div>
+                        <span class="item-card-status lost">Lost</span>
+                        <button class="item-card-contact-btn">Contact Owner <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <div class="item-card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="item-card-title">School Textbook</h3>
+                    </div>
+                    <div class="item-card-content">
+                        <p class="item-card-description">Found a mathematics textbook for grade 10 near the garden.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Community Garden</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Found on: 11 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Priya L.</span>
+                        </div>
+                        <span class="item-card-status found">Found</span>
+                        <button class="item-card-contact-btn">Contact Finder <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <div class="item-card-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3 class="item-card-title">Wireless Headphones</h3>
+                    </div>
+                    <div class="item-card-content">
+                        <p class="item-card-description">Lost white wireless headphones in a black case.</p>
+                        <div class="item-card-meta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Near Gym Area</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Lost on: 10 Oct 2023</span>
+                        </div>
+                        <div class="item-card-meta">
+                            <i class="fas fa-user"></i>
+                            <span>Reported by: Neha R.</span>
+                        </div>
+                        <span class="item-card-status resolved">Resolved</span>
+                        <button class="item-card-contact-btn" disabled>Returned <i class="fas fa-check"></i></button>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Awesome Footer -->
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <div class="footer-col">
+            <div class="footer-about">
                 <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
                 <h3 class="footer-title">FHA Sharada Residents Association</h3>
-                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
+                <p class="footer-text">A vibrant community dedicated to creating a harmonious living environment for all residents. Together we make our neighborhood a better place.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <div class="footer-col">
+            <div class="footer-links">
                 <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
-                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
-                    <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
-                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
+                <ul class="footer-links-list">
+                    <li class="footer-link"><a href="index.html">Home</a></li>
+                    <li class="footer-link"><a href="about.html">About Us</a></li>
+                    <li class="footer-link"><a href="doc_share.html">Document Share</a></li>
+                    <li class="footer-link"><a href="lost_and_found.html">Lost & Found</a></li>
+                    <li class="footer-link"><a href="maintenance.html">Maintenance Request</a></li>
+                    <li class="footer-link"><a href="suggestion_box.html">Suggestion Box</a></li>
+                    <li class="footer-link"><a href="security_update.html">Security Updates</a></li>
+                    <li class="footer-link"><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h3 class="footer-title">Contact Info</h3>
-                <p class="footer-text">
-                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 2, Kano<br>
-                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
-                    <i class="fas fa-envelope"></i> info@fhasharada.org
-                </p>
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <p class="footer-text"><i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Sector 2, Kharghar, Navi Mumbai - 410210</p>
+                <p class="footer-text"><i class="fas fa-phone"></i> +91 98765 43210</p>
+                <p class="footer-text"><i class="fas fa-envelope"></i> info@fhsharada.org</p>
+                <p class="footer-text"><i class="fas fa-clock"></i> Office Hours: Mon-Sat 9:00 AM - 5:00 PM</p>
             </div>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+            <p>&copy; 2023 FHA Sharada Residents Association. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #FFD700;"></i> by <a href="#" target="_blank">Community Volunteers</a></p>
         </div>
     </footer>
 
-    <!-- Custom Modal Structure -->
-    <div id="customModal" class="modal">
+    <!-- Modal for Form Submission -->
+    <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle"></h2>
+                <h2>Report Submitted</h2>
                 <span class="close-button">&times;</span>
             </div>
             <div class="modal-body">
-                <p id="modalMessage"></p>
+                <p>Thank you for your report. We have received your information and will notify you if there's a match.</p>
             </div>
             <div class="modal-footer">
-                <button class="close-button">OK</button>
+                <button id="modalOkButton">OK</button>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Header scroll effect
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
+        // DOM Elements
+        const header = document.getElementById('mainHeader');
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const heroContent = document.querySelector('.hero-content');
+        const sections = document.querySelectorAll('.section');
+        const reportForm = document.getElementById('reportForm');
+        const modal = document.getElementById('successModal');
+        const closeButton = document.querySelector('.close-button');
+        const okButton = document.getElementById('modalOkButton');
 
-            // Hamburger menu toggle
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('open');
-                navMenu.classList.toggle('active');
-            });
-
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            // Hero animation
-            const heroContent = document.querySelector('.hero-content');
-            setTimeout(() => {
-                heroContent.classList.add('animate');
-            }, 300);
-
-            // Scroll animations for sections
-            const sections = document.querySelectorAll('.section');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Set current year for copyright
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Custom Modal Logic
-            const customModal = document.getElementById('customModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const closeButtons = customModal.querySelectorAll('.close-button');
-
-            window.showModal = function(title, message) {
-                modalTitle.textContent = title;
-                modalMessage.textContent = message;
-                customModal.classList.add('show');
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
+        });
 
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    customModal.classList.remove('show');
-                });
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navMenu.classList.remove('active');
             });
+        });
 
-            // Close modal if clicked outside content
-            window.addEventListener('click', function(event) {
-                if (event.target == customModal) {
-                    customModal.classList.remove('show');
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
                 }
             });
+        }, observerOptions);
 
-            // Form submission handlers using custom modal
-            document.getElementById('lost-item-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showModal('Report Submitted!', 'Lost item report submitted! Thank you for helping the community.');
-                this.reset();
-            });
+        // Observe sections for animation
+        sections.forEach(section => {
+            observer.observe(section);
+        });
 
-            document.getElementById('found-item-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showModal('Report Submitted!', 'Found item report submitted! We appreciate your honesty.');
-                this.reset();
+        // Animate hero content on page load
+        window.addEventListener('load', () => {
+            heroContent.classList.add('animate');
+        });
+
+        // Form submission handling
+        reportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(reportForm);
+            const formObject = Object.fromEntries(formData);
+            
+            // In a real application, you would send this data to a server
+            console.log('Form submitted:', formObject);
+            
+            // Show success modal
+            modal.classList.add('show');
+            
+            // Reset form
+            reportForm.reset();
+        });
+
+        // Close modal functionality
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+
+        closeButton.addEventListener('click', closeModal);
+        okButton.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Set today's date as default for the date field
+        document.getElementById('itemDate').valueAsDate = new Date();
+
+        // Contact button functionality
+        document.querySelectorAll('.item-card-contact-btn:not([disabled])').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('In a real application, this would show contact information or open a contact form.');
             });
         });
     </script>
