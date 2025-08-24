@@ -158,7 +158,7 @@
             position: absolute;
             top: 100%; /* Position below the parent link */
             left: 0;
-            background: rgba(255, 255, 255, 极速 0.95); /* Slightly opaque white background */
+            background: rgba(255, 255, 255, 0.95); /* Slightly opaque white background */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 10px;
@@ -189,7 +189,7 @@
             white-space: nowrap; /* Prevent text wrapping */
             font-size: 1rem;
             font-weight: 500;
-            transition: all 极速 0.2s ease;
+            transition: all 0.2s ease;
             text-decoration: none; /* Ensure no default underline */
         }
 
@@ -211,13 +211,13 @@
             width: 30px;
             height: 20px;
             position: relative;
-            z极速-index: 1001;
+            z-index: 1001;
         }
 
         .hamburger span {
             display: block;
             position: absolute;
-            height: 3极速 px;
+            height: 3px;
             width: 100%;
             background: var(--dark);
             border-radius: 3px;
@@ -237,7 +237,7 @@
 
         .hamburger span:nth-child(4) {
             top: 20px;
-极速       }
+        }
 
         .hamburger.open span:nth-child(1) {
             top: 10px;
@@ -299,11 +299,20 @@
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0; /* Hidden by default on mobile */
+                visibility: hidden;
                 transform: none;
                 margin-top: 0.5rem; /* Space below parent link */
                 text-align: center; /* Center submenu items */
+                display: none; /* Hide submenu */
+            }
+            
+            /* Show submenu when parent li has the 'open' class */
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
@@ -321,362 +330,21 @@
                 transform: none; /* No slide effect on mobile */
             }
 
-            .nav-menu li:hover > .极速 sub-menu {
+            .nav-menu li:hover > .sub-menu {
                 opacity: 1;
                 visibility: visible;
                 transform: none;
             }
         }
 
-        /* Spectacular Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
-                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMj极速A3fDB8MHxwaG90by1wYWdlf极速Hx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px; /* Taller fade effect */
-            background: linear-gradient(to top, var(--light), transparent);
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 900px; /* Wider content area */
-            padding: 0 2.5rem; /* More padding */
-            position: relative;
-            z-index: 2;
-            transform: translateY(70px); /* Deeper initial drop */
-            opacity: 0;
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
-        }
-
-        .hero-content.animate {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem; /* Larger, more impactful heading */
-            margin-bottom: 1.8rem;
-            line-height: 1.15;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            font-weight: 800; /* Extra bold */
-            letter-spacing: -1px; /* Tighter spacing for headlines */
-        }
-
-        .hero p {
-            font-size: 1.45rem; /* Larger sub-heading */
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            font-weight: 300; /* Lighter weight for contrast */
-        }
-
-        .hero-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
-            letter-spacing: 0.5px;
-        }
-
-        .hero-btn:hover {
-            background: #e64a19; /* Slightly darker accent */
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
-        }
-
-        /* Main Content Container */
-        .main-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 6rem auto; /* More vertical spacing */
-            position: relative;
-            z-index: 50; /* Ensure content is above hero's pseudo-element */
-        }
-
-        /* Section Styling */
-        .section {
-            margin-bottom: 7rem; /* More spacing between sections */
-            opacity: 0;
-            transform: translateY(70px);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
-        }
-
-        .section.animate {
-            opacity: 1;
-           极速 transform: translateY(0);
-        }
-
-        .section-title {
-            font-size: 3rem; /* Larger section titles */
-            color: var(--primary);
-            margin-bottom: 3.5rem; /* More space below title */
-            position: relative;
-            display: inline-block;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 60%; /* Longer underline */
-            height: 5px; /* Thicker underline */
-            background: var(--accent);
-            bottom: -15px; /* Lower underline */
-            left: 0;
-            border-radius: 3px;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 6rem 0 2.5rem; /* More padding */
-            position: relative;
-            border-top-left-radius: 30px; /* Rounded top corners */
-            border-top-right-radius: 30px;
-            overflow: hidden; /* Ensures content stays within rounded corners */
-        }
-
-        .footer-container {
-            width: 90%;
-            max-width: 1400极速 px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
-            gap: 3.5rem;
-            margin-bottom: 3.5rem;
-        }
-
-        .footer-logo {
-            width: 70px; /* Larger logo */
-            height: 70px;
-            border-radius: 18px; /* More rounded */
-            margin-bottom: 1.8rem;
-            object-fit: cover;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        .footer-title {
-            font-size: 1.8rem; /* Larger title */
-            margin-bottom: 1.8rem;
-            color: white;
-            font-weight: 700;
-        }
-
-        .footer-text {
-            opacity: 0.9; /* Slightly less transparent */
-            margin-bottom: 1.8rem;
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 1rem;
-        }
-
-        .footer-link a {
-            color: white;
-            opacity: 0.9;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.05rem;
-        }
-
-        .footer-link a:hover {
-            opacity: 1;
-            color: var(--accent);
-            padding-left: 8px; /* More pronounced slide */
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.2rem; /* More spacing */
-            margin-top: 1.8rem;
-        }
-
-        .social-link {
-            width: 45px; /* Larger social icons */
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem; /* Larger social icons */
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--accent);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            opacity: 极速 0.8;
-            font-size: 1rem;
-            color: white; /* Ensure copyright text is white */
-        }
-
-        .copyright a {
-            color: #FFD700; /* Gold color for the link */
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .copyright a:hover {
-            color: var(--accent); /* Accent color on hover */
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            footer {
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                gap: 1rem;
-            }
-
-            .nav-menu {
-                gap: 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: normal;
-            }
-
-            .hero p {
-                font-size: 1.15rem;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .news-section, .news-filters {
-                padding: 2.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .news-section, .news-filters {
-                padding: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .section-title::after {
-                bottom: -10px;
-                width: 50%;
-            }
-
-            .hero-btn, .news-filter-btn {
-                padding: 0.9rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-logo {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        /* Animation Keyframes */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px); /* More float */
-            }
-        }
-
-        .floating {
-            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
-        }
-
-        /* --- News Page Specific Styles --- */
+        /* Hero Section */
         .news-hero {
-            background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(123, 31, 162, 0.85)), /* Purple theme for News */
-                        url('https://placehold.co/1920x1080/9C27B0/ffffff?text=FHA+Sharada+News'); /* New hero image */
+            background: linear-gradient(135deg, rgba(103, 58, 183, 0.9), rgba(63, 81, 181, 0.85)),
+                        url('https://placehold.co/1920x1080/673ab7/ffffff?text=Community+News');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            height: 70vh; /* Shorter hero for content pages */
+            height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -706,256 +374,290 @@
             opacity: 0.9;
         }
 
+        /* Main Content Container */
         .main-container {
-            margin: 4rem auto; /* Adjusted margin for content pages */
+            width: 90%;
+            max-width: 1400px;
+            margin: 4rem auto;
+            position: relative;
+            z-index: 50;
         }
 
-        /* News Filters */
-        .news-filters {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-light);
-            margin-bottom: 4rem;
+        /* Section Styling */
+        .section {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 5px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        /* News specific styles */
+        .news-controls {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 1.5rem;
-            align-items: center;
-            justify-content: space-between;
+            margin-bottom: 3rem;
         }
-
-        .filter-group {
+        .filter-buttons {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 1rem;
         }
-
-        .filter-group label {
-            font-weight: 600;
+        .filter-btn {
+            background-color: white;
             color: var(--dark);
-        }
-
-        .filter-group select, .search-box {
-            padding: 0.8rem 1.2rem;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 10px;
+            border: 1px solid var(--gray);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
             font-size: 1rem;
-            background-color: var(--light);
-            color: var(--dark);
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .search-box input {
-            border: none;
-            padding: 0.8rem 1.2rem;
-            width: 100%;
-            background: transparent;
-            outline: none;
-        }
-
-        .search-box button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.2rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .search-box button:hover {
-            background: var(--secondary);
+        .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
-
-        /* News Grid */
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 3.5rem;
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        }
+        .search-container i {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem;
         }
-
         .news-card {
-            background: white;
+            background-color: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow-light);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
-            border: 1px solid rgba(0,0,0,0.05);
         }
-
         .news-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-medium);
         }
-
-        .news-card-image {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .news-card-image img {
+        .news-card-img {
             width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-
-        .news-card:hover .news-card-image img {
-            transform: scale(1.05);
+        .news-card-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
         }
-
         .news-card-category {
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
             position: absolute;
             top: 15px;
             left: 15px;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: white;
-            background: var(--primary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-light);
         }
-
-        .news-card-content {
-            padding: 1.8rem;
-        }
-
         .news-card-date {
             font-size: 0.9rem;
             color: var(--gray);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-
         .news-card-title {
             font-size: 1.5rem;
             color: var(--dark);
             margin-bottom: 1rem;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.4;
         }
-
-        .news-card-excerpt {
+        .news-card-text {
             color: #555;
-            margin-bottom: 1.5rem;
             font-size: 1rem;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
-
-        .news-card-meta {
+        .news-card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
-            color: var(--gray);
+            margin-top: auto;
         }
-
-        .news-card-readmore {
-            color: var(--primary);
-            text-decoration: none;
+        .read-more-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
             font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
         }
-
-        .news-card-readmore:hover {
-            color: var(--accent);
-            gap: 0.8rem;
+        .read-more-btn:hover {
+            background: #e64a19;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
         }
 
         /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 3rem;
-        }
-
-        .pagination-btn {
-            width: 45px;
-            height: 45px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            background: white;
-            color: var(--dark);
-            font-weight: 600;
+            gap: 0.5rem;
+            margin-top: 4rem;
+        }
+        .pagination-link {
             text-decoration: none;
-            box-shadow: var(--shadow-light);
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50%;
             transition: all 0.3s ease;
+            min-width: 45px;
+            text-align: center;
+            display: block;
         }
-
-        .pagination-btn:hover, .pagination-btn.active {
-            background: var(--primary);
+        .pagination-link:hover {
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+        .pagination-link.active {
+            background-color: var(--primary);
             color: white;
-            transform: translateY(-3px);
-        }
-
-        .pagination-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            box-shadow: var(--shadow-light);
         }
 
         /* Newsletter Section */
         .newsletter-section {
-            background: white;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(25, 118, 210, 0.85));
+            color: white;
+            padding: 5rem 3rem;
             border-radius: 20px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-medium);
-            margin-bottom: 6rem;
             text-align: center;
+            box-shadow: var(--shadow-medium);
         }
-
+        .newsletter-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .newsletter-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            opacity: 0.9;
+        }
         .newsletter-form {
             display: flex;
+            justify-content: center;
             gap: 1rem;
-            max-width: 600px;
-            margin: 2rem auto 0;
+            flex-wrap: wrap;
         }
-
         .newsletter-form input {
             flex: 1;
-            padding: 1rem 1.2rem;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 10px;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
             font-size: 1rem;
-            background-color: var(--light);
-            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            background-color: rgba(255, 255, 255, 0.95);
+            transition: background-color 0.3s ease;
         }
-
+        .newsletter-form input:focus {
+            outline: none;
+            background-color: white;
+        }
         .newsletter-form button {
             background: var(--accent);
             color: white;
-            padding: 1rem 2rem;
             border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
         }
-
         .newsletter-form button:hover {
             background: #e64a19;
             transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
         }
 
-        /* Modal for News Detail */
-        .news-modal {
+        /* Modal for full article */
+        .modal {
             display: none;
             position: fixed;
             z-index: 2000;
@@ -964,7 +666,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.6);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             align-items: center;
@@ -973,15 +675,14 @@
             transition: opacity 0.3s ease;
         }
 
-        .news-modal.show {
+        .modal.show {
             display: flex;
             opacity: 1;
         }
 
-        .news-modal-content {
+        .modal-content {
             background-color: #fefefe;
-            margin: auto;
-            padding: 0;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: var(--shadow-bold);
             width: 90%;
@@ -990,73 +691,263 @@
             transform: translateY(-50px);
             opacity: 0;
             transition: all 0.3s ease-out;
-            overflow: hidden;
         }
 
-        .news-modal.show .news-modal-content {
+        .modal.show .modal-content {
             transform: translateY(0);
             opacity: 1;
         }
 
-        .news-modal-header {
-            padding: 2rem 2rem 1rem;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 15px;
         }
-
-        .news-modal-title {
-            font-size: 2rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
+        .modal-header-content {
+            flex: 1;
         }
-
-        .news-modal-meta {
+        .modal-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1.3;
+        }
+        .modal-meta {
             display: flex;
             gap: 1.5rem;
+            margin-top: 10px;
+        }
+        .modal-meta p {
+            font-size: 0.95rem;
             color: var(--gray);
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-
-        .news-modal-body {
-            padding: 2rem;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        .news-modal-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .news-modal-text {
-            line-height: 1.8;
-            color: #444;
-        }
-
-        .news-modal-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .news-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
+        .close-button {
             color: #aaa;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s ease;
         }
-
-        .news-modal-close:hover {
+        .close-button:hover, .close-button:focus {
             color: var(--danger);
+            text-decoration: none;
+        }
+        .modal-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark);
+        }
+        .modal-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 2.5rem;
+            position: relative;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            margin-bottom: 1.8rem;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-text {
+            opacity: 0.9;
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 1rem;
+        }
+
+        .footer-link a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.8;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .copyright a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: normal;
+            }
+
+            .hero p {
+                font-size: 1.15rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .news-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title::after {
+                bottom: -10px;
+                width: 50%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
@@ -1085,208 +976,107 @@
                     </li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                     <li><a href="poll.html" class="nav-link">Poll</a></li>
-                    <li><a href="news.html" class="nav-link active">News</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
                     <li><a href="chart.html" class="nav-link">Community chat</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Spectacular Hero Section for News -->
-    <section class="hero news-hero">
-        <div class="hero-content animate">
+    <section class="news-hero">
+        <div class="hero-content">
             <h1>FHA Sharada News</h1>
-            <p>Stay updated with the latest happenings, events, and announcements in our community.</p>
+            <p>Stay up-to-date with the latest announcements, events, and important community updates.</p>
         </div>
     </section>
 
-    <!-- Main Content Container -->
     <div class="main-container">
-        <!-- News Filters -->
-        <div class="news-filters">
-            <div class="filter-group">
-                <label for="category-filter">Filter by:</label>
-                <select id="category-filter">
-                    <option value="all">All Categories</option>
-                    <option value="announcements">Announcements</option>
-                    <option value="events">Events</option>
-                    <option value="maintenance">Maintenance Updates</option>
-                    <option value="security">Security Alerts</option>
-                    <option value="community">Community News</option>
-                </select>
+        <section class="section" id="news">
+            <h2 class="section-title">Latest Updates</h2>
+            <div class="news-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="announcement">Announcements</button>
+                    <button class="filter-btn" data-filter="event">Events</button>
+                    <button class="filter-btn" data-filter="update">Updates</button>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="news-search" placeholder="Search news...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="news-grid" id="news-grid">
+                <div class="news-card" data-category="announcement">
+                    <img src="https://placehold.co/600x400/2196F3/ffffff?text=Announcement" alt="Community meeting announcement" class="news-card-img">
+                    <div class="news-card-content">
+                        <span class="news-card-category">Announcement</span>
+                        <p class="news-card-date">24 Aug 2025</p>
+                        <h3 class="news-card-title">Annual Residents Meeting Scheduled</h3>
+                        <p class="news-card-text">The annual general meeting for all residents is scheduled for next month. Key topics to be discussed include the new security protocols...</p>
+                        <div class="news-card-footer">
+                            <a href="#" class="read-more-btn" data-news-id="news1">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card" data-category="event">
+                    <img src="https://placehold.co/600x400/4CAF50/ffffff?text=Event" alt="Community picnic event" class="news-card-img">
+                    <div class="news-card-content">
+                        <span class="news-card-category">Event</span>
+                        <p class="news-card-date">15 Aug 2025</p>
+                        <h3 class="news-card-title">Community Picnic & Fun Fair</h3>
+                        <p class="news-card-text">Join us for our first community picnic of the year! There will be fun games, food stalls, and entertainment for all ages...</p>
+                        <div class="news-card-footer">
+                            <a href="#" class="read-more-btn" data-news-id="news2">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card" data-category="update">
+                    <img src="https://placehold.co/600x400/FF5722/ffffff?text=Update" alt="Road maintenance update" class="news-card-img">
+                    <div class="news-card-content">
+                        <span class="news-card-category">Update</span>
+                        <p class="news-card-date">10 Aug 2025</p>
+                        <h3 class="news-card-title">Road Maintenance Work</h3>
+                        <p class="news-card-text">Please be aware of ongoing road maintenance in Phase 3. The work is expected to last for three days and may cause minor traffic disruptions...</p>
+                        <div class="news-card-footer">
+                            <a href="#" class="read-more-btn" data-news-id="news3">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card" data-category="announcement">
+                    <img src="https://placehold.co/600x400/2196F3/ffffff?text=Announcement" alt="Water supply announcement" class="news-card-img">
+                    <div class="news-card-content">
+                        <span class="news-card-category">Announcement</span>
+                        <p class="news-card-date">05 Aug 2025</p>
+                        <h3 class="news-card-title">Scheduled Water Supply Interruption</h3>
+                        <p class="news-card-text">A brief interruption of water supply is scheduled for Tuesday from 9 AM to 12 PM for routine pipe maintenance...</p>
+                        <div class="news-card-footer">
+                            <a href="#" class="read-more-btn" data-news-id="news4">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             
-            <div class="search-box">
-                <input type="text" placeholder="Search news...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-
-        <!-- News Grid -->
-        <section class="section news-section">
-            <h2 class="section-title">Latest News</h2>
-            <div class="news-grid">
-                <!-- News Item 1 -->
-                <div class="news-card" data-category="announcements">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/2196F3/ffffff?text=Community+Meeting" alt="Community Meeting">
-                        <div class="news-card-category">Announcements</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 15, 2023
-                        </div>
-                        <h3 class="news-card-title">Quarterly Community Meeting Scheduled</h3>
-                        <p class="news-card-excerpt">
-                            Join us for our quarterly community meeting on October 28th to discuss important matters and future plans for FHA Sharada.
-                        </p>
-                        <div class="news-card-meta">
-                            <span><i class="far fa-clock"></i> 3 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="1">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Item 2 -->
-                <div class="news-card" data-category="maintenance">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/4CAF50/ffffff?text=Road+Repairs" alt="Road Repairs">
-                        <div class="news-card-category">Maintenance</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 12, 2023
-                        </div>
-                        <h3 class="news-card-title">Road Maintenance Work Scheduled</h3>
-                        <p class="news-card-excerpt">
-                            Road maintenance work will be carried out in Sections A and B from October 20-25. Alternate routes will be available.
-                        </p>
-                        <div class="news-card-meta">
-                            <span><i class="far fa-clock"></i> 2 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="2">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Item 3 -->
-                <div class="news-card" data-category="events">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/FF5722/ffffff?text=Community+Event" alt="Community Event">
-                        <div class="news-card-category">Events</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 10, 2023
-                        </div>
-                        <h3 class="news-card-title">Annual Community Festival Coming Soon</h3>
-                        <p class="news-card-excerpt">
-                            Mark your calendars for our annual community festival on November 12th. Food, games, and entertainment for all ages!
-                        </p>
-                        <div class="news-card-meta">
-                            <span><i class="far fa-clock"></i> 4 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="3">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Item 4 -->
-                <div class="news-card" data-category="security">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/607D8B/ffffff?text=Security+Update" alt="Security Update">
-                        <div class="news-card-category">Security</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 8, 2023
-                        </div>
-                        <h3 class="news-card-title">Enhanced Security Measures Implemented</h3>
-                        <p class="news-card-excerpt">
-                            New security cameras have been installed at all entry points. Please ensure your access cards are updated.
-                        </p>
-                        <div class="news-card-meta">
-                            <span><极速 i class="far fa-clock"></i> 3 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="4">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Item 5 -->
-                <div class="news-card" data-category="community">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/9C27B0/ffffff?text=New+Playground" alt="New Playground">
-                        <div class="news-card-category">Community</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 5, 2023
-                        </div>
-                        <h3 class="news-card-title">New Children's Playground Now Open</h3>
-                        <p class="news-card-excerpt">
-                            The newly renovated children's playground near Block C is now open. Safety features have been enhanced.
-                        </p>
-                        <div class="news-card-meta">
-                            <span><i class="far fa-clock"></i> 2 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="5">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Item 6 -->
-                <div class="news-card" data-category="announcements">
-                    <div class="news-card-image">
-                        <img src="https://placehold.co/600x400/3F51B5/ffffff?text=Payment+Notice" alt="Payment Notice">
-                        <div class="news-card-category">Announcements</div>
-                    </div>
-                    <div class="news-card-content">
-                        <div class="news-card-date">
-                            <i class="far fa-calendar"></i> October 1, 2023
-                        </div>
-                        <h3 class="news-card-title">Reminder: Quarterly Maintenance Fees Due</h3>
-                        <p class="news-card-excerpt">
-                            A friendly reminder that quarterly maintenance fees are due by October 15th. Various payment options available.
-                        </p>
-                        <div class="news-card-meta">
-                            <span><i class="far fa-clock"></i> 1 min read</span>
-                            <a href="#" class="news-card-readmore" data-news-id="6">
-                                Read more <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pagination -->
             <div class="pagination">
-                <a href="#" class="pagination-btn disabled"><i class="fas fa-chevron-left"></i></a>
-                <a href="#" class="pagination-btn active">1</a>
-                <a href="#" class="pagination-btn">2</a>
-                <a href="#" class="pagination-btn">3</a>
-                <a href="#" class="pagination-btn"><i class="fas fa-chevron-right"></i></a>
+                <a href="#" class="pagination-link active">1</a>
+                <a href="#" class="pagination-link">2</a>
+                <a href="#" class="pagination-link">3</a>
             </div>
         </section>
 
-        <!-- Newsletter Section -->
-        <section class="newsletter-section">
-            <h2 class="section-title">Stay Informed</h2>
-            <p>Subscribe to our newsletter to receive important updates and news directly in your inbox.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your email address" required>
+        <section class="section newsletter-section">
+            <h2>Stay Informed, Subscribe Now!</h2>
+            <p>Get the latest news and important updates delivered directly to your inbox. Join our mailing list for weekly community news.</p>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
                 <button type="submit">Subscribe</button>
             </form>
         </section>
     </div>
 
-    <!-- Awesome Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -1306,7 +1096,7 @@
                     <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
                     <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
                     <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
+                    <li class="footer-link"><a href="security_updates.html">Security & Safety</a></li>
                     <li class="footer-link"><a href="maintenance.html">Maintenance Requests</a></li>
                 </ul>
             </div>
@@ -1321,25 +1111,24 @@
         </div>
         <div class="copyright">
             &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
-        </div>
+            </div>
     </footer>
 
-    <!-- News Detail Modal -->
-    <div id="newsModal" class="news-modal">
-        <div class="news-modal-content">
-            <span class="news-modal-close">&times;</span>
-            <div class="news-modal-header">
-                <h2 class="news-modal-title" id="news-modal-title"></h2>
-                <div class="news-modal-meta">
-                    <span id="news-modal-date"></span>
-                    <span id="news-modal-category"></span>
-                    <span id="news-modal-readtime"></span>
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <h2 id="news-modal-title"></h2>
+                    <div class="modal-meta">
+                        <p id="news-modal-date"><i class="far fa-calendar"></i> </p>
+                        <p id="news-modal-category"><i class="fas fa-tag"></i> </p>
+                        <p id="news-modal-readtime"><i class="far fa-clock"></i> </p>
+                    </div>
                 </div>
+                <span class="close-button">&times;</span>
             </div>
-            <div class="news-modal-body" id="news-modal-body">
-                <!-- Content will be loaded dynamically -->
-            </div>
+            <div class="modal-body" id="news-modal-body">
+                </div>
         </div>
     </div>
 
@@ -1364,27 +1153,47 @@
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default navigation if on a touch device or when the menu is active
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
+                    }
                 });
             });
 
-            // Hero animation
-            const heroContent = document.querySelector('.hero-content');
-            setTimeout(() => {
-                heroContent.classList.add('animate');
-            }, 300);
+            // Close mobile menu when any nav or submenu link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check if this is a submenu link and prevent closing the menu on the first click
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        // Allow the submenu to toggle open/close, but don't close the main menu
+                        // The `e.preventDefault()` above already handles this for the parent link
+                        return;
+                    }
 
-            // Scroll animations for sections
+                    // For all other links, close the menu
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Intersection Observer for section animations
             const sections = document.querySelectorAll('.section');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
+                    } else {
+                        entry.target.classList.remove('animate');
                     }
                 });
             }, {
@@ -1395,138 +1204,72 @@
                 observer.observe(section);
             });
 
-            // Set current year for copyright
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // News filtering functionality
-            const categoryFilter = document.getElementById('category-filter');
-            const newsCards = document.querySelectorAll('.news-card');
-            
-            categoryFilter.addEventListener('change', function() {
-                const selectedCategory = this.value;
-                
-                newsCards.forEach(card => {
-                    if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-
-            // Search functionality
-            const searchBox = document.querySelector('.search-box input');
-            const searchButton = document.querySelector('.search-box button');
-            
-            const performSearch = () => {
-                const searchTerm = searchBox.value.toLowerCase();
-                
-                newsCards.forEach(card => {
-                    const title = card.querySelector('.news-card-title').textContent.toLowerCase();
-                    const excerpt = card.querySelector('.news-card-excerpt').textContent.toLowerCase();
-                    const category = card.dataset.category;
-                    
-                    if (title.includes(searchTerm) || excerpt.includes(searchTerm) || category.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            };
-            
-            searchBox.addEventListener('keyup', performSearch);
-            searchButton.addEventListener('click', performSearch);
-
-            // Newsletter form submission
-            const newsletterForm = document.querySelector('.newsletter-form');
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = this.querySelector('input').value;
-                alert(`Thank you for subscribing with: ${email}. You will receive our updates soon!`);
-                this.reset();
-            });
-
-            // News modal functionality
-            const newsModal = document.getElementById('newsModal');
-            const newsModalClose = document.querySelector('.news-modal-close');
-            const readMoreLinks = document.querySelectorAll('.news-card-readmore');
-            
-            // Sample news content
+            // News data (simulated content for the modal)
             const newsContent = {
-                1: {
-                    title: "Quarterly Community Meeting Scheduled",
-                    date: "October 15, 2023",
-                    category: "Announcements",
-                    readtime: "3 min read",
-                    image: "https://placehold.co/800x400/2196F3/ffffff?text=Community+Meeting",
+                'news1': {
+                    title: 'Annual Residents Meeting Scheduled',
+                    date: '24 Aug 2025',
+                    category: 'Announcement',
+                    readtime: '3 min read',
                     content: `
-                        <img src="https://placehold.co/800x400/2196F3/ffffff?text=Community+Meeting" alt="Community Meeting" class="news-modal-image">
-                        <div class="news-modal-text">
-                            <p>We are pleased to announce that our quarterly community meeting will be held on <strong>October 28, 2023, at 4:00 PM</strong> in the Community Hall.</p>
-                            <p>This meeting will cover important topics including:</p>
-                            <ul>
-                                <li>Review of last quarter's activities and achievements</li>
-                                <li>Financial report and budget planning for next quarter</li>
-                                <li>Security updates and enhancements</li>
-                                <li>Maintenance projects status and future plans</li>
-                                <li>Community events and initiatives</li>
-                            </ul>
-                            <p>All residents are encouraged to attend and participate in the discussions. Your input is valuable for the continued improvement of our community.</p>
-                            <p>Light refreshments will be served after the meeting. Please confirm your attendance by October 25th to help us with planning.</p>
-                        </div>
+                        <p>The FHA Sharada Residents Association is pleased to announce that the Annual General Meeting (AGM) will be held on **Saturday, September 21, 2025, at 10:00 AM** in the Community Hall.</p>
+                        <p>This is a crucial opportunity for all residents to participate in key decisions regarding our community's future. The agenda includes:</p>
+                        <ul>
+                            <li>Review of the past year's financial report.</li>
+                            <li>Discussion and approval of the budget for the upcoming year.</li>
+                            <li>Updates on ongoing and planned projects, including the new security system installation.</li>
+                            <li>Open floor for resident suggestions and concerns.</li>
+                            <li>Election of new members to the Residents Committee.</li>
+                        </ul>
+                        <p>We strongly encourage all homeowners and residents to attend. Your presence and input are vital for the continued development and well-being of our estate. Refreshments will be served after the meeting. We look forward to seeing you there!</p>
                     `
                 },
-                2: {
-                    title: "Road Maintenance Work Scheduled",
-                    date: "October 12, 2023",
-                    category: "Maintenance",
-                    readtime: "2 min read",
-                    image: "https://placehold.co/800x400/4CAF50/ffffff?text=Road+Repairs",
+                'news2': {
+                    title: 'Community Picnic & Fun Fair',
+                    date: '15 Aug 2025',
+                    category: 'Event',
+                    readtime: '2 min read',
                     content: `
-                        <img src="https://placehold.co/800x400/4CAF50/ffffff?text=Road+Repairs" alt="Road Repairs" class="news-modal-image">
-                        <div class="news-modal-text">
-                            <p>Please be informed that essential road maintenance work will be carried out in <strong>Sections A and B</strong> from <strong>October 20-25, 2023</strong>.</p>
-                            <p>The work will include:</p>
-                            <ul>
-                                <li>Pothole repairs on main roads</li>
-                                <li>Resurfacing of damaged sections</li>
-                                <li>Drainage cleaning and maintenance</li>
-                                <li>Road marking renewal</li>
-                            </ul>
-                            <p>During this period, some roads may be temporarily closed or have limited access. Alternate routes will be clearly marked, and security personnel will be available to assist with traffic direction.</p>
-                            <p>We apologize for any inconvenience caused and appreciate your cooperation as we work to improve our community infrastructure.</p>
-                            <p>For specific concerns or questions, please contact the maintenance committee at maintenance@fhasharada.org or call +234 801 234 5678.</p>
-                        </div>
+                        <p>Get ready for a day of fun in the sun! The FHA Sharada Community Picnic and Fun Fair is set for **Saturday, September 7, 2025, at the Community Park from 11:00 AM to 4:00 PM.**</p>
+                        <p>This event is a fantastic way to connect with your neighbors and enjoy a day filled with activities for the whole family. Highlights include:</p>
+                        <ul>
+                            <li>Food and beverage stalls with a variety of local treats.</li>
+                            <li>Bouncing castles and face painting for the kids.</li>
+                            <li>A friendly football match between different blocks.</li>
+                            <li>Live music and a raffle draw with exciting prizes!</li>
+                        </ul>
+                        <p>Please remember to bring your picnic mats and a positive spirit. Let's make this event a memorable one for the entire community!</p>
                     `
                 },
-                3: {
-                    title: "Annual Community Festival Coming Soon",
-                    date: "October 10, 2023",
-                    category: "Events",
-                    readtime: "4 min read",
-                    image: "https://placehold.co/800x400/FF5722/ffffff?text=Community+Event",
+                'news3': {
+                    title: 'Road Maintenance Work',
+                    date: '10 Aug 2025',
+                    category: 'Update',
+                    readtime: '1 min read',
                     content: `
-                        <img src="https://placehold.co/800x400/FF5722/ffffff?text=Community+Event" alt="Community Event" class="news-modal-image">
-                        <div class="news-modal-text">
-                            <p>Get ready for the most exciting event of the year! Our <strong>Annual Community Festival</strong> will be held on <strong>November 12, 2023, from 10:00 AM to 8:00 PM</strong> at the Central Park area.</p>
-                            <p>This year's festival promises to be bigger and better with:</p>
-                            <ul>
-                                <li>Food stalls featuring local delicacies and international cuisine</li>
-                                <li>Games and activities for children of all ages</li>
-                                <li>Live music performances by local artists</li>
-                                <li>Cultural displays and traditional dances</li>
-                                <li>Sports competitions with prizes</li>
-                                <li>Art and craft exhibitions</li>
-                            </ul>
-                            <p>We're also looking for volunteers to help with organizing various activities. If you'd like to contribute your time and talents, please contact the events committee at events@fhasharada.org.</p>
-                            <p>Vendor spaces are available for residents who would like to sell products or services during the festival. Please register before October 30th.</p>
-                            <p>Let's come together to celebrate our wonderful community spirit!</p>
-                        </div>
+                        <p>This is a notice regarding scheduled road maintenance work in the estate. The repair and resurfacing of the main road leading to Phase 3 will commence on **Monday, August 12, 2025, and is expected to be completed by Wednesday, August 14, 2025.**</p>
+                        <p>During this period, access to the affected areas may be restricted. We apologize for any inconvenience this may cause and appreciate your cooperation in ensuring the safety of the workers and the successful completion of the project.</p>
+                        <p>Please plan your movements accordingly and use alternative routes if necessary. Thank you for your understanding.</p>
+                    `
+                },
+                'news4': {
+                    title: 'Scheduled Water Supply Interruption',
+                    date: '05 Aug 2025',
+                    category: 'Announcement',
+                    readtime: '1 min read',
+                    content: `
+                        <p>Please be advised that there will be a scheduled interruption of the community's water supply on **Tuesday, August 6, 2025, from 9:00 AM to 12:00 PM.**</p>
+                        <p>This interruption is necessary to allow our maintenance team to perform routine checks and repairs on the main water pump to ensure its continued efficiency. Residents are advised to store an adequate amount of water for their needs during this period.</p>
+                        <p>We thank you for your patience and understanding as we work to maintain our community's infrastructure.</p>
                     `
                 }
             };
+            
+            // Modal functionality
+            const newsModal = document.getElementById('news-modal');
+            const newsModalClose = newsModal.querySelector('.close-button');
+            const readMoreLinks = document.querySelectorAll('.read-more-btn');
 
-            // Open modal when Read More is clicked
             readMoreLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1545,17 +1288,49 @@
                 });
             });
 
-            // Close modal
             newsModalClose.addEventListener('click', function() {
                 newsModal.classList.remove('show');
             });
 
-            // Close modal when clicking outside
             window.addEventListener('click', function(e) {
                 if (e.target === newsModal) {
                     newsModal.classList.remove('show');
                 }
             });
+
+            // Filter and search functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.getElementById('news-search');
+            const newsCards = document.querySelectorAll('.news-card');
+
+            function filterNews() {
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                const searchTerm = searchInput.value.toLowerCase();
+
+                newsCards.forEach(card => {
+                    const cardCategory = card.dataset.category;
+                    const cardText = card.textContent.toLowerCase();
+
+                    const categoryMatch = activeFilter === 'all' || cardCategory === activeFilter;
+                    const searchMatch = cardText.includes(searchTerm);
+
+                    if (categoryMatch && searchMatch) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterNews();
+                });
+            });
+
+            searchInput.addEventListener('input', filterNews);
         });
     </script>
 </body>
