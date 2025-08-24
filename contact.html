@@ -510,7 +510,7 @@
         .submit-btn:hover {
             background: #e64a19;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 8px 20px rgba(255, 87, 34, 0.4);
         }
 
         /* Map Section */
@@ -910,17 +910,22 @@
                     }
                 });
             });
-            
-            // Close mobile menu when clicking a link
+
+            // Close mobile menu when any nav or submenu link is clicked
             document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    // Timeout to allow the submenu to toggle first on mobile
-                    setTimeout(() => {
-                        if (navMenu.classList.contains('active')) {
-                            hamburger.classList.remove('open');
-                            navMenu.classList.remove('active');
-                        }
-                    }, 150); 
+                link.addEventListener('click', function(e) {
+                    // Check if this is a submenu link and prevent closing the menu on the first click
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        // Allow the submenu to toggle open/close, but don't close the main menu
+                        // The `e.preventDefault()` above already handles this for the parent link
+                        return;
+                    }
+
+                    // For all other links, close the menu
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
                 });
             });
 
