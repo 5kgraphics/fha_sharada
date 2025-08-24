@@ -8,19 +8,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Modern CSS Reset */
+        /* CSS Variables for a clean, maintainable theme */
         :root {
-            /* New Vibrant & Engaging Theme Colors */
-            --primary: #2196F3; /* Bright, inviting blue */
-            --secondary: #1976D2; /* Deeper blue */
-            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
-            --dark: #263238; /* Very dark grey-blue, almost black */
-            --light: #F5F8FA; /* Soft, light grey-blue background */
-            --success: #4CAF50; /* Standard green */
-            --warning: #FFC107; /* Standard amber */
-            --danger: #F44336; /* Standard red */
-            --gray: #9E9E9E; /* Medium grey */
+            --primary: #2196F3;
+            --secondary: #1976D2;
+            --accent: #FF5722;
+            --dark: #263238;
+            --light: #F5F8FA;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --gray: #9E9E9E;
 
             /* New Shadow & Depth Variables */
             --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -33,38 +33,37 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.7;
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
-            text-rendering: optimizeLegibility; /* Smoother text rendering */
+            text-rendering: optimizeLegibility;
         }
 
         /* Awesome Header with Glass Morphism */
         header {
-            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
-            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow-light); /* Lighter initial shadow */
+            box-shadow: var(--shadow-light);
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             transition: all 0.4s ease;
         }
 
         header.scrolled {
-            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
-            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
+            background: rgba(33, 150, 243, 0.95);
+            box-shadow: var(--shadow-medium);
         }
 
         header.scrolled .nav-link {
             color: white;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         header.scrolled .association-name {
@@ -88,20 +87,20 @@
         }
 
         .association-logo {
-            width: 55px; /* Slightly larger logo */
+            width: 55px;
             height: 55px;
-            border-radius: 15px; /* Softer rounded corners */
+            border-radius: 15px;
             object-fit: cover;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .association-name {
-            font-size: 1.6rem; /* Slightly larger name */
-            font-weight: 800; /* Bolder for impact */
+            font-size: 1.6rem;
+            font-weight: 800;
             color: var(--primary);
             transition: all 0.3s ease;
-            letter-spacing: -0.5px; /* Tighter letter spacing */
+            letter-spacing: -0.5px;
         }
 
         /* Awesome Navigation */
@@ -113,34 +112,34 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.2rem; /* More spacing */
+            gap: 2.2rem;
         }
 
         .nav-menu li {
-            position: relative; /* Needed for submenu positioning */
+            position: relative;
         }
 
         .nav-link {
             text-decoration: none;
             color: var(--dark);
-            font-weight: 600; /* Bolder links */
-            font-size: 1.15rem; /* Slightly larger font */
+            font-weight: 600;
+            font-size: 1.15rem;
             position: relative;
             transition: all 0.3s ease;
             letter-spacing: 0.2px;
-            display: block; /* Ensure full clickable area */
-            padding: 0.5rem 0; /* Add padding for better touch targets */
+            display: block;
+            padding: 0.5rem 0;
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 3px; /* Thicker underline */
+            height: 3px;
             background: var(--accent);
-            bottom: -8px; /* Lower underline */
+            bottom: -8px;
             left: 0;
-            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .nav-link:hover::after {
@@ -149,59 +148,59 @@
 
         .nav-link:hover {
             color: var(--accent);
-            transform: translateY(-2px); /* Slight lift on hover */
+            transform: translateY(-2px);
         }
 
         /* Submenu Styling */
         .sub-menu {
             list-style: none;
             position: absolute;
-            top: 100%; /* Position below the parent link */
+            top: 100%;
             left: 0;
-            background: rgba(255, 255, 255, 0.95); /* Slightly opaque white background */
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 10px;
             box-shadow: var(--shadow-medium);
-            min-width: 200px; /* Ensure enough width for content */
+            min-width: 200px;
             padding: 1rem 0;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px); /* Initial slight drop */
+            transform: translateY(10px);
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-            z-index: 100; /* Ensure it's above other content */
+            z-index: 100;
         }
 
         .nav-menu li:hover > .sub-menu {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0); /* Lift to original position */
+            transform: translateY(0);
         }
 
         .sub-menu li {
-            padding: 0; /* Reset padding for submenu items */
+            padding: 0;
         }
 
         .sub-menu a {
             color: var(--dark);
-            padding: 0.8rem 1.5rem; /* Padding for submenu links */
+            padding: 0.8rem 1.5rem;
             display: block;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap;
             font-size: 1rem;
             font-weight: 500;
             transition: all 0.2s ease;
-            text-decoration: none; /* Ensure no default underline */
+            text-decoration: none;
         }
 
         .sub-menu a::after {
-            content: none; /* Remove underline pseudo-element */
+            content: none;
         }
 
         .sub-menu a:hover {
-            background-color: var(--primary); /* Highlight on hover */
+            background-color: var(--primary);
             color: white;
-            border-radius: 5px; /* Slight rounding for hover effect */
-            transform: translateX(5px); /* Slight slide on hover */
+            border-radius: 5px;
+            transform: translateX(5px);
         }
 
         /* Hamburger Menu */
@@ -269,16 +268,16 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 75%; /* Slightly wider mobile menu */
+                width: 75%;
                 height: 100vh;
-                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
+                background: rgba(255, 255, 255, 0.98);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 2.5rem; /* More space between links */
-                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
+                gap: 2.5rem;
+                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9);
                 z-index: 1000;
                 box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
             }
@@ -293,32 +292,40 @@
 
             /* Mobile Submenu adjustments */
             .sub-menu {
-                position: static; /* Stack vertically in mobile */
+                position: static;
                 width: 100%;
-                background: none; /* No background for nested list */
+                background: none;
                 box-shadow: none;
                 border-radius: 0;
                 padding: 0;
-                opacity: 1; /* Always visible when parent is active */
-                visibility: visible;
+                opacity: 0;
+                visibility: hidden;
                 transform: none;
-                margin-top: 0.5rem; /* Space below parent link */
-                text-align: center; /* Center submenu items */
+                margin-top: 0.5rem;
+                text-align: center;
+                display: none;
+            }
+            
+            .nav-menu li.open > .sub-menu {
+                opacity: 1;
+                visibility: visible;
+                display: flex;
+                flex-direction: column;
             }
 
             .sub-menu a {
-                padding: 0.6rem 1rem; /* Adjust padding for mobile submenu links */
+                padding: 0.6rem 1rem;
                 font-size: 1rem;
-                color: var(--dark); /* Keep dark color */
-                background-color: rgba(0, 0, 0, 0.05); /* Light background for submenu items */
+                color: var(--dark);
+                background-color: rgba(0, 0, 0, 0.05);
                 border-radius: 5px;
-                margin: 0.3rem 0; /* Space between submenu items */
+                margin: 0.3rem 0;
             }
 
             .sub-menu a:hover {
                 background-color: var(--primary);
                 color: white;
-                transform: none; /* No slide effect on mobile */
+                transform: none;
             }
 
             .nav-menu li:hover > .sub-menu {
@@ -328,102 +335,21 @@
             }
         }
 
-        /* Spectacular Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
-                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px; /* Taller fade effect */
-            background: linear-gradient(to top, var(--light), transparent);
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 900px; /* Wider content area */
-            padding: 0 2.5rem; /* More padding */
-            position: relative;
-            z-index: 2;
-            transform: translateY(70px); /* Deeper initial drop */
-            opacity: 0;
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
-        }
-
-        .hero-content.animate {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem; /* Larger, more impactful heading */
-            margin-bottom: 1.8rem;
-            line-height: 1.15;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            font-weight: 800; /* Extra bold */
-            letter-spacing: -1px; /* Tighter spacing for headlines */
-        }
-
-        .hero p {
-            font-size: 1.45rem; /* Larger sub-heading */
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            font-weight: 300; /* Lighter weight for contrast */
-        }
-
-        .hero-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
-            letter-spacing: 0.5px;
-        }
-
-        .hero-btn:hover {
-            background: #e64a19; /* Slightly darker accent */
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
-        }
-
         /* Main Content Container */
         .main-container {
             width: 90%;
-            max-width: 1400px;
-            margin: 6rem auto; /* More vertical spacing */
+            max-width: 1000px;
+            margin: 10rem auto 6rem auto; /* Adjusted top margin for fixed header */
             position: relative;
-            z-index: 50; /* Ensure content is above hero's pseudo-element */
+            z-index: 50;
         }
 
         /* Section Styling */
         .section {
-            margin-bottom: 7rem; /* More spacing between sections */
+            margin-bottom: 7rem;
             opacity: 0;
             transform: translateY(70px);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .section.animate {
@@ -432,9 +358,9 @@
         }
 
         .section-title {
-            font-size: 3rem; /* Larger section titles */
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 3.5rem; /* More space below title */
+            margin-bottom: 3.5rem;
             position: relative;
             display: inline-block;
             font-weight: 700;
@@ -444,66 +370,218 @@
         .section-title::after {
             content: '';
             position: absolute;
-            width: 60%; /* Longer underline */
-            height: 5px; /* Thicker underline */
+            width: 60%;
+            height: 5px;
             background: var(--accent);
-            bottom: -15px; /* Lower underline */
+            bottom: -15px;
             left: 0;
             border-radius: 3px;
+        }
+
+        /* Maintenance Specific Styles */
+        .form-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .form-card p {
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .maintenance-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--light);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        }
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .form-submit-btn {
+            background: var(--success);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+            letter-spacing: 0.5px;
+            margin-top: 2rem;
+            align-self: center;
+            min-width: 200px;
+        }
+        .form-submit-btn:hover {
+            background: #43a047; /* Darker green */
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.5);
+        }
+        .message-box {
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+        .message-box.show {
+            display: block;
+        }
+        .message-box.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        .message-box.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .message-box .icon {
+            margin-right: 0.5rem;
+        }
+
+        /* Recent Requests Section */
+        .requests-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .request-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .request-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        .request-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+        .request-card p {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .request-card p.location {
+            font-style: italic;
+            color: #777;
+        }
+        .request-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .request-status.open {
+            background-color: var(--warning);
+            color: white;
+        }
+        .request-status.in-progress {
+            background-color: var(--primary);
+            color: white;
+        }
+        .request-status.resolved {
+            background-color: var(--success);
+            color: white;
         }
 
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 6rem 0 2.5rem; /* More padding */
+            padding: 6rem 0 2.5rem;
             position: relative;
-            border-top-left-radius: 30px; /* Rounded top corners */
+            border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            overflow: hidden; /* Ensures content stays within rounded corners */
+            overflow: hidden;
         }
-
         .footer-container {
             width: 90%;
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 3.5rem;
             margin-bottom: 3.5rem;
         }
-
         .footer-logo {
-            width: 70px; /* Larger logo */
+            width: 70px;
             height: 70px;
-            border-radius: 18px; /* More rounded */
+            border-radius: 18px;
             margin-bottom: 1.8rem;
             object-fit: cover;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
         }
-
         .footer-title {
-            font-size: 1.8rem; /* Larger title */
+            font-size: 1.8rem;
             margin-bottom: 1.8rem;
             color: white;
             font-weight: 700;
         }
-
         .footer-text {
-            opacity: 0.9; /* Slightly less transparent */
+            opacity: 0.9;
             margin-bottom: 1.8rem;
             line-height: 1.8;
             font-size: 1.05rem;
         }
-
         .footer-links {
             list-style: none;
         }
-
         .footer-link {
             margin-bottom: 1rem;
         }
-
         .footer-link a {
             color: white;
             opacity: 0.9;
@@ -511,147 +589,107 @@
             transition: all 0.3s ease;
             font-size: 1.05rem;
         }
-
         .footer-link a:hover {
             opacity: 1;
             color: var(--accent);
-            padding-left: 8px; /* More pronounced slide */
+            padding-left: 8px;
         }
-
         .social-links {
             display: flex;
-            gap: 1.2rem; /* More spacing */
+            gap: 1.2rem;
             margin-top: 1.8rem;
         }
-
         .social-link {
-            width: 45px; /* Larger social icons */
+            width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
+            background: rgba(255, 255, 255, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem; /* Larger social icons */
+            font-size: 1.3rem;
             transition: all 0.3s ease;
         }
-
         .social-link:hover {
             background: var(--accent);
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
         }
-
         .copyright {
             text-align: center;
             padding-top: 2.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             opacity: 0.8;
             font-size: 1rem;
-            color: white; /* Ensure copyright text is white */
+            color: white;
         }
-
         .copyright a {
-            color: #FFD700; /* Gold color for the link */
+            color: #FFD700;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
-
         .copyright a:hover {
-            color: var(--accent); /* Accent color on hover */
+            color: var(--accent);
             text-decoration: underline;
         }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-            }
-
             .section-title {
                 font-size: 2.5rem;
             }
-
-            footer {
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
+            .form-card {
+                padding: 3rem;
             }
         }
-
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: row;
                 gap: 1rem;
             }
-
             .nav-menu {
                 gap: 1.5rem;
             }
-
-            .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: normal;
-            }
-
-            .hero p {
-                font-size: 1.15rem;
-            }
-
             .section-title {
                 font-size: 2.2rem;
             }
-
-            .report-form-container,
-            .requests-section {
+            .form-card {
                 padding: 2.5rem;
             }
+            .form-group input, .form-group select, .form-group textarea {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            .form-submit-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
         }
-
         @media (max-width: 576px) {
             .nav-menu {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .report-form-container,
-            .requests-section {
+            .form-card {
                 padding: 2rem;
             }
-
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 2.5rem;
             }
-
             .section-title::after {
                 bottom: -10px;
                 width: 50%;
             }
-
-            .hero-btn, .submit-btn, .request-action-btn {
-                padding: 0.9rem 2rem;
-                font-size: 1.1rem;
-            }
-
             .footer-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-
             .footer-logo {
                 margin-left: auto;
                 margin-right: auto;
             }
-
             .social-links {
                 justify-content: center;
             }
@@ -663,361 +701,20 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-12px); /* More float */
+                transform: translateY(-12px);
             }
         }
-
         .floating {
-            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
-        }
-
-        /* --- Maintenance Page Specific Styles --- */
-        .maintenance-hero {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(67, 160, 71, 0.85)), /* Success colors for Maintenance */
-                        url('https://placehold.co/1920x1080/4CAF50/ffffff?text=Maintenance+Request'); /* New hero image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 70vh; /* Shorter hero for content pages */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
-        }
-
-        .maintenance-hero .hero-content {
-            transform: translateY(50px);
-        }
-
-        .maintenance-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .maintenance-hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-        }
-
-        .main-container {
-            margin: 4rem auto; /* Adjusted margin for content pages */
-        }
-
-        .report-form-container {
-            background: white;
-            border-radius: 20px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-medium);
-            margin-bottom: 6rem;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .report-form-container h3 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1.8rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        .report-form-container h3::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            bottom: 0;
-            left: 0;
-            border-radius: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 1.8rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"],
-        .form-group input[type="date"],
-        .form-group textarea,
-        .form-group select,
-        .form-group input[type="file"] { /* Added file input styling */
-            width: 100%;
-            padding: 1rem 1.2rem; /* Larger padding */
-            border: 1px solid rgba(0,0,0,0.1); /* Lighter border */
-            border-radius: 10px; /* More rounded */
-            font-size: 1rem;
-            background-color: var(--light); /* Light background for inputs */
-            color: var(--dark);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input[type="text"]:focus,
-        .form-group input[type="email"]:focus,
-        .form-group input[type="tel"]:focus,
-        .form-group input[type="date"]:focus,
-        .form-group textarea:focus,
-        .form-group select:focus,
-        .form-group input[type="file"]:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2); /* Primary color shadow */
-        }
-
-        .form-group textarea {
-            min-height: 150px; /* Taller textarea */
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(33, 150, 243, 0.4); /* Primary color shadow */
-            letter-spacing: 0.5px;
-        }
-
-        .submit-btn:hover {
-            background: var(--secondary); /* Darker primary on hover */
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(33, 150, 243, 0.5);
-        }
-
-        .requests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Slightly larger min-width */
-            gap: 2.5rem; /* More gap */
-        }
-
-        .request-card {
-            background: white;
-            border-radius: 20px; /* More rounded */
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .request-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .request-card-header {
-            padding: 1.8rem; /* More padding */
-            display: flex;
-            align-items: center;
-            gap: 1.2rem; /* More gap */
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            background: var(--light); /* Light background for header */
-        }
-
-        .request-card-icon {
-            font-size: 2.8rem; /* Larger icon */
-            color: var(--primary); /* Primary color for icons */
-        }
-
-        .request-card-title {
-            font-size: 1.6rem; /* Larger title */
-            color: var(--dark);
-            margin: 0;
-            font-weight: 700;
-        }
-
-        .request-card-content {
-            padding: 1.8rem; /* More padding */
-        }
-
-        .request-card-description {
-            color: #555;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .request-card-meta {
-            font-size: 0.95rem; /* Slightly larger meta */
-            color: var(--gray);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .request-card-meta i {
-            color: var(--accent); /* Accent color for meta icons */
-        }
-
-        .request-card-status {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 0.4rem 1.2rem; /* Larger badge */
-            border-radius: 50px;
-            font-size: 0.9rem; /* Larger font */
-            font-weight: 700;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .request-card-status.pending { background-color: var(--warning); }
-        .request-card-status.in-progress { background-color: var(--primary); }
-        .request-card-status.resolved { background-color: var(--success); }
-
-        .request-action-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.9rem 1.8rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem; /* Larger font */
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
-        }
-        .request-action-btn:hover {
-            background: #e64a19; /* Darker accent on hover */
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
-        }
-
-        /* Custom Modal for Alerts */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 2000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-bold);
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: all 0.3s ease-out;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 15px;
-        }
-
-        .modal-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin: 0;
-        }
-
-        .close-button {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: var(--danger);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-body p {
-            font-size: 1.1rem;
-            color: var(--dark);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .modal-footer button {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-light);
-        }
-
-        .modal-footer button:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+            animation: float 3.5s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
-                <img src="https://via.placeholder.com/55" alt="FHA Sharada Logo" class="association-logo floating">
-                <h1 class="association-name">FHA Sharada RA</h1>
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
+                <h1 class="association-name">FHA Sharada</h1>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -1028,113 +725,104 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
                     <li class="has-submenu">
                         <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
                         <ul class="sub-menu">
-                            <li><a href="index.html#rules">Rules & Regulations</a></li>
-                            <li><a href="index.html#faq">FAQs</a></li>
-                            <li><a href="#">Directory</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
                         </ul>
                     </li>
-                    <li><a href="index.html#announcements" class="nav-link">Announcements</a></li>
-                    <li><a href="index.html#events" class="nav-link">Events</a></li>
-                    <li><a href="maintenance.html" class="nav-link active">Maintenance</a></li>
-                    <li><a href="index.html#rules" class="nav-link">Rules</a></li>
-                    <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Spectacular Hero Section for Maintenance -->
-    <section class="hero maintenance-hero">
-        <div class="hero-content animate">
-            <h1>Report & Track Maintenance Issues</h1>
-            <p>Help us keep our community in top shape by reporting any maintenance concerns.</p>
-            <!-- <button class="hero-btn" onclick="document.getElementById('report-maintenance-section').scrollIntoView({ behavior: 'smooth' });">Report an Issue</button> -->
-        </div>
-    </section>
-
-    <!-- Main Content Container -->
     <div class="main-container">
-        <!-- Report Maintenance Item Section -->
-        <section class="section" id="report-maintenance-section">
-            <h2 class="section-title">Report a Maintenance Issue</h2>
-            <div class="report-form-container">
-                <h3>Tell us about the problem</h3>
-                <form id="maintenance-form">
+        <section class="section" id="maintenance-request">
+            <h2 class="section-title">Maintenance Request</h2>
+            <div class="form-card">
+                <p>Please use this form to report any maintenance issues within the estate's common areas. Your request will be forwarded to the appropriate team for prompt action.</p>
+                <form id="maintenance-form" class="maintenance-form">
                     <div class="form-group">
-                        <label for="issue-type">Type of Issue</label>
-                        <select id="issue-type" name="issueType" required>
-                            <option value="">Select Type</option>
-                            <option value="Plumbing">Plumbing</option>
-                            <option value="Electrical">Electrical</option>
-                            <option value="Roads">Roads/Potholes</option>
-                            <option value="Lighting">Street Lighting</option>
-                            <option value="Waste">Waste Management</option>
-                            <option value="Security">Security Infrastructure</option>
-                            <option value="Landscaping">Landscaping/Green Areas</option>
-                            <option value="Other">Other</option>
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="house-number">House/Flat Number:</label>
+                        <input type="text" id="house-number" name="house-number" placeholder="e.g., House 12B" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-info">Phone/Email:</label>
+                        <input type="text" id="contact-info" name="contact-info" placeholder="e.g., 08012345678 or example@mail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-type">Type of Request:</label>
+                        <select id="request-type" name="request-type" required>
+                            <option value="">Select a Category</option>
+                            <option value="electrical">Electrical Issue (Streetlights, etc.)</option>
+                            <option value="plumbing">Plumbing Issue (Common area taps, leaks)</option>
+                            <option value="civil">Civil Works (Potholes, broken pavement, wall repair)</option>
+                            <option value="drainage">Drainage/Sewage Issue</option>
+                            <option value="horticulture">Horticulture (Gardens, tree trimming)</option>
+                            <option value="waste">Waste Management</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="issue-name">Brief Title</label>
-                        <input type="text" id="issue-name" name="issueName" placeholder="e.g., Leaking pipe at Block 3" required>
+                        <label for="location">Specific Location:</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Streetlight near House 15A" required>
                     </div>
                     <div class="form-group">
-                        <label for="issue-description">Detailed Description</label>
-                        <textarea id="issue-description" name="issueDescription" rows="5" placeholder="Describe the issue in detail, including any visible damage or symptoms." required></textarea>
+                        <label for="description">Detailed Description:</label>
+                        <textarea id="description" name="description" rows="10" placeholder="Please describe the issue in detail." required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="issue-location">Exact Location</label>
-                        <input type="text" id="issue-location" name="issueLocation" placeholder="e.g., Block 5, House 12, near the playground" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="issue-date">Date Noticed</label>
-                        <input type="date" id="issue-date" name="issueDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="issue-photo">Upload Photo (Optional)</label>
-                        <input type="file" id="issue-photo" name="issuePhoto" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <label for="reporter-name">Your Name</label>
-                        <input type="text" id="reporter-name" name="reporterName" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="reporter-phone">Your Phone Number</label>
-                        <input type="tel" id="reporter-phone" name="reporterPhone" placeholder="+234 80XXXXXXXX" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="reporter-email">Your Email (Optional)</label>
-                        <input type="email" id="reporter-email" name="reporterEmail" placeholder="your.email@example.com">
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Maintenance Request</button>
+                    <button type="submit" class="form-submit-btn">Submit Request</button>
                 </form>
+                <div id="message-box" class="message-box">
+                    <span class="icon"></span>
+                    <span id="message-text"></span>
+                </div>
             </div>
         </section>
 
-        <!-- Recently Reported Issues Section -->
-        <section class="section" id="recent-requests-section">
-            <h2 class="section-title">Recently Reported Issues</h2>
-            <div class="requests-grid" id="recent-requests-container">
-                <!-- Recent requests will be dynamically loaded here -->
-                <div class="loading-message" style="grid-column: 1/-1; text-align: center;">
-                    <p>Loading recent requests...</p>
+        <section class="section" id="recent-requests">
+            <h2 class="section-title">Recent Maintenance Requests</h2>
+            <div class="requests-container">
+                <div class="request-card">
+                    <h3>Streetlight Malfunction</h3>
+                    <p class="location">Location: Road leading to Phase 2, near gate 4</p>
+                    <p>Description: The streetlight has been flickering and is now completely off.</p>
+                    <span class="request-status in-progress">In Progress</span>
+                </div>
+                <div class="request-card">
+                    <h3>Pothole Repair</h3>
+                    <p class="location">Location: Intersection of Main Road and Park Street</p>
+                    <p>Description: A large pothole has formed and is causing issues for vehicles.</p>
+                    <span class="request-status open">Open</span>
+                </div>
+                <div class="request-card">
+                    <h3>Lawn Mowing</h3>
+                    <p class="location">Location: Community Garden</p>
+                    <p>Description: The grass is overgrown and needs to be mowed.</p>
+                    <span class="request-status resolved">Resolved</span>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Awesome Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
-                <img src="https://via.placeholder.com/70" alt="FHA Sharada Logo" class="footer-logo">
-                <h3 class="footer-title">FHA Sharada Phase 1 RA</h3>
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
+                <h3 class="footer-title">FHA Sharada Residents Association</h3>
                 <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
@@ -1149,41 +837,23 @@
                     <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
                     <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
                     <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
+                    <li class="footer-link"><a href="security_updates.html">Security & Safety</a></li>
                     <li class="footer-link"><a href="maintenance.html">Maintenance Requests</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3 class="footer-title">Contact Info</h3>
                 <p class="footer-text">
-                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 1, Abuja<br>
+                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 2, Kano<br>
                     <i class="fas fa-phone"></i> +234 801 234 5678<br>
                     <i class="fas fa-envelope"></i> info@fhasharada.org
                 </p>
             </div>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Phase 1 Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
-        </div>
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
+            </div>
     </footer>
-
-    <!-- Custom Modal Structure -->
-    <div id="customModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-                <span class="close-button">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="close-button">OK</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Header scroll effect
@@ -1205,27 +875,42 @@
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking a link (including submenu links)
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navMenu.classList.remove('active');
+            // Submenu toggle for both desktop and mobile
+            document.querySelectorAll('.has-submenu > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
+                        e.preventDefault();
+                        const parentLi = this.parentElement;
+                        parentLi.classList.toggle('open');
+                    }
                 });
             });
 
-            // Hero animation
-            const heroContent = document.querySelector('.hero-content');
-            setTimeout(() => {
-                heroContent.classList.add('animate');
-            }, 300);
+            // Close mobile menu when any nav or submenu link is clicked
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
+                        return;
+                    }
 
-            // Scroll animations for sections
+                    if (navMenu.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // Set current year for copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Intersection Observer for section animations
             const sections = document.querySelectorAll('.section');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
+                    } else {
+                        entry.target.classList.remove('animate');
                     }
                 });
             }, {
@@ -1236,185 +921,40 @@
                 observer.observe(section);
             });
 
-            // Set current year for copyright
-            document.getElementById('current-year').textContent = new Date().getFullYear();
+            // Form message box
+            const messageBox = document.getElementById('message-box');
+            const messageText = document.getElementById('message-text');
+            const messageIcon = messageBox.querySelector('.icon');
 
-            // Custom Modal Logic
-            const customModal = document.getElementById('customModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const closeButtons = customModal.querySelectorAll('.close-button');
+            /**
+             * Displays a custom message box with a given message and type.
+             * @param {string} message - The message to display.
+             * @param {string} type - The type of message ('success' or 'error').
+             */
+            function showMessage(message, type) {
+                messageText.textContent = message;
+                messageBox.className = 'message-box show ' + (type || 'success');
+                messageIcon.className = `icon fas ${type === 'error' ? 'fa-times-circle' : 'fa-check-circle'}`;
 
-            window.showModal = function(title, message) {
-                modalTitle.textContent = title;
-                modalMessage.textContent = message;
-                customModal.classList.add('show');
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, 7000); // Changed to 7 seconds for consistency
             }
-
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    customModal.classList.remove('show');
-                });
-            });
-
-            // Close modal if clicked outside content
-            window.addEventListener('click', function(event) {
-                if (event.target == customModal) {
-                    customModal.classList.remove('show');
-                }
-            });
 
             // Form submission handler
-            document.getElementById('maintenance-form').addEventListener('submit', function(e) {
+            const form = document.getElementById('maintenance-form');
+            form.addEventListener('submit', (e) => {
                 e.preventDefault();
-
-                // Get form data
-                const formData = {
-                    issueType: document.getElementById('issue-type').value,
-                    issueName: document.getElementById('issue-name').value,
-                    issueDescription: document.getElementById('issue-description').value,
-                    issueLocation: document.getElementById('issue-location').value,
-                    issueDate: document.getElementById('issue-date').value,
-                    reporterName: document.getElementById('reporter-name').value,
-                    reporterPhone: document.getElementById('reporter-phone').value,
-                    reporterEmail: document.getElementById('reporter-email').value
-                };
-
-                // For file uploads, you would typically use FormData and send it via fetch
-                const issuePhotoInput = document.getElementById('issue-photo');
-                if (issuePhotoInput.files.length > 0) {
-                    // Example: Append file to FormData if you were sending it to a server
-                    // const formDataWithFile = new FormData();
-                    // for (const key in formData) {
-                    //     formDataWithFile.append(key, formData[key]);
-                    // }
-                    // formDataWithFile.append('issuePhoto', issuePhotoInput.files[0]);
-                    // console.log('Form data with file:', formDataWithFile);
-                    console.log('File selected:', issuePhotoInput.files[0].name);
-                }
-
-                console.log('Form Data Ready for Database:', formData);
-
-                // In a real application, you would send this data to a backend database
-                // Example using fetch API (requires a backend endpoint):
-                /*
-                fetch('/api/submit-maintenance-request', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData), // Or formDataWithFile for file uploads
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    showModal('Request Submitted!', 'Your maintenance request has been submitted successfully. We will review it shortly.');
-                    this.reset(); // Clear the form
-                    loadRecentRequests(); // Optionally reload requests after submission
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    showModal('Submission Failed', 'There was an error submitting your request. Please try again.');
-                });
-                */
-
-                showModal('Request Submitted!', 'Your maintenance request has been submitted successfully. We will review it shortly.');
-                this.reset(); // Clear the form
+                
+                // In a real application, you would handle the form submission here,
+                // e.g., send data to a server.
+                
+                // Show a success message
+                showMessage('Request submitted successfully!', 'success');
+                
+                // Reset the form after submission
+                form.reset();
             });
-
-            // Add an onchange listener to the issue-type select for debugging/feedback
-            document.getElementById('issue-type').addEventListener('change', function() {
-                console.log('Selected Issue Type:', this.value);
-            });
-
-            // Simulate loading recent requests
-            function loadRecentRequests() {
-                const requests = [
-                    {
-                        id: 1,
-                        type: "Plumbing",
-                        title: "Leaking pipe at Community Hall bathroom",
-                        description: "There's a constant drip from the pipe under the sink in the male bathroom.",
-                        location: "Community Hall, Male Bathroom",
-                        dateReported: "2025-07-20",
-                        status: "Pending"
-                    },
-                    {
-                        id: 2,
-                        type: "Electrical",
-                        title: "Streetlight out on Main Boulevard",
-                        description: "The streetlight in front of Block 7, House 3 is not working at night.",
-                        location: "Main Boulevard, near Block 7",
-                        dateReported: "2025-07-18",
-                        status: "In Progress"
-                    },
-                    {
-                        id: 3,
-                        type: "Roads",
-                        title: "Pothole near children's playground",
-                        description: "A large pothole has developed near the entrance to the children's playground, posing a risk.",
-                        location: "Children's Playground Entrance",
-                        dateReported: "2025-07-15",
-                        status: "Resolved"
-                    },
-                    {
-                        id: 4,
-                        type: "Waste",
-                        title: "Overflowing communal bin",
-                        description: "The communal waste bin near Block 15 has been overflowing for two days.",
-                        location: "Communal Bin near Block 15",
-                        dateReported: "2025-07-10",
-                        status: "Resolved"
-                    }
-                ];
-
-                const container = document.getElementById('recent-requests-container');
-                container.innerHTML = ''; // Clear loading message
-
-                if (requests.length === 0) {
-                    container.innerHTML = `
-                        <div class="loading-message" style="grid-column: 1/-1; text-align: center;">
-                            <p>No recent maintenance requests to display.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                requests.forEach(request => {
-                    const iconClass = getRequestIcon(request.type);
-                    const card = document.createElement('div');
-                    card.className = 'request-card';
-                    card.innerHTML = `
-                        <div class="request-card-header">
-                            <i class="${iconClass} request-card-icon"></i>
-                            <h3 class="request-card-title">${request.title}</h3>
-                        </div>
-                        <div class="request-card-content">
-                            <p class="request-card-description">${request.description}</p>
-                            <p class="request-card-meta"><i class="far fa-calendar-alt"></i> Reported: ${request.dateReported}</p>
-                            <p class="request-card-meta"><i class="fas fa-map-marker-alt"></i> Location: ${request.location}</p>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            // Helper function to get icon based on request type
-            function getRequestIcon(type) {
-                switch(type) {
-                    case "Plumbing": return "fas fa-faucet";
-                    case "Electrical": return "fas fa-bolt";
-                    case "Roads": return "fas fa-road";
-                    case "Lighting": return "fas fa-lightbulb";
-                    case "Waste": return "fas fa-trash-alt";
-                    case "Security": return "fas fa-shield-alt";
-                    case "Landscaping": return "fas fa-tree";
-                    default: return "fas fa-tools";
-                }
-            }
-
-            // Initial load of recent requests
-            loadRecentRequests();
         });
     </script>
 </body>
