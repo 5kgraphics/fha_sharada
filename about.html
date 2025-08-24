@@ -473,30 +473,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .member-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .member-social a {
-            width: 40px;
-            height: 40px;
-            background: var(--light);
-            color: var(--dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .member-social a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
         /* New Community Services Section */
         .community-services-section {
             background: white;
@@ -657,33 +633,6 @@
             font-size: 1.05rem;
         }
 
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link a {
-            color: white;
-            opacity: 0.9;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.05rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.8rem;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            opacity: 0.8;
-            font-size: 1rem;
-            color: white;
-        }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 { font-size: 3.2rem; }
@@ -744,9 +693,12 @@
                 margin: 0.3rem 0;
                 text-align: center;
             }
-
-            .about-content { grid-template-columns: 1fr; }
-            .about-image { order: -1; }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                order: -1;
+            }
         }
 
         @media (max-width: 576px) {
@@ -754,6 +706,13 @@
             .hero p { font-size: 1.15rem; }
             .section-title { font-size: 1.8rem; }
         }
+        
+        @media (max-width: 480px) {
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
 
         /* Animation Keyframes */
         @keyframes float {
@@ -865,11 +824,6 @@
                             <h3 class="member-name">Alhaji Aminu</h3>
                             <p class="member-role">Chairman</p>
                             <p class="member-desc">Dedicated community leader with 10+ years of service to FHA Sharada.</p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
                         </div>
                     </div>
                     <div class="team-member">
@@ -878,11 +832,6 @@
                             <h3 class="member-name">Mrs. Chinedu</h3>
                             <p class="member-role">Vice Chairman</p>
                             <p class="member-desc">Passionate about community development and resident welfare.</p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
                         </div>
                     </div>
                     <div class="team-member">
@@ -891,11 +840,6 @@
                             <h3 class="member-name">Mr. Gabriel</h3>
                             <p class="member-role">Secretary</p>
                             <p class="member-desc">Ensures smooth administration and communication within the community.</p>
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -981,12 +925,6 @@
                 <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
                 <h3 class="footer-title">FHA Sharada Residents Association</h3>
                 <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                </div>
             </div>
             <div class="footer-col">
                 <h3 class="footer-title">Quick Links</h3>
