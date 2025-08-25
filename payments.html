@@ -3,1072 +3,655 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Portal - FHA Sharada Residents Association</title>
+    <title>FHA Sharada RA - Payments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Modern CSS Reset */
         :root {
-            /* New Vibrant & Engaging Theme Colors */
-            --primary: #2196F3; /* Bright, inviting blue */
-            --secondary: #1976D2; /* Deeper blue */
-            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
-            --dark: #263238; /* Very dark grey-blue, almost black */
-            --light: #F5F8FA; /* Soft, light grey-blue background */
-            --success: #4CAF50; /* Standard green */
-            --warning: #FFC107; /* Standard amber */
-            --danger: #F44336; /* Standard red */
-            --gray: #9E9E9E; /* Medium grey */
+            --primary: #00A7E6; /* New primary color */
+            --secondary: #0077B6;
+            --accent: #FF6B6B; /* A contrasting accent */
+            --dark: #2C3E50; /* Dark text/elements */
+            --light: #ECF0F1; /* Light backgrounds */
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --gray: #BDC3C7;
 
-            /* New Shadow & Depth Variables */
-            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
-            --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
+            /* New Theme Variables */
+            --bg-main: #ECF0F1;
+            --bg-card: #FFFFFF;
+            --text-heading: var(--dark);
+            --text-body: #555;
+            --border-color: #E0E0E0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Base Styles */
         body {
             font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
-            text-rendering: optimizeLegibility; /* Smoother text rendering */
+            background-color: var(--bg-main);
+            color: var(--text-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
         }
 
-        /* Awesome Header with Glass Morphism */
-        header {
-            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
-            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
-            -webkit-backdrop-filter: blur(15px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-light); /* Lighter initial shadow */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.4s ease;
+        .container {
+            max-width: 960px;
+            margin: auto;
+            padding: 2rem;
         }
-
-        header.scrolled {
-            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
-            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
-        }
-
-        header.scrolled .nav-link {
-            color: white;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
-        }
-
-        header.scrolled .association-name {
-            color: white;
-        }
-
-        .header-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
+        
+        /* Header */
+        .header {
+            background-color: var(--bg-card);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .association-logo {
-            width: 55px; /* Slightly larger logo */
-            height: 55px;
-            border-radius: 15px; /* Softer rounded corners */
-            object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .association-name {
-            font-size: 1.6rem; /* Slightly larger name */
-            font-weight: 800; /* Bolder for impact */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
-            transition: all 0.3s ease;
-            letter-spacing: -0.5px; /* Tighter letter spacing */
-        }
-
-        /* Awesome Navigation */
-        nav {
+            text-decoration: none;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
-
+        
+        /* Navigation Menu */
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.2rem; /* More spacing */
+            padding: 0;
+            margin: 0;
+            gap: 2rem;
+            align-items: center;
         }
-
-        .nav-menu li {
-            position: relative; /* Needed for submenu positioning */
-        }
-
+        
         .nav-link {
+            color: var(--dark);
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 600; /* Bolder links */
-            font-size: 1.15rem; /* Slightly larger font */
-            position: relative;
-            transition: all 0.3s ease;
-            letter-spacing: 0.2px;
-            display: block; /* Ensure full clickable area */
-            padding: 0.5rem 0; /* Add padding for better touch targets */
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px; /* Thicker underline */
-            background: var(--accent);
-            bottom: -8px; /* Lower underline */
-            left: 0;
-            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-link:hover {
-            color: var(--accent);
-            transform: translateY(-2px); /* Slight lift on hover */
-        }
-
-        /* Submenu Styling */
-        .sub-menu {
-            list-style: none;
-            position: absolute;
-            top: 100%; /* Position below the parent link */
-            left: 0;
-            background: rgba(255, 255, 255, 0.95); /* Slightly opaque white background */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 10px;
-            box-shadow: var(--shadow-medium);
-            min-width: 200px; /* Ensure enough width for content */
-            padding: 1rem 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px); /* Initial slight drop */
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-            z-index: 100; /* Ensure it's above other content */
-        }
-
-        .nav-menu li:hover > .sub-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0); /* Lift to original position */
-        }
-
-        .sub-menu li {
-            padding: 0; /* Reset padding for submenu items */
-        }
-
-        .sub-menu a {
-            color: var(--dark);
-            padding: 0.8rem 1.5rem; /* Padding for submenu links */
-            display: block;
-            white-space: nowrap; /* Prevent text wrapping */
-            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.2s ease;
-            text-decoration: none; /* Ensure no default underline */
+            transition: color var(--transition-speed);
         }
 
-        .sub-menu a::after {
-            content: none; /* Remove underline pseudo-element */
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            font-weight: 700;
         }
 
-        .sub-menu a:hover {
-            background-color: var(--primary); /* Highlight on hover */
-            color: white;
-            border-radius: 5px; /* Slight rounding for hover effect */
-            transform: translateX(5px); /* Slight slide on hover */
+        /* Submenu */
+        .has-submenu {
+            position: relative;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-card);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            min-width: 200px;
+            z-index: 20;
+            list-style: none;
+        }
+        
+        .has-submenu:hover > .sub-menu,
+        .sub-menu.active {
+            display: block;
+        }
+
+        .sub-menu li a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-body);
+            text-decoration: none;
+            transition: background-color var(--transition-speed);
+        }
+
+        .sub-menu li a:hover {
+            background-color: var(--light);
         }
 
         /* Hamburger Menu */
         .hamburger {
             display: none;
             cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
             width: 30px;
-            height: 20px;
-            position: relative;
-            z-index: 1001;
+            height: 25px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 10;
         }
 
-        .hamburger span {
-            display: block;
-            position: absolute;
+        .hamburger .bar {
+            width: 30px;
             height: 3px;
-            width: 100%;
-            background: var(--dark);
-            border-radius: 3px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: .25s ease-in-out;
+            background-color: var(--dark);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
         }
 
-        .hamburger span:nth-child(1) {
-            top: 0px;
-        }
-
-        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
-            top: 10px;
-        }
-
-        .hamburger span:nth-child(4) {
-            top: 20px;
-        }
-
-        .hamburger.open span:nth-child(1) {
-            top: 10px;
-            width: 0%;
-            left: 50%;
-        }
-
-        .hamburger.open span:nth-child(2) {
-            transform: rotate(45deg);
-        }
-
-        .hamburger.open span:nth-child(3) {
-            transform: rotate(-45deg);
-        }
-
-        .hamburger.open span:nth-child(4) {
-            top: 10px;
-            width: 0%;
-            left: 50%;
-        }
-
-        /* Mobile Menu */
+        /* Mobile View */
         @media (max-width: 768px) {
             .hamburger {
-                display: block;
+                display: flex;
             }
 
             .nav-menu {
+                display: flex;
+                flex-direction: column;
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 75%; /* Slightly wider mobile menu */
+                width: 70%;
+                max-width: 300px;
                 height: 100vh;
-                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2.5rem; /* More space between links */
-                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
-                z-index: 1000;
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+                background-color: var(--bg-card);
+                padding: 100px 2rem 2rem;
+                box-shadow: -4px 0 10px var(--shadow);
+                transition: right 0.3s ease-in-out;
+                gap: 0;
+                overflow-y: auto;
             }
 
             .nav-menu.active {
                 right: 0;
             }
 
-            header.scrolled .hamburger span {
-                background: white;
+            .nav-menu li {
+                width: 100%;
             }
 
-            /* Mobile Submenu adjustments */
-            .sub-menu {
-                position: static; /* Stack vertically in mobile */
+            .nav-menu li a {
+                padding: 1rem 0;
+                font-size: 1.2rem;
+                border-bottom: 1px solid var(--border-color);
+                display: block;
                 width: 100%;
-                background: none; /* No background for nested list */
+            }
+
+            .sub-menu {
+                position: static;
                 box-shadow: none;
-                border-radius: 0;
-                padding: 0;
-                opacity: 0; /* Hidden by default on mobile */
-                visibility: hidden;
-                transform: none;
-                margin-top: 0.5rem; /* Space below parent link */
-                text-align: center; /* Center submenu items */
-                display: none; /* Hide submenu */
+                padding-left: 1rem;
+                margin-top: 0;
+                display: none;
             }
             
-            /* Show submenu when parent li has the 'open' class */
-            .nav-menu li.open > .sub-menu {
-                opacity: 1;
-                visibility: visible;
-                display: flex;
-                flex-direction: column;
+            .sub-menu.active {
+                display: block;
             }
-
-            .sub-menu a {
-                padding: 0.6rem 1rem; /* Adjust padding for mobile submenu links */
-                font-size: 1rem;
-                color: var(--dark); /* Keep dark color */
-                background-color: rgba(0, 0, 0, 0.05); /* Light background for submenu items */
-                border-radius: 5px;
-                margin: 0.3rem 0; /* Space between submenu items */
+            
+            /* Hamburger animation */
+            .hamburger.active .bar:nth-child(1) {
+                transform: rotate(45deg);
             }
-
-            .sub-menu a:hover {
-                background-color: var(--primary);
-                color: white;
-                transform: none; /* No slide effect on mobile */
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
             }
-
-            .nav-menu li:hover > .sub-menu {
-                opacity: 1;
-                visibility: visible;
-                transform: none;
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: rotate(-45deg);
             }
         }
+        
+        /* Main Content */
+        .content-section {
+            background-color: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+        }
+        
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-        /* Payment Page Hero */
-        .payment-hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95));
-            height: 250px;
+        .sub-heading {
+            font-size: 1.125rem;
+            color: var(--text-body);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        /* Payment Cards */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background-color: #fafafa;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            height: 4rem;
+            width: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-price {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            color: var(--text-body);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 3rem;
         }
 
-        .payment-hero-content {
-            max-width: 800px;
-            padding: 0 2.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .payment-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.15;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            font-weight: 700;
-        }
-
-        .payment-hero p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-
-        /* Main Content Container */
-        .main-container {
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 500px;
             width: 90%;
-            max-width: 1400px;
-            margin: 3rem auto 6rem;
             position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
-        /* Payment Cards Section */
-        .payment-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color var(--transition-speed);
         }
 
-        .payment-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-            border-left: 5px solid var(--primary);
-            position: relative;
+        .modal-close-btn:hover {
+            color: var(--danger);
+        }
+        
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 1rem;
         }
 
-        .payment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
+        .modal-description {
+            font-size: 1rem;
+            color: var(--text-body);
+            margin-bottom: 2rem;
         }
 
-        .payment-card-header {
+        .proceed-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .proceed-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* FAQ Section */
+        .faq details {
+            margin-bottom: 1rem;
+            background-color: var(--bg-card);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .faq summary {
+            font-weight: 600;
+            padding: 1rem;
+            cursor: pointer;
+            outline: none;
+            list-style: none; /* Hide default arrow */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            color: var(--text-heading);
+        }
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .faq details[open] summary::after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+        .faq p {
+            padding: 0 1rem 1rem;
+            color: var(--text-body);
         }
 
-        .payment-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .payment-amount {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .payment-details {
-            margin-bottom: 1.5rem;
-        }
-
-        .payment-detail {
-            display: flex;
-            margin-bottom: 0.8rem;
-        }
-
-        .payment-detail i {
-            color: var(--primary);
-            margin-right: 0.8rem;
-            font-size: 1.1rem;
-            width: 20px;
-        }
-
-        .payment-detail span {
-            color: #555;
-            font-size: 0.95rem;
-        }
-
-        .payment-status {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .status-pending {
-            background: rgba(255, 193, 7, 0.15);
-            color: var(--warning);
-        }
-
-        .status-paid {
-            background: rgba(76, 175, 80, 0.15);
-            color: var(--success);
-        }
-
-        .status-overdue {
-            background: rgba(244, 67, 54, 0.15);
-            color: var(--danger);
-        }
-
-        .payment-action {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .pay-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pay-btn:hover {
-            background: #e64a19;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
-        }
-
-        .pay-btn i {
-            font-size: 1.1rem;
-        }
-
-        /* Bank Info Section */
-        .bank-info {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow-light);
-            margin-bottom: 4rem;
-        }
-
-        .bank-info h2 {
-            font-size: 1.6rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .bank-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .bank-card {
-            background: rgba(33, 150, 243, 0.05);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(33, 150, 243, 0.2);
-        }
-
-        .bank-name {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .bank-name i {
-            font-size: 1.2rem;
-        }
-
-        .bank-detail {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        .bank-detail strong {
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        /* Payment List Section */
-        .payment-list {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow-light);
-        }
-
-        .payment-list h2 {
-            font-size: 1.6rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .payment-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .payment-table th,
-        .payment-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .payment-table th {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .payment-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .payment-table tr:hover {
-            background-color: rgba(33, 150, 243, 0.05);
-        }
-
-        .payment-action-btn {
-            background: var(--accent);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(255, 87, 34, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .payment-action-btn:hover {
-            background: #e64a19;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-        }
-
-        .payment-action-btn i {
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .payment-hero h1 {
-                font-size: 2rem;
-            }
-
-            .payment-hero p {
-                font-size: 1rem;
-            }
-
-            .payment-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .payment-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
-
-        /* Awesome Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 6rem 0 2.5rem;
-            position: relative;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            overflow: hidden;
-        }
-
-        .footer-container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3.5rem;
-            margin-bottom: 3.5rem;
-        }
-
-        .footer-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            margin-bottom: 1.8rem;
-            object-fit: cover;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        .footer-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.8rem;
-            color: white;
-            font-weight: 700;
-        }
-
-        .footer-text {
-            opacity: 0.9;
-            margin-bottom: 1.8rem;
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 1rem;
-        }
-
-        .footer-link a {
-            color: white;
-            opacity: 0.9;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.05rem;
-        }
-
-        .footer-link a:hover {
-            opacity: 1;
-            color: var(--accent);
-            padding-left: 8px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.8rem;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--accent);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-        }
-
-        .copyright {
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 2rem 1rem;
             text-align: center;
-            padding-top: 2.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            opacity: 0.8;
-            font-size: 1rem;
-            color: white;
+            margin-top: auto;
         }
 
-        .copyright a {
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
+        .footer p {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
 
-        .copyright a:hover {
-            color: var(--accent);
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
-    <header id="mainHeader">
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
-                <h1 class="association-name">FHA Sharada</h1>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li class="has-submenu">
-                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
-                        <ul class="sub-menu">
-                            <li><a href="doc_share.html">Documents</a></li>
-                            <li><a href="lost_and_found.html">Lost and Found</a></li>
-                            <li><a href="maintenance.html">Maintenance Request</a></li>
-                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
-                            <li><a href="security_update.html">Security Update</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li><a href="poll.html" class="nav-link">Poll</a></li>
-                    <li><a href="news.html" class="nav-link">News</a></li>
-                    <li><a href="payments.html" class="nav-link">Payments</a></li>
-                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
-                </ul>
-            </nav>
-        </div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-home"></i> FHA Sharada RA
+        </a>
+        <button class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li class="has-submenu">
+                    <a href="#" class="nav-link submenu-toggle">Community <i class="fas fa-caret-down"></i></a>
+                    <ul class="sub-menu">
+                        <li><a href="doc_share.html">Documents</a></li>
+                        <li><a href="lost_and_found.html">Lost and Found</a></li>
+                        <li><a href="maintenance.html">Maintenance Request</a></li>
+                        <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                        <li><a href="security_update.html">Security Update</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="poll.html" class="nav-link">Poll</a></li>
+                <li><a href="news.html" class="nav-link">News</a></li>
+                <li><a href="chat.html" class="nav-link active">Community chat</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="payment-hero">
-        <div class="payment-hero-content">
-            <h1>Payment Portal</h1>
-            <p>Make payments for various community dues and levies</p>
+    <!-- Main Content Container -->
+    <main class="flex-grow p-4">
+        <div class="container mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-200">
+            
+            <!-- Main content area -->
+            <h1 class="main-heading">FHA Sharada Payments</h1>
+            <p class="sub-heading">Select a payment option to proceed.</p>
+
+            <!-- Payment Options Grid -->
+            <div class="payment-grid">
+                <!-- Annual Dues Card -->
+                <div class="card" data-payment-type="Annual Dues" data-price="₦50,000" data-description="Your annual dues help cover the day-to-day operational costs of the residents' association, including security patrols, street lighting, and administrative fees. These funds are vital for maintaining the high quality of our community services and ensuring a safe, pleasant environment for all residents.">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8c-1.11 0-2.08-.402-2.599-1M12 8a3 3 0 100-6 3 3 0 000 6zm-7 9v1a3 3 0 003 3h18a3 3 0 003-3v-1a6 6 0 00-6-6H9a6 6 0 00-6 6z" />
+                    </svg>
+                    <h3 class="card-title">Annual Dues</h3>
+                    <p class="card-price">₦50,000</p>
+                    <p class="card-description">Support community projects and operational costs for the year.</p>
+                </div>
+
+                <!-- Special Levy Card -->
+                <div class="card" data-payment-type="Special Levy" data-price="₦20,000" data-description="This special levy is a dedicated fund for a one-off community-wide project. This year, the funds will be used for a major road rehabilitation project within the FHA Sharada estate to fix potholes and improve drainage, ensuring safer and more accessible streets for everyone.">
+                    <svg xmlns="http://www.w3.org/00/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A2 2 0 013 15.618V8.382a2 2 0 011.553-1.802L9 4m0 16l6-3m-6 3l-9.5-4.75M9 4l6 3m-6-3V4m0 16v-12m12 12l9.5-4.75L15 4m-3 12l9.5-4.75" />
+                    </svg>
+                    <h3 class="card-title">Special Levy</h3>
+                    <p class="card-price">₦20,000</p>
+                    <p class="card-description">Contribute to the ongoing road maintenance and security enhancements.</p>
+                </div>
+
+                <!-- Donation Card -->
+                <div class="card" data-payment-type="General Donation" data-price="Any Amount" data-description="Your general donation is a flexible way to support the FHA Sharada Residents' Association. These funds are used for various community initiatives, unexpected maintenance needs, and social projects that benefit all residents. Every contribution, no matter the size, makes a significant positive impact on our community.">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <h3 class="card-title">General Donation</h3>
+                    <p class="card-price">Any Amount</p>
+                    <p class="card-description">Your kind donation helps us support various unexpected community needs.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-16">
+                <h2 class="main-heading">Frequently Asked Questions</h2>
+                <div class="faq">
+                    <details>
+                        <summary class="text-gray-800">What do the Annual Dues cover?</summary>
+                        <p>The Annual Dues are used to cover the day-to-day operational costs of the residents' association, including security patrols, street lighting, refuse collection, and administrative expenses. They ensure the smooth running of our community services.</p>
+                    </details>
+                    <details>
+                        <summary class="text-gray-800">Why is there a Special Levy for roads?</summary>
+                        <p>The Special Levy is a one-off contribution dedicated specifically to the ongoing rehabilitation and maintenance of our internal road network. It is a separate fund to ensure our roads remain in good condition and are not impacted by general expenses.</p>
+                    </details>
+                    <details>
+                        <summary class="text-gray-800">How can I get a receipt for my payment?</summary>
+                        <p>Upon successful payment, a digital receipt will be automatically sent to the email address you provide. If you have any issues receiving your receipt, please contact our support team at fhasharada@email.com with your transaction details.</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Success/Error Message Container -->
+            <div id="messageContainer" class="mt-10 hidden p-6 rounded-xl text-center shadow-lg">
+                <p id="messageText" class="text-lg font-semibold"></p>
+            </div>
+            
         </div>
-    </section>
+    </main>
 
-    <div class="main-container">
-        <section class="payment-cards">
-            <div class="payment-card">
-                <div class="payment-card-header">
-                    <h3 class="payment-title">Monthly Dues</h3>
-                    <div class="payment-amount">₦5,000</div>
-                </div>
-                <div class="payment-details">
-                    <div class="payment-detail">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>Due: <strong>10th of every month</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="far fa-clock"></i>
-                        <span>Next Payment: <strong>July 10, 2023</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Description: <strong>Monthly community maintenance fee</strong></span>
-                    </div>
-                </div>
-                <div class="payment-status status-pending">Pending Payment</div>
-                <div class="payment-action">
-                    <button class="pay-btn" onclick="initiatePayment('monthly_dues', 5000)">
-                        <i class="fas fa-wallet"></i> Pay Now
-                    </button>
-                </div>
-            </div>
-
-            <div class="payment-card">
-                <div class="payment-card-header">
-                    <h3 class="payment-title">Security Levy</h3>
-                    <div class="payment-amount">₦10,000</div>
-                </div>
-                <div class="payment-details">
-                    <div class="payment-detail">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>Due: <strong>Quarterly</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="far fa-clock"></i>
-                        <span>Next Payment: <strong>October 1, 2023</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Description: <strong>Security personnel and equipment</strong></span>
-                    </div>
-                </div>
-                <div class="payment-status status-paid">Paid (Q2 2023)</div>
-                <div class="payment-action">
-                    <button class="pay-btn" onclick="initiatePayment('security_levy', 10000)">
-                        <i class="fas fa-wallet"></i> Pay Next Quarter
-                    </button>
-                </div>
-            </div>
-
-            <div class="payment-card">
-                <div class="payment-card-header">
-                    <h3 class="payment-title">Event Contribution</h3>
-                    <div class="payment-amount">₦2,500</div>
-                </div>
-                <div class="payment-details">
-                    <div class="payment-detail">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>Due: <strong>August 15, 2023</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="far fa-clock"></i>
-                        <span>Event Date: <strong>August 20, 2023</strong></span>
-                    </div>
-                    <div class="payment-detail">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Description: <strong>Children's Day Celebration</strong></span>
-                    </div>
-                </div>
-                <div class="payment-status status-overdue">Payment Due</div>
-                <div class="payment-action">
-                    <button class="pay-btn" onclick="initiatePayment('event_contribution', 2500)">
-                        <i class="fas fa-wallet"></i> Pay Now
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="bank-info">
-            <h2>Bank Transfer Information</h2>
-            <div class="bank-details">
-                <div class="bank-card">
-                    <h3 class="bank-name"><i class="fas fa-university"></i> Zenith Bank</h3>
-                    <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
-                    <div class="bank-detail"><strong>Account Number:</strong> 1012345678</div>
-                    </div>
-                <div class="bank-card">
-                    <h3 class="bank-name"><i class="fas fa-university"></i> GTBank</h3>
-                    <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
-                    <div class="bank-detail"><strong>Account Number:</strong> 0123456789</div>
-                    </div>
-                <div class="bank-card">
-                    <h3 class="bank-name"><i class="fas fa-university"></i> Access Bank</h3>
-                    <div class="bank-detail"><strong>Account Name:</strong> FHA Sharada Residents Association</div>
-                    <div class="bank-detail"><strong>Account Number:</strong> 1234567890</div>
-                    </div>
-            </div>
-        </section>
-
-        <section class="payment-list">
-            <h2>Other Community Payments</h2>
-            <table class="payment-table">
-                <thead>
-                    <tr>
-                        <th>Payment Type</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Due Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ground Rent</td>
-                        <td>Annual ground rent payment</td>
-                        <td>₦15,000.00</td>
-                        <td>December 31, 2023</td>
-                        <td><button class="payment-action-btn" onclick="initiatePayment('ground_rent', 15000)"><i class="fas fa-wallet"></i> Pay</button></td>
-                    </tr>
-                    <tr>
-                        <td>Capital Development Levy</td>
-                        <td>Infrastructure development contribution</td>
-                        <td>₦20,000.00</td>
-                        <td>October 15, 2023</td>
-                        <td><button class="payment-action-btn" onclick="initiatePayment('capital_levy', 20000)"><i class="fas fa-wallet"></i> Pay</button></td>
-                    </tr>
-                    <tr>
-                        <td>Sanitation Fee</td>
-                        <td>Monthly waste disposal service</td>
-                        <td>₦3,500.00</td>
-                        <td>Monthly</td>
-                        <td><button class="payment-action-btn" onclick="initiatePayment('sanitation_fee', 3500)"><i class="fas fa-wallet"></i> Pay</button></td>
-                    </tr>
-                    <tr>
-                        <td>Electricity Maintenance</td>
-                        <td>Transformer and power infrastructure</td>
-                        <td>₦7,500.00</td>
-                        <td>Quarterly</td>
-                        <td><button class="payment-action-btn" onclick="initiatePayment('electricity_maintenance', 7500)"><i class="fas fa-wallet"></i> Pay</button></td>
-                    </tr>
-                    <tr>
-                        <td>Water Facility Fee</td>
-                        <td>Borehole maintenance and water supply</td>
-                        <td>₦5,000.00</td>
-                        <td>Bi-Annual</td>
-                        <td><button class="payment-action-btn" onclick="initiatePayment('water_facility', 5000)"><i class="fas fa-wallet"></i> Pay</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <!-- Payment Details Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+            <button id="proceedToPaymentBtn" class="proceed-btn">Proceed to Payment</button>
+        </div>
     </div>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="footer-logo">
-                <h3 class="footer-title">FHA Sharada Residents Association</h3>
-                <p class="footer-text">Promoting peace, security, and development in our community since 2008.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">Announcements</a></li>
-                    <li class="footer-link"><a href="#">Events Calendar</a></li>
-                    <li class="footer-link"><a href="#">Dues Payment</a></li>
-                    <li class="footer-link"><a href="#">Security Updates</a></li>
-                    <li class="footer-link"><a href="#">Maintenance Requests</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 class="footer-title">Contact Info</h3>
-                <p class="footer-text">
-                    <i class="fas fa-map-marker-alt"></i> FHA Sharada Phase 2, Kano<br>
-                    <i class="fas fa-phone"></i> +234 801 234 5678<br>
-                    <i class="fas fa-envelope"></i> info@fhasharada.org
-                </p>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            </div>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>A product of FHA Sharada Residents Association</p>
+        <p>&copy; <span id="current-year"></span> All Rights Reserved.</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Header scroll effect
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Hamburger menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentCards = document.querySelectorAll('.card');
+            const paymentModal = document.getElementById('paymentModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const closeModalBtn = document.querySelector('.modal-close-btn');
+            const proceedBtn = document.getElementById('proceedToPaymentBtn');
+            const messageContainer = document.getElementById('messageContainer');
+            const messageText = document.getElementById('messageText');
+            
+            // For the new navigation menu
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
+            const submenuToggle = document.querySelector('.submenu-toggle');
+            const subMenu = document.querySelector('.sub-menu');
 
+            // Toggle hamburger menu on mobile
             hamburger.addEventListener('click', function() {
-                this.classList.toggle('open');
+                this.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
+            
+            // Toggle submenu visibility
+            if (submenuToggle) {
+                submenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    subMenu.classList.toggle('active');
+                });
+            }
 
-            // Submenu toggle for both desktop and mobile
-            document.querySelectorAll('.has-submenu > a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Prevent default navigation if on a touch device or when the menu is active
-                    if (window.innerWidth <= 768 || navMenu.classList.contains('active')) {
-                        e.preventDefault();
-                        const parentLi = this.parentElement;
-                        parentLi.classList.toggle('open'); // Toggle a class on the parent li
-                    }
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-link:not(.submenu-toggle), .sub-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
                 });
             });
 
-            // Close mobile menu when any nav or submenu link is clicked
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Check if this is a submenu link and prevent closing the menu on the first click
-                    if (this.closest('.has-submenu') && navMenu.classList.contains('active')) {
-                        // Allow the submenu to toggle open/close, but don't close the main menu
-                        // The `e.preventDefault()` above already handles this for the parent link
-                        return;
-                    }
-
-                    // For all other links, close the menu
-                    if (navMenu.classList.contains('active')) {
-                        hamburger.classList.remove('open');
-                        navMenu.classList.remove('active');
-                    }
-                });
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
             });
 
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
-        });
 
-        // Payment functions
-        function initiatePayment(type, amount) {
-            // In a real application, this would redirect to a payment gateway
-            // For demo purposes, we'll show a confirmation dialog
-            const paymentNames = {
-                'monthly_dues': 'Monthly Dues',
-                'security_levy': 'Security Levy',
-                'event_contribution': 'Event Contribution',
-                'ground_rent': 'Ground Rent',
-                'capital_levy': 'Capital Development Levy',
-                'sanitation_fee': 'Sanitation Fee',
-                'electricity_maintenance': 'Electricity Maintenance',
-                'water_facility': 'Water Facility Fee'
-            };
+            // Event listener to open modal when a card is clicked
+            paymentCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const paymentType = card.getAttribute('data-payment-type');
+                    const description = card.getAttribute('data-description');
 
-            const paymentName = paymentNames[type] || type;
+                    modalTitle.textContent = paymentType;
+                    modalDescription.textContent = description;
+                    paymentModal.style.display = 'flex';
+                });
+            });
 
-            const confirmPayment = confirm(`You are about to pay ₦${amount.toLocaleString()} for ${paymentName}. Proceed?`);
+            // Event listener to close the modal
+            closeModalBtn.addEventListener('click', () => {
+                paymentModal.style.display = 'none';
+            });
+            
+            // Close the modal if the user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (event.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+            });
 
-            if (confirmPayment) {
-                alert(`Payment of ₦${amount.toLocaleString()} for ${paymentName} initiated successfully!\n\nYou will be redirected to the payment gateway.`);
-                // In a real app, you would redirect to payment gateway here
-                // window.location.href = `payment-gateway-url?type=${type}&amount=${amount}`;
+            // Handle the "Proceed to Payment" button click inside the modal
+            proceedBtn.addEventListener('click', () => {
+                const paymentType = modalTitle.textContent;
+                showMessage(`Initiating checkout for ${paymentType}...`, 'success');
+                paymentModal.style.display = 'none';
+                
+                // Simulate a delay before "redirecting" or processing payment
+                setTimeout(() => {
+                    console.log(`--- Payment Process Started ---`);
+                    console.log('Selected Payment Type:', paymentType);
+                    // In a real app, you would redirect to a payment gateway here
+                }, 1000);
+            });
+            
+            /**
+             * Shows a message to the user in the message container.
+             * @param {string} message The message to display.
+             * @param {string} type The type of message ('success' or 'error').
+             */
+            function showMessage(message, type) {
+                messageText.textContent = message;
+
+                // Set styles based on message type
+                if (type === 'success') {
+                    messageContainer.style.backgroundColor = 'var(--success)';
+                    messageContainer.style.color = '#fff';
+                } else if (type === 'error') {
+                    messageContainer.style.backgroundColor = 'var(--danger)';
+                    messageContainer.style.color = '#fff';
+                }
+
+                messageContainer.style.display = 'block';
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 5000);
             }
-        }
+        });
     </script>
 </body>
 </html>
