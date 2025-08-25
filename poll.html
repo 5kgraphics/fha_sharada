@@ -9,20 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modern CSS Reset */
         :root {
-            /* New Vibrant & Engaging Theme Colors */
-            --primary: #2196F3; /* Bright, inviting blue */
-            --secondary: #1976D2; /* Deeper blue */
-            --accent: #FF5722; /* Vibrant orange/red-orange for contrast and energy */
-            --dark: #263238; /* Very dark grey-blue, almost black */
-            --light: #F5F8FA; /* Soft, light grey-blue background */
-            --success: #4CAF50; /* Standard green */
-            --warning: #FFC107; /* Standard amber */
-            --danger: #F44336; /* Standard red */
-            --gray: #9E9E9E; /* Medium grey */
-
-            /* New Shadow & Depth Variables */
+            --primary: #2196F3;
+            --secondary: #1976D2;
+            --accent: #FF5722;
+            --dark: #263238;
+            --light: #F5F8FA;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --gray: #9E9E9E;
             --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
             --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
@@ -40,31 +36,27 @@
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
-            text-rendering: optimizeLegibility; /* Smoother text rendering */
         }
         
-        /* Awesome Header with Glass Morphism */
+        /* Header Styles */
         header {
-            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility */
-            backdrop-filter: blur(15px); /* Stronger blur for glass effect */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow-light); /* Lighter initial shadow */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: var(--shadow-light);
             transition: all 0.4s ease;
         }
         
         header.scrolled {
-            background: rgba(33, 150, 243, 0.95); /* Use primary color with higher opacity */
-            box-shadow: var(--shadow-medium); /* Stronger shadow on scroll */
+            background: rgba(33, 150, 243, 0.95);
         }
         
         header.scrolled .nav-link {
             color: white;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow on scroll */
         }
         
         header.scrolled .association-name {
@@ -88,23 +80,22 @@
         }
         
         .association-logo {
-            width: 55px; /* Slightly larger logo */
+            width: 55px;
             height: 55px;
-            border-radius: 15px; /* Softer rounded corners */
+            border-radius: 15px;
             object-fit: cover;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
         
         .association-name {
-            font-size: 1.6rem; /* Slightly larger name */
-            font-weight: 800; /* Bolder for impact */
+            font-size: 1.6rem;
+            font-weight: 800;
             color: var(--primary);
             transition: all 0.3s ease;
-            letter-spacing: -0.5px; /* Tighter letter spacing */
         }
         
-        /* Awesome Navigation */
+        /* Navigation */
         nav {
             display: flex;
             align-items: center;
@@ -113,37 +104,107 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.2rem; /* More spacing */
+            gap: 2.2rem;
+        }
+        
+        .nav-item {
+            position: relative;
         }
         
         .nav-link {
             text-decoration: none;
             color: var(--dark);
-            font-weight: 600; /* Bolder links */
-            font-size: 1.15rem; /* Slightly larger font */
+            font-weight: 600;
+            font-size: 1.15rem;
             position: relative;
             transition: all 0.3s ease;
-            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
         
-        .nav-link::after {
+        /* Remove underline from dropdown toggle links */
+        .nav-link:not(.dropdown-toggle)::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 3px; /* Thicker underline */
+            height: 3px;
             background: var(--accent);
-            bottom: -8px; /* Lower underline */
+            bottom: -8px;
             left: 0;
-            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother animation */
+            transition: width 0.3s ease;
         }
         
-        .nav-link:hover::after {
+        .nav-link:not(.dropdown-toggle):hover::after {
             width: 100%;
         }
         
         .nav-link:hover {
             color: var(--accent);
-            transform: translateY(-2px); /* Slight lift on hover */
+            transform: translateY(-2px);
+        }
+        
+        /* Submenu Styles */
+        .has-submenu {
+            position: relative;
+        }
+        
+        .sub-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            min-width: 220px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            padding: 0.8rem 0;
+            margin-top: 0.5rem;
+            list-style: none;
+        }
+        
+        .has-submenu:hover .sub-menu,
+        .has-submenu.show .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .sub-menu li {
+            margin: 0;
+        }
+        
+        .sub-menu a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .sub-menu a:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--primary);
+            padding-left: 1.8rem;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-toggle.open i {
+            transform: rotate(180deg);
         }
         
         /* Hamburger Menu */
@@ -169,17 +230,9 @@
             transition: .25s ease-in-out;
         }
         
-        .hamburger span:nth-child(1) {
-            top: 0px;
-        }
-        
-        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
-            top: 10px;
-        }
-        
-        .hamburger span:nth-child(4) {
-            top: 20px;
-        }
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) { top: 10px; }
+        .hamburger span:nth-child(4) { top: 20px; }
         
         .hamburger.open span:nth-child(1) {
             top: 10px;
@@ -211,16 +264,16 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 75%; /* Slightly wider mobile menu */
+                width: 75%;
                 height: 100vh;
-                background: rgba(255, 255, 255, 0.98); /* Almost opaque */
+                background: rgba(255, 255, 255, 0.98);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 2.5rem; /* More space between links */
-                transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9); /* More dynamic transition */
+                gap: 2.5rem;
+                transition: all 0.6s ease;
                 z-index: 1000;
                 box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
             }
@@ -229,19 +282,49 @@
                 right: 0;
             }
             
+            .sub-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: transparent;
+                box-shadow: none;
+                margin-top: 0;
+                padding: 0;
+                display: none;
+                width: 100%;
+            }
+            
+            .sub-menu.active {
+                display: block;
+            }
+            
+            .sub-menu a {
+                padding: 0.7rem 1rem;
+                text-align: center;
+            }
+            
+            .dropdown-toggle {
+                cursor: pointer;
+            }
+            
+            .dropdown-toggle.open i {
+                transform: rotate(180deg);
+            }
+            
             header.scrolled .hamburger span {
                 background: white;
             }
         }
         
-        /* Spectacular Hero Section */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.85), rgba(25, 118, 210, 0.95)), /* Stronger gradient overlay */
-                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* New, more vibrant image */
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(25, 118, 210, 0.95)),
+                        url('https://images.unsplash.com/photo-1596541223943-3b4e1f7d8c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            height: 100vh;
+            height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,7 +333,7 @@
             padding-top: 80px;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 -50px 100px rgba(0,0,0,0.3); /* Inner shadow for depth */
+            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
         }
         
         .hero::before {
@@ -259,19 +342,19 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 120px; /* Taller fade effect */
+            height: 120px;
             background: linear-gradient(to top, var(--light), transparent);
             z-index: 1;
         }
         
         .hero-content {
-            max-width: 900px; /* Wider content area */
-            padding: 0 2.5rem; /* More padding */
+            max-width: 900px;
+            padding: 0 2.5rem;
             position: relative;
             z-index: 2;
-            transform: translateY(70px); /* Deeper initial drop */
+            transform: translateY(50px);
             opacity: 0;
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* Slower, smoother animation */
+            transition: all 1.2s ease;
         }
         
         .hero-content.animate {
@@ -280,56 +363,32 @@
         }
         
         .hero h1 {
-            font-size: 4rem; /* Larger, more impactful heading */
-            margin-bottom: 1.8rem;
-            line-height: 1.15;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            font-weight: 800; /* Extra bold */
-            letter-spacing: -1px; /* Tighter spacing for headlines */
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-weight: 800;
         }
         
         .hero p {
-            font-size: 1.45rem; /* Larger sub-heading */
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            font-weight: 300; /* Lighter weight for contrast */
-        }
-        
-        .hero-btn {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
             font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Stronger accent shadow */
-            letter-spacing: 0.5px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
         
-        .hero-btn:hover {
-            background: #e64a19; /* Slightly darker accent */
-            transform: translateY(-5px) scale(1.02); /* More pronounced lift and slight scale */
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
-        }
-        
-        /* Main Content Container */
+        /* Main Container */
         .main-container {
             width: 90%;
-            max-width: 1400px;
-            margin: 6rem auto; /* More vertical spacing */
-            position: relative;
-            z-index: 50; /* Ensure content is above hero's pseudo-element */
+            max-width: 800px;
+            margin: 4rem auto;
         }
         
         /* Section Styling */
         .section {
-            margin-bottom: 7rem; /* More spacing between sections */
-            opacity: 0; /* Initial opacity for scroll animation */
-            transform: translateY(70px); /* Initial transform for scroll animation */
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smoother section animation */
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: all 1s ease;
         }
         
         .section.animate {
@@ -338,35 +397,335 @@
         }
         
         .section-title {
-            font-size: 3rem; /* Larger section titles */
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 3.5rem; /* More space below title */
+            margin-bottom: 3.5rem;
             position: relative;
             display: inline-block;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            width: 60%; /* Longer underline */
-            height: 5px; /* Thicker underline */
+            width: 60%;
+            height: 5px;
             background: var(--accent);
-            bottom: -15px; /* Lower underline */
+            bottom: -15px;
             left: 0;
             border-radius: 3px;
+        }
+        
+        /* Poll Section */
+        .poll-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .poll-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .poll-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .poll-question {
+            font-size: 1.6rem;
+            color: var(--dark);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        
+        .poll-description {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .poll-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+        
+        /* Poll Options */
+        .poll-options {
+            margin-bottom: 2.5rem;
+        }
+        
+        .poll-option {
+            display: block;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        
+        .poll-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .poll-option label {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            background: var(--light);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 4rem;
+            color: var(--dark);
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .poll-option label:hover {
+            background: rgba(33, 150, 243, 0.08);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .poll-option input[type="radio"]:checked + label {
+            background: rgba(33, 150, 243, 0.15);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .poll-option label::before {
+            content: '';
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background-color: white;
+            margin-right: 1.5rem;
+        }
+        
+        .poll-option input[type="radio"]:checked + label::before {
+            border-color: var(--primary);
+            background: var(--primary);
+            box-shadow: inset 0 0 0 5px white;
+        }
+        
+        /* Submit Button */
+        .poll-submit {
+            background: var(--accent);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4);
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        
+        .poll-submit:hover:not(:disabled) {
+            background: #e64a19;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
+        }
+        
+        .poll-submit:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Results Section */
+        .poll-results {
+            display: none;
+            margin-top: 3.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 3rem;
+        }
+        
+        .poll-results.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-item {
+            margin-bottom: 1.8rem;
+        }
+        
+        .result-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+        
+        .result-bar {
+            height: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .result-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            transition: width 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        .result-percent {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .total-votes {
+            text-align: center;
+            color: var(--gray);
+            margin-top: 3rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        /* Poll Statistics */
+        .poll-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Poll History */
+        .poll-history {
+            margin-top: 4rem;
+        }
+        
+        .poll-history-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+        
+        .poll-history-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .poll-history-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .poll-history-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .poll-history-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-closed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .poll-history-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .poll-history-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
         }
         
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 6rem 0 2.5rem; /* More padding */
+            padding: 6rem 0 2.5rem;
             position: relative;
-            border-top-left-radius: 30px; /* Rounded top corners */
+            border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            overflow: hidden; /* Ensures content stays within rounded corners */
+            overflow: hidden;
         }
         
         .footer-container {
@@ -374,29 +733,29 @@
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for columns */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 3.5rem;
             margin-bottom: 3.5rem;
         }
         
         .footer-logo {
-            width: 70px; /* Larger logo */
+            width: 70px;
             height: 70px;
-            border-radius: 18px; /* More rounded */
+            border-radius: 18px;
             margin-bottom: 1.8rem;
             object-fit: cover;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
         }
         
         .footer-title {
-            font-size: 1.8rem; /* Larger title */
+            font-size: 1.8rem;
             margin-bottom: 1.8rem;
             color: white;
             font-weight: 700;
         }
         
         .footer-text {
-            opacity: 0.9; /* Slightly less transparent */
+            opacity: 0.9;
             margin-bottom: 1.8rem;
             line-height: 1.8;
             font-size: 1.05rem;
@@ -421,30 +780,30 @@
         .footer-link a:hover {
             opacity: 1;
             color: var(--accent);
-            padding-left: 8px; /* More pronounced slide */
+            padding-left: 8px;
         }
         
         .social-links {
             display: flex;
-            gap: 1.2rem; /* More spacing */
+            gap: 1.2rem;
             margin-top: 1.8rem;
         }
         
         .social-link {
-            width: 45px; /* Larger social icons */
+            width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
+            background: rgba(255, 255, 255, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem; /* Larger social icons */
+            font-size: 1.3rem;
             transition: all 0.3s ease;
         }
         
         .social-link:hover {
             background: var(--accent);
-            transform: translateY(-5px) scale(1.1); /* More pronounced lift and scale */
+            transform: translateY(-5px) scale(1.1);
             box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
         }
         
@@ -454,544 +813,155 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             opacity: 0.8;
             font-size: 1rem;
-            color: white; /* Ensure copyright text is white */
         }
-
-        .copyright a {
-            color: #FFD700; /* Gold color for the link */
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        .copyright a:hover {
-            color: var(--accent); /* Accent color on hover */
-            text-decoration: underline;
+        
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
         }
         
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.3rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            footer {
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                gap: 1rem;
-            }
-            
-            .nav-menu {
-                gap: 1.5rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: normal;
-            }
-            
-            .hero p {
-                font-size: 1.15rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
-                padding: 2.5rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .welcome-section,
-            .rules-section,
-            .faq-section,
-            .more-info-section {
-                padding: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .section-title::after {
-                bottom: -10px;
-                width: 50%;
-            }
-
-            .hero-btn, .more-info-btn {
-                padding: 0.9rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-logo {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-        
-        /* Animation Keyframes */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px); /* More float */
-            }
-        }
-        
-        .floating {
-            animation: float 3.5s ease-in-out infinite; /* Slightly longer animation */
-        }
-
-        /* --- Poll Specific Styles --- */
-        .poll-hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(25, 118, 210, 0.85)),
-                        url('https://placehold.co/1920x1080/2196F3/ffffff?text=Community+Poll'); /* New hero image for Polls */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 70vh; /* Shorter hero for content pages */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
-        }
-
-        .poll-hero .hero-content {
-            transform: translateY(50px);
-        }
-
-        .poll-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .poll-hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-        }
-
-        .main-container {
-            width: 90%;
-            max-width: 800px; /* Slightly narrower for poll content */
-            margin: 4rem auto;
-        }
-        
-        /* Poll Section */
-        .poll-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3.5rem;
-            box-shadow: var(--shadow-medium);
-            margin-bottom: 6rem;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .poll-title {
-            font-size: 2.5rem; /* Larger title */
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 700;
-        }
-        
-        .poll-question {
-            font-size: 1.6rem; /* Larger question */
-            margin-bottom: 2rem;
-            color: var(--dark);
-            text-align: center;
-            line-height: 1.4;
-        }
-        
-        .poll-description {
-            color: #555;
-            margin-bottom: 2.5rem; /* More space */
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .poll-options {
-            margin-bottom: 2.5rem;
-        }
-        
-        .poll-option {
-            display: block;
-            margin-bottom: 1.2rem; /* More space between options */
-            position: relative;
-        }
-        
-        .poll-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-        
-        .poll-option label {
-            display: block;
-            padding: 1.2rem 1.5rem; /* Larger padding */
-            background: var(--light); /* Light background for options */
-            border-radius: 12px; /* More rounded */
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(0,0,0,0.1); /* Lighter border */
-            position: relative;
-            padding-left: 4rem; /* Space for custom radio button */
-            color: var(--dark);
-            font-size: 1.05rem;
-            font-weight: 500;
-            display: flex; /* Use flexbox for alignment */
-            align-items: center; /* Vertically align text and custom radio */
-        }
-        
-        .poll-option label:hover {
-            background: rgba(33, 150, 243, 0.08); /* Subtle hover effect */
-            border-color: var(--primary);
-            box-shadow: var(--shadow-light);
-        }
-        
-        .poll-option input[type="radio"]:checked + label {
-            background: rgba(33, 150, 243, 0.15); /* More pronounced checked state */
-            border-color: var(--primary);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .poll-option label::before {
-            content: '';
-            flex-shrink: 0; /* Prevent the custom radio from shrinking */
-            width: 24px; /* Larger custom radio button */
-            height: 24px;
-            border: 2px solid var(--gray);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            background-color: white; /* Inner circle background */
-            margin-right: 1.5rem; /* Space between custom radio and text */
-        }
-        
-        .poll-option input[type="radio"]:checked + label::before {
-            border-color: var(--primary);
-            background: var(--primary);
-            box-shadow: inset 0 0 0 5px white; /* White dot inside */
-        }
-        
-        .poll-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-            padding: 0 1rem; /* Add some padding */
-        }
-        
-        .poll-submit {
-            background: var(--accent);
-            color: white;
-            padding: 1.1rem 2.5rem; /* Larger button */
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.4); /* Accent color shadow */
-            display: block;
-            width: 100%;
-            max-width: 350px; /* Wider button */
-            margin: 0 auto;
-            letter-spacing: 0.5px;
-        }
-        
-        .poll-submit:hover {
-            background: #e64a19;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
-        }
-        
-        /* Poll Results */
-        .poll-results {
-            display: none;
-            margin-top: 3.5rem; /* More space from button */
-            border-top: 1px solid rgba(0,0,0,0.1);
-            padding-top: 3rem;
-        }
-        
-        .result-item {
-            margin-bottom: 1.8rem; /* More space between results */
-        }
-        
-        .result-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.05rem;
-        }
-        
-        .result-bar {
-            height: 15px; /* Thicker bar */
-            background: var(--light); /* Light background for bar */
-            border-radius: 8px; /* More rounded */
-            overflow: hidden;
-        }
-        
-        .result-progress {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 8px;
-            transition: width 0.8s ease-out; /* Slower, smoother animation */
-        }
-        
-        .result-percent {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .total-votes {
-            text-align: center;
-            color: var(--gray);
-            margin-top: 3rem;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        /* Custom Modal for Alerts */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 2000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-bold);
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: all 0.3s ease-out;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 15px;
-        }
-
-        .modal-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin: 0;
-        }
-
-        .close-button {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: var(--danger);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-body p {
-            font-size: 1.1rem;
-            color: var(--dark);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .modal-footer button {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-light);
-        }
-
-        .modal-footer button:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        @media (max-width: 768px) {
-            .poll-hero {
+            .hero {
                 height: 50vh;
             }
-            .poll-hero h1 {
+            
+            .hero h1 {
                 font-size: 2.8rem;
             }
-            .poll-hero p {
+            
+            .hero p {
                 font-size: 1.1rem;
             }
-            .poll-section {
+            
+            .poll-card {
                 padding: 2.5rem;
             }
+            
             .poll-title {
                 font-size: 2rem;
             }
+            
             .poll-question {
                 font-size: 1.4rem;
             }
+            
             .poll-description {
                 font-size: 1rem;
             }
+            
             .poll-option label {
                 padding: 1rem 1.2rem;
                 padding-left: 3.5rem;
             }
+            
             .poll-option label::before {
                 width: 20px;
                 height: 20px;
-                left: 1.2rem;
             }
+            
             .poll-submit {
                 padding: 1rem 2rem;
                 font-size: 1.1rem;
             }
-            .result-item {
-                margin-bottom: 1.5rem;
-            }
-            .result-label {
-                font-size: 0.95rem;
-            }
-            .result-percent {
-                font-size: 1rem;
-            }
-        }
-        @media (max-width: 576px) {
-            .poll-hero {
-                height: 40vh;
-            }
-            .poll-hero h1 {
+            
+            .section-title {
                 font-size: 2.2rem;
             }
-            .poll-hero p {
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 40vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
                 font-size: 1rem;
             }
-            .poll-section {
+            
+            .poll-card {
                 padding: 2rem;
             }
+            
             .poll-title {
                 font-size: 1.8rem;
             }
+            
             .poll-question {
                 font-size: 1.2rem;
             }
+            
             .poll-description {
                 font-size: 0.9rem;
             }
+            
             .poll-option label {
                 padding: 0.9rem 1rem;
                 padding-left: 3rem;
             }
+            
             .poll-option label::before {
                 width: 18px;
                 height: 18px;
-                left: 1rem;
             }
+            
             .poll-submit {
                 padding: 0.9rem 1.8rem;
                 font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            .section-title::after {
+                bottom: -10px;
+                width: 50%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .social-links {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Awesome Header with Navigation -->
+    <!-- Header with Navigation -->
     <header id="mainHeader">
         <div class="header-container">
             <div class="logo-container">
-                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo floating">
+                <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="association-logo">
                 <h1 class="association-name">FHA Sharada</h1>
             </div>
             <div class="hamburger">
@@ -1003,45 +973,51 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="nav-link dropdown-toggle">Community <i class="fas fa-caret-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="doc_share.html">Documents</a></li>
+                            <li><a href="lost_and_found.html">Lost and Found</a></li>
+                            <li><a href="maintenance.html">Maintenance Request</a></li>
+                            <li><a href="suggestion_box.html">Suggestion Box</a></li>
+                            <li><a href="security_update.html">Security Update</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="poll.html" class="nav-link">Poll</a></li>
                     <li><a href="news.html" class="nav-link">News</a></li>
-                    <li><a href="doc_share.html" class="nav-link">Documents</a></li>
-                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                    <li><a href="lost_and_found.html" class="nav-link">Lost & Found</a></li>
-                    <li><a href="poll.html" class="nav-link active">Polls</a></li>
-                    <li><a href="index.html#announcements" class="nav-link">Announcements</a></li>
-                    <li><a href="index.html#events" class="nav-link">Events</a></li>
-                    <li><a href="index.html#rules" class="nav-link">Rules</a></li>
-                    <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="chart.html" class="nav-link">Community chat</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <!-- Spectacular Hero Section for Community Poll -->
-    <section class="hero poll-hero">
-        <div class="hero-content animate">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
             <h1>Your Voice, Our Future: Community Polls</h1>
             <p>Participate in active polls and help shape important decisions for the FHA Sharada community.</p>
         </div>
     </section>
-
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <div class="main-container">
-        <!-- Poll Section -->
+        <!-- Current Poll Section -->
         <section class="section" id="poll-section">
             <h2 class="section-title">Current Community Poll</h2>
-            <div class="poll-section">
-                <h3 class="poll-title">Community Improvement Project Priority</h3>
-                <p class="poll-question">Which community improvement project should we prioritize next for funding and development?</p>
-                <p class="poll-description">Your input is crucial! Please select the project you believe will most benefit our residents and enhance our living environment. This poll will help guide the association's strategic planning for the upcoming year.</p>
+            
+            <div class="poll-card">
+                <div class="poll-header">
+                    <h3 class="poll-title">Community Improvement Project Priority</h3>
+                    <p class="poll-question">Which community improvement project should we prioritize next for funding and development?</p>
+                    <p class="poll-description">Your input is crucial! Please select the project you believe will most benefit our residents and enhance our living environment. This poll will help guide the association's strategic planning for the upcoming year.</p>
+                </div>
                 
                 <div class="poll-meta">
                     <span><i class="fas fa-calendar-alt"></i> Active until: August 30, 2025</span>
                     <span><i class="fas fa-hashtag"></i> Poll ID: #2025-06-001</span>
                 </div>
                 
-                <div class="poll-options">
+                <div class="poll-options" id="pollOptions">
                     <div class="poll-option">
                         <input type="radio" id="option1" name="poll" value="option1">
                         <label for="option1">Upgrading security systems and installing more cameras</label>
@@ -1113,13 +1089,63 @@
                             <div class="result-progress" style="width: 0%"></div>
                         </div>
                     </div>
-                    <div class="total-votes">Total votes: 428</div>
+                    <div class="total-votes">Total votes: <span id="totalVotesCount">428</span></div>
+                    
+                    <div class="poll-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Options</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">428</div>
+                            <div class="stat-label">Total Votes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">32%</div>
+                            <div class="stat-label">Leading Option</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Days Left</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Poll History Section -->
+            <div class="poll-history">
+                <h3 class="section-title">Previous Polls</h3>
+                <div class="poll-history-item">
+                    <h4 class="poll-history-title">Annual Community Festival Theme</h4>
+                    <div class="poll-history-meta">
+                        <span><i class="fas fa-calendar-alt"></i> June 1-15, 2025</span>
+                        <span class="poll-history-status status-closed">Closed</span>
+                    </div>
+                    <p>Results: "Cultural Heritage" won with 45% of votes</p>
+                    <a href="#" class="poll-history-link">View Full Results <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="poll-history-item">
+                    <h4 class="poll-history-title">Security Patrol Schedule Preference</h4>
+                    <div class="poll-history-meta">
+                        <span><i class="fas fa-calendar-alt"></i> May 10-25, 2025</span>
+                        <span class="poll-history-status status-closed">Closed</span>
+                    </div>
+                    <p>Results: "Extended Night Patrol" won with 62% of votes</p>
+                    <a href="#" class="poll-history-link">View Full Results <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="poll-history-item">
+                    <h4 class="poll-history-title">Waste Management System Upgrade</h4>
+                    <div class="poll-history-meta">
+                        <span><i class="fas fa-calendar-alt"></i> April 5-20, 2025</span>
+                        <span class="poll-history-status status-closed">Closed</span>
+                    </div>
+                    <p>Results: "Recycling Program Implementation" won with 58% of votes</p>
+                    <a href="#" class="poll-history-link">View Full Results <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
     </div>
-
-    <!-- Awesome Footer -->
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -1136,8 +1162,8 @@
             <div class="footer-col">
                 <h3 class="footer-title">Quick Links</h3>
                 <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html#announcements">Announcements</a></li>
-                    <li class="footer-link"><a href="index.html#events">Events Calendar</a></li>
+                    <li class="footer-link"><a href="#">Announcements</a></li>
+                    <li class="footer-link"><a href="#">Events Calendar</a></li>
                     <li class="footer-link"><a href="#">Dues Payment</a></li>
                     <li class="footer-link"><a href="#">Security Updates</a></li>
                     <li class="footer-link"><a href="#">Maintenance Requests</a></li>
@@ -1153,27 +1179,68 @@
             </div>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved. <br>
-            <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
+            &copy; <span id="current-year"></span> FHA Sharada Residents Association. All Rights Reserved.
         </div>
     </footer>
-
-    <!-- Custom Modal Structure -->
-    <div id="customModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-                <span class="close-button">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="close-button">OK</button>
-            </div>
-        </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message"></div>
     </div>
-
+    <style>
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-bold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: var(--success);
+        }
+        
+        .toast.error .toast-icon {
+            background: var(--danger);
+        }
+        
+        .toast-message {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        @media (max-width: 768px) {
+            .toast {
+                right: 20px;
+                left: 20px;
+                transform: translateY(100px);
+            }
+            
+            .toast.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Header scroll effect
@@ -1185,7 +1252,7 @@
                     header.classList.remove('scrolled');
                 }
             });
-
+            
             // Hamburger menu toggle
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
@@ -1194,99 +1261,175 @@
                 this.classList.toggle('open');
                 navMenu.classList.toggle('active');
             });
-
+            
             // Close menu when clicking a link
-            document.querySelectorAll('.nav-link').forEach(link => {
+            document.querySelectorAll('.nav-link:not(.dropdown-toggle)').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('open');
                     navMenu.classList.remove('active');
                 });
             });
-
+            
+            // Submenu toggle functionality
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const parentLi = this.parentElement;
+                    const submenu = this.nextElementSibling;
+                    
+                    // Toggle the submenu
+                    parentLi.classList.toggle('show');
+                    this.classList.toggle('open');
+                    
+                    // Close other submenus on desktop
+                    if (window.innerWidth > 768) {
+                        document.querySelectorAll('.has-submenu').forEach(item => {
+                            if (item !== parentLi) {
+                                item.classList.remove('show');
+                                item.querySelector('.dropdown-toggle').classList.remove('open');
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Close submenus when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.has-submenu')) {
+                    document.querySelectorAll('.has-submenu').forEach(item => {
+                        item.classList.remove('show');
+                        item.querySelector('.dropdown-toggle').classList.remove('open');
+                    });
+                }
+            });
+            
             // Hero animation
             const heroContent = document.querySelector('.hero-content');
             setTimeout(() => {
                 heroContent.classList.add('animate');
             }, 300);
-
+            
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Custom Modal Logic
-            const customModal = document.getElementById('customModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const closeButtons = customModal.querySelectorAll('.close-button');
-
-            window.showModal = function(title, message) {
-                modalTitle.textContent = title;
-                modalMessage.textContent = message;
-                customModal.classList.add('show');
-            }
-
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    customModal.classList.remove('show');
-                });
-            });
-
-            // Close modal if clicked outside content
-            window.addEventListener('click', function(event) {
-                if (event.target == customModal) {
-                    customModal.classList.remove('show');
-                }
-            });
-
+            
             // Poll functionality
             const submitBtn = document.getElementById('submitPoll');
             const pollResults = document.getElementById('pollResults');
-            const pollOptions = document.querySelectorAll('.poll-option input[type="radio"]');
+            const pollOptions = document.getElementById('pollOptions');
+            const totalVotesCount = document.getElementById('totalVotesCount');
             
-            submitBtn.addEventListener('click', function() {
-                let selectedOption = null;
+            // Check if user has already voted
+            const hasVoted = localStorage.getItem('pollVoted') === 'true';
+            
+            if (hasVoted) {
+                // Show results if user has already voted
+                pollResults.classList.add('show');
+                submitBtn.textContent = 'Already Voted';
+                submitBtn.disabled = true;
+                pollOptions.style.display = 'none';
                 
-                // Check which option is selected
-                pollOptions.forEach(option => {
-                    if (option.checked) {
-                        selectedOption = option.value;
-                    }
-                });
-                
-                if (selectedOption) {
-                    // In a real application, you would send this to your server
-                    // Here we're just simulating a successful vote
-                    this.textContent = 'Vote Submitted!';
-                    // Update button style to match the new professional aesthetic
-                    this.style.backgroundColor = 'var(--success)'; 
-                    this.style.boxShadow = '0 10px 20px rgba(76, 201, 240, 0.3)';
-                    
-                    // Disable all options
-                    pollOptions.forEach(option => {
-                        option.disabled = true;
-                        option.nextElementSibling.style.cursor = 'default';
-                    });
-                    
-                    // Show results
-                    pollResults.style.display = 'block';
-                    
-                    // Animate poll bars
+                // Animate poll bars
+                setTimeout(() => {
                     document.querySelectorAll('.result-progress').forEach(bar => {
-                        const percent = bar.previousElementSibling.querySelector('.result-percent').dataset.percent;
+                        const percent = bar.parentElement.previousElementSibling.querySelector('.result-percent').dataset.percent;
                         bar.style.width = percent + '%';
                     });
-
-                    // Scroll to results
-                    pollResults.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    showModal('Selection Required', 'Please select an option before submitting your vote!');
-                }
-            });
-
-            // Ensure the poll section is visible immediately on load
-            const pollSection = document.getElementById('poll-section');
-            if (pollSection) {
-                pollSection.classList.add('animate'); 
+                }, 100);
             }
+            
+            // Handle vote submission
+            submitBtn.addEventListener('click', function() {
+                const selectedOption = document.querySelector('input[name="poll"]:checked');
+                
+                if (!selectedOption) {
+                    showToast('Please select an option before voting', 'error');
+                    return;
+                }
+                
+                // Save vote status to localStorage
+                localStorage.setItem('pollVoted', 'true');
+                
+                // Update total votes count
+                const currentVotes = parseInt(totalVotesCount.textContent);
+                totalVotesCount.textContent = currentVotes + 1;
+                
+                // Update button state
+                this.textContent = 'Vote Submitted!';
+                this.disabled = true;
+                
+                // Hide options and show results
+                pollOptions.style.display = 'none';
+                pollResults.classList.add('show');
+                
+                // Animate poll bars
+                setTimeout(() => {
+                    document.querySelectorAll('.result-progress').forEach(bar => {
+                        const percent = bar.parentElement.previousElementSibling.querySelector('.result-percent').dataset.percent;
+                        bar.style.width = percent + '%';
+                    });
+                }, 100);
+                
+                // Scroll to results
+                pollResults.scrollIntoView({ behavior: 'smooth' });
+                
+                // Show success message
+                showToast('Thank you for voting! Your voice matters.', 'success');
+            });
+            
+            // Toast notification function
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMessage = toast.querySelector('.toast-message');
+                const toastIcon = toast.querySelector('.toast-icon');
+                
+                toastMessage.textContent = message;
+                toast.className = `toast ${type} show`;
+                
+                if (type === 'error') {
+                    toastIcon.innerHTML = '✕';
+                } else {
+                    toastIcon.innerHTML = '✓';
+                }
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Animate sections on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
