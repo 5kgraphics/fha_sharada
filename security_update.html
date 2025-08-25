@@ -20,18 +20,15 @@
             --warning: #FFC107;
             --danger: #F44336;
             --gray: #9E9E9E;
-
             --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
             --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.7;
@@ -40,7 +37,6 @@
             overflow-x: hidden;
             text-rendering: optimizeLegibility;
         }
-
         /* Header - Copied from index.html */
         header {
             background: rgba(255, 255, 255, 0.9);
@@ -54,21 +50,17 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             transition: all 0.4s ease;
         }
-
         header.scrolled {
             background: rgba(33, 150, 243, 0.95);
             box-shadow: var(--shadow-medium);
         }
-
         header.scrolled .nav-link {
             color: white;
             text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-
         header.scrolled .association-name {
             color: white;
         }
-
         .header-container {
             width: 90%;
             max-width: 1400px;
@@ -78,13 +70,11 @@
             align-items: center;
             padding: 1rem 0;
         }
-
         .logo-container {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
         .association-logo {
             width: 55px;
             height: 55px;
@@ -93,7 +83,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-
         .association-name {
             font-size: 1.6rem;
             font-weight: 800;
@@ -101,23 +90,19 @@
             transition: all 0.3s ease;
             letter-spacing: -0.5px;
         }
-
         /* Navigation - Copied from index.html */
         nav {
             display: flex;
             align-items: center;
         }
-
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 2.2rem;
         }
-
         .nav-menu li {
             position: relative;
         }
-
         .nav-link {
             text-decoration: none;
             color: var(--dark);
@@ -129,7 +114,6 @@
             display: block;
             padding: 0.5rem 0;
         }
-
         .nav-link::after {
             content: '';
             position: absolute;
@@ -140,16 +124,13 @@
             left: 0;
             transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
         .nav-link:hover::after {
             width: 100%;
         }
-
         .nav-link:hover {
             color: var(--accent);
             transform: translateY(-2px);
         }
-
         /* Submenu Styling - Copied from index.html */
         .sub-menu {
             list-style: none;
@@ -169,17 +150,14 @@
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
             z-index: 100;
         }
-
         .nav-menu li:hover > .sub-menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-
         .sub-menu li {
             padding: 0;
         }
-
         .sub-menu a {
             color: var(--dark);
             padding: 0.8rem 1.5rem;
@@ -190,18 +168,15 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
-
         .sub-menu a::after {
             content: none;
         }
-
         .sub-menu a:hover {
             background-color: var(--primary);
             color: white;
             border-radius: 5px;
             transform: translateX(5px);
         }
-
         /* Hamburger Menu - Copied from index.html */
         .hamburger {
             display: none;
@@ -211,7 +186,6 @@
             position: relative;
             z-index: 1001;
         }
-
         .hamburger span {
             display: block;
             position: absolute;
@@ -224,45 +198,36 @@
             transform: rotate(0deg);
             transition: .25s ease-in-out;
         }
-
         .hamburger span:nth-child(1) {
             top: 0px;
         }
-
         .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
             top: 10px;
         }
-
         .hamburger span:nth-child(4) {
             top: 20px;
         }
-
         .hamburger.open span:nth-child(1) {
             top: 10px;
             width: 0%;
             left: 50%;
         }
-
         .hamburger.open span:nth-child(2) {
             transform: rotate(45deg);
         }
-
         .hamburger.open span:nth-child(3) {
             transform: rotate(-45deg);
         }
-
         .hamburger.open span:nth-child(4) {
             top: 10px;
             width: 0%;
             left: 50%;
         }
-
         /* Mobile Menu - Copied from index.html */
         @media (max-width: 768px) {
             .hamburger {
                 display: block;
             }
-
             .nav-menu {
                 position: fixed;
                 top: 0;
@@ -274,21 +239,20 @@
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: center;
-                justify-content: center;
-                gap: 2.5rem;
+                justify-content: flex-start;
+                padding-top: 100px;
+                gap: 1rem;
                 transition: all 0.6s cubic-bezier(0.6, 0.05, 0.3, 0.9);
                 z-index: 1000;
                 box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+                overflow-y: auto;
             }
-
             .nav-menu.active {
                 right: 0;
             }
-
             header.scrolled .hamburger span {
                 background: white;
             }
-
             /* Mobile Submenu adjustments */
             .sub-menu {
                 position: static;
@@ -302,8 +266,15 @@
                 transform: none;
                 margin-top: 0.5rem;
                 text-align: center;
+                display: none;
+                max-height: 0;
+                overflow: hidden;
+                transition: all 0.3s ease;
             }
-
+            .sub-menu.active {
+                display: block;
+                max-height: 500px;
+            }
             .sub-menu a {
                 padding: 0.6rem 1rem;
                 font-size: 1rem;
@@ -312,20 +283,27 @@
                 border-radius: 5px;
                 margin: 0.3rem 0;
             }
-
             .sub-menu a:hover {
                 background-color: var(--primary);
                 color: white;
                 transform: none;
             }
-
             .nav-menu li:hover > .sub-menu {
                 opacity: 1;
                 visibility: visible;
                 transform: none;
             }
+            .dropdown-toggle {
+                cursor: pointer;
+                user-select: none;
+            }
+            .dropdown-toggle i {
+                transition: transform 0.3s ease;
+            }
+            .dropdown-toggle.open i {
+                transform: rotate(180deg);
+            }
         }
-
         /* Main Content Container - Copied from index.html */
         .main-container {
             width: 90%;
@@ -334,7 +312,6 @@
             position: relative;
             z-index: 50;
         }
-
         /* Section Styling - Copied from index.html */
         .section {
             margin-bottom: 7rem;
@@ -342,12 +319,10 @@
             transform: translateY(70px);
             transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
         .section.animate {
             opacity: 1;
             transform: translateY(0);
         }
-
         .section-title {
             font-size: 3rem;
             color: var(--primary);
@@ -357,7 +332,6 @@
             font-weight: 700;
             letter-spacing: -0.5px;
         }
-
         .section-title::after {
             content: '';
             position: absolute;
@@ -368,9 +342,7 @@
             left: 0;
             border-radius: 3px;
         }
-
         /* --- ENHANCED SECURITY UPDATES PAGE STYLES --- */
-
         /* Filter buttons for updates */
         .filter-buttons {
             display: flex;
@@ -379,7 +351,6 @@
             margin-bottom: 3rem;
             justify-content: center; /* Center filter buttons */
         }
-
         .filter-btn {
             background-color: white;
             color: var(--dark);
@@ -393,28 +364,24 @@
             box-shadow: var(--shadow-light);
             text-decoration: none; /* In case it's an anchor tag */
         }
-
         .filter-btn:hover {
             background-color: var(--primary);
             color: white;
             box-shadow: var(--shadow-medium);
             transform: translateY(-2px);
         }
-
         .filter-btn.active {
             background-color: var(--primary);
             color: white;
             box-shadow: var(--shadow-medium);
             border-color: var(--primary);
         }
-
         .updates-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
             margin-bottom: 4rem;
         }
-
         .update-card {
             background: white;
             border-radius: 20px;
@@ -425,19 +392,16 @@
             display: flex;
             flex-direction: column;
         }
-
         .update-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-bold);
         }
-
         .update-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 0.8rem;
         }
-
         .update-type-badge {
             background-color: var(--primary);
             color: white;
@@ -452,13 +416,11 @@
             gap: 0.5rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .update-type-badge.alert { background-color: var(--danger); }
         .update-type-badge.tip { background-color: var(--success); }
         .update-type-badge.incident { background-color: var(--warning); }
         .update-type-badge.announcement { background-color: var(--primary); }
         .update-type-badge.resolved { background-color: #607D8B; /* Blue Grey */ }
-
 
         .update-date {
             font-size: 0.95rem;
@@ -468,11 +430,9 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .update-date i {
             color: var(--accent);
         }
-
         .update-title {
             font-size: 1.6rem;
             color: var(--dark);
@@ -480,7 +440,6 @@
             font-weight: 700;
             line-height: 1.3;
         }
-
         .update-description {
             font-size: 1rem;
             color: #555;
@@ -493,11 +452,9 @@
             -webkit-line-clamp: 4; /* Limit to 4 lines */
             -webkit-box-orient: vertical;
         }
-
         .update-description.expanded {
             -webkit-line-clamp: unset; /* Show full text */
         }
-
         .read-more-btn {
             background: none;
             border: none;
@@ -510,12 +467,10 @@
             margin-top: auto; /* Push button to bottom of card */
             transition: color 0.3s ease;
         }
-
         .read-more-btn:hover {
             color: var(--accent);
             text-decoration: underline;
         }
-
         .security-tips-card, .report-incident-card, .emergency-contacts-card {
             background: white;
             border-radius: 20px;
@@ -525,21 +480,18 @@
             margin-bottom: 4rem;
             text-align: center;
         }
-
         .security-tips-card h3, .report-incident-card h3, .emergency-contacts-card h3 {
             font-size: 2.2rem;
             color: var(--primary);
             margin-bottom: 2rem;
             font-weight: 700;
         }
-
         .security-tips-card ul {
             list-style: none;
             padding: 0;
             max-width: 700px;
             margin: 0 auto;
         }
-
         .security-tips-card li {
             background-color: var(--light);
             padding: 1rem 1.5rem;
@@ -553,13 +505,11 @@
             gap: 1rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
         .security-tips-card li i {
             color: var(--success);
             font-size: 1.4rem;
             margin-top: 0.2rem;
         }
-
         .report-incident-card p {
             font-size: 1.15rem;
             color: #555;
@@ -568,7 +518,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .report-button {
             background: var(--accent);
             color: white;
@@ -584,25 +533,21 @@
             text-decoration: none;
             display: inline-block; /* Make it behave like a block element for padding/margin */
         }
-
         .report-button:hover {
             background: #E64A19; /* A slightly darker accent */
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 20px 40px rgba(255, 87, 34, 0.5);
         }
-
         /* Emergency Contacts Specific Styles */
         .emergency-contacts-card {
             text-align: left;
             margin-top: 6rem;
         }
-
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
         }
-
         .contact-item {
             background-color: var(--light);
             border-radius: 15px;
@@ -617,7 +562,6 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
-
         .contact-icon {
             font-size: 1.8rem;
             color: var(--primary);
@@ -629,25 +573,21 @@
             background-color: rgba(33, 150, 243, 0.1);
             border-radius: 50%;
         }
-
         .contact-info strong {
             display: block;
             font-size: 1.1rem;
             color: var(--dark);
             margin-bottom: 0.2rem;
         }
-
         .contact-info a {
             color: var(--gray);
             text-decoration: none;
             font-size: 1rem;
             transition: color 0.3s ease;
         }
-
         .contact-info a:hover {
             color: var(--accent);
         }
-
         /* No updates message */
         .no-updates-message {
             text-align: center;
@@ -659,7 +599,6 @@
             box-shadow: var(--shadow-light);
             border: 1px solid rgba(0,0,0,0.05);
         }
-
         /* Footer - Copied from index.html */
         footer {
             background: var(--dark);
@@ -670,7 +609,6 @@
             border-top-right-radius: 30px;
             overflow: hidden;
         }
-
         .footer-container {
             width: 90%;
             max-width: 1400px;
@@ -680,7 +618,6 @@
             gap: 3.5rem;
             margin-bottom: 3.5rem;
         }
-
         .footer-logo {
             width: 70px;
             height: 70px;
@@ -689,29 +626,24 @@
             object-fit: cover;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
         }
-
         .footer-title {
             font-size: 1.8rem;
             margin-bottom: 1.8rem;
             color: white;
             font-weight: 700;
         }
-
         .footer-text {
             opacity: 0.9;
             margin-bottom: 1.8rem;
             line-height: 1.8;
             font-size: 1.05rem;
         }
-
         .footer-links {
             list-style: none;
         }
-
         .footer-link {
             margin-bottom: 1rem;
         }
-
         .footer-link a {
             color: white;
             opacity: 0.9;
@@ -719,19 +651,16 @@
             transition: all 0.3s ease;
             font-size: 1.05rem;
         }
-
         .footer-link a:hover {
             opacity: 1;
             color: var(--accent);
             padding-left: 8px;
         }
-
         .social-links {
             display: flex;
             gap: 1.2rem;
             margin-top: 1.8rem;
         }
-
         .social-link {
             width: 45px;
             height: 45px;
@@ -743,13 +672,11 @@
             font-size: 1.3rem;
             transition: all 0.3s ease;
         }
-
         .social-link:hover {
             background: var(--accent);
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
         }
-
         .copyright {
             text-align: center;
             padding-top: 2.5rem;
@@ -758,19 +685,16 @@
             font-size: 1rem;
             color: white;
         }
-
         .copyright a {
             color: #FFD700;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
-
         .copyright a:hover {
             color: var(--accent);
             text-decoration: underline;
         }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .section-title {
@@ -787,29 +711,23 @@
                 padding: 0.8rem 1.2rem;
             }
         }
-
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: row;
                 gap: 1rem;
             }
-
             .nav-menu {
                 gap: 1.5rem;
             }
-
             .section-title {
                 font-size: 2.2rem;
             }
-
             .updates-grid {
                 grid-template-columns: 1fr; /* Stack columns on small screens */
             }
-
             .update-card {
                 padding: 2rem;
             }
-
             .update-title {
                 font-size: 1.4rem;
             }
@@ -831,56 +749,45 @@
                 margin-bottom: 0.5rem;
             }
         }
-
         @media (max-width: 576px) {
             .nav-menu {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 2.5rem;
             }
-
             .section-title::after {
                 bottom: -10px;
                 width: 50%;
             }
-
             .footer-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-
             .footer-logo {
                 margin-left: auto;
                 margin-right: auto;
             }
-
             .social-links {
                 justify-content: center;
             }
-
             .security-tips-card, .report-incident-card, .emergency-contacts-card {
                 padding: 2rem;
             }
-
             .security-tips-card h3, .report-incident-card h3, .emergency-contacts-card h3 {
                 font-size: 1.6rem;
             }
-
             .security-tips-card li {
                 font-size: 0.95rem;
                 padding: 0.7rem 1rem;
             }
-
             .report-button {
                 padding: 0.9rem 2rem;
                 font-size: 1.1rem;
             }
         }
-
         /* Animation Keyframes - Copied from index.html */
         @keyframes float {
             0%, 100% {
@@ -890,7 +797,6 @@
                 transform: translateY(-12px);
             }
         }
-
         .floating {
             animation: float 3.5s ease-in-out infinite;
         }
@@ -914,13 +820,14 @@
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li class="has-submenu">
-                        <a href="#" class="nav-link">Community <i class="fas fa-caret-down"></i></a>
+                        <a href="#" class="nav-link dropdown-toggle">Community <i class="fas fa-caret-down"></i></a>
                         <ul class="sub-menu">
                             <li><a href="doc_share.html">Documents</a></li>
                             <li><a href="lost_and_found.html">Lost and Found</a></li>
                             <li><a href="maintenance.html">Maintenance Request</a></li>
                             <li><a href="suggestion_box.html">Suggestion Box</a></li>
-                            <li><a href="security_updates.html">Security & Safety</a></li> </ul>
+                            <li><a href="security_updates.html">Security & Safety</a></li>
+                        </ul>
                     </li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                     <li><a href="poll.html" class="nav-link">Poll</a></li>
@@ -930,11 +837,9 @@
             </nav>
         </div>
     </header>
-
     <div class="main-container">
         <section class="section" id="latest-updates">
             <h2 class="section-title">Security & Safety Hub</h2>
-
             <div class="filter-buttons">
                 <a href="#" class="filter-btn active" data-filter="all">All Updates</a>
                 <a href="#" class="filter-btn" data-filter="alert">Alerts</a>
@@ -942,14 +847,12 @@
                 <a href="#" class="filter-btn" data-filter="incident">Incidents</a>
                 <a href="#" class="filter-btn" data-filter="announcement">Announcements</a>
             </div>
-
             <div class="updates-grid" id="securityUpdatesContainer">
-                </div>
+            </div>
             <div id="noUpdatesMessage" class="no-updates-message" style="display: none;">
                 No updates match your selected filter. Please try a different category.
             </div>
         </section>
-
         <section class="section" id="emergency-contacts">
             <h2 class="section-title">Emergency Contacts</h2>
             <div class="emergency-contacts-card">
@@ -986,7 +889,6 @@
                 </div>
             </div>
         </section>
-
         <section class="section" id="security-tips">
             <h2 class="section-title">Essential Safety Tips</h2>
             <div class="security-tips-card">
@@ -1003,7 +905,6 @@
                 </ul>
             </div>
         </section>
-
         <section class="section" id="report-incident">
             <h2 class="section-title">Report an Incident</h2>
             <div class="report-incident-card">
@@ -1016,7 +917,6 @@
             </div>
         </section>
     </div>
-
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -1054,7 +954,6 @@
             <!-- Designed by <a href="http://www.5kgraphics.com" target="_blank" rel="noopener noreferrer">5k Graphics Studio</a> -->
         </div>
     </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Header scroll effect - Copied from index.html
@@ -1066,24 +965,80 @@
                     header.classList.remove('scrolled');
                 }
             });
-
+            
             // Hamburger menu toggle - Copied from index.html
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
-
+            
             hamburger.addEventListener('click', function() {
                 this.classList.toggle('open');
                 navMenu.classList.toggle('active');
             });
-
+            
+            // Submenu toggle functionality
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const parentLi = this.parentElement;
+                    const submenu = this.nextElementSibling;
+                    
+                    // Toggle the submenu
+                    parentLi.classList.toggle('show');
+                    this.classList.toggle('open');
+                    
+                    // For mobile, handle submenu display
+                    if (window.innerWidth <= 768) {
+                        submenu.classList.toggle('active');
+                    }
+                    
+                    // Close other submenus on desktop
+                    if (window.innerWidth > 768) {
+                        document.querySelectorAll('.has-submenu').forEach(item => {
+                            if (item !== parentLi) {
+                                item.classList.remove('show');
+                                item.querySelector('.dropdown-toggle').classList.remove('open');
+                                item.querySelector('.sub-menu').classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Handle submenu item clicks
+            document.querySelectorAll('.sub-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Allow the link to work normally
+                    // Close mobile menu if needed
+                    if (window.innerWidth <= 768) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Close submenus when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.has-submenu')) {
+                    document.querySelectorAll('.has-submenu').forEach(item => {
+                        item.classList.remove('show');
+                        item.querySelector('.dropdown-toggle').classList.remove('open');
+                        item.querySelector('.sub-menu').classList.remove('active');
+                    });
+                }
+            });
+            
             // Close menu when clicking a link (including submenu links) - Copied from index.html
-            document.querySelectorAll('.nav-link, .sub-menu a').forEach(link => {
+            document.querySelectorAll('.nav-link:not(.dropdown-toggle), .sub-menu a').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('open');
                     navMenu.classList.remove('active');
                 });
             });
-
+            
             // Scroll animations for sections - Adapted from index.html
             const sections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
@@ -1100,16 +1055,13 @@
             }, {
                 threshold: 0.1 // Trigger when 10% of the section is visible
             });
-
             sections.forEach(section => {
                 observer.observe(section);
             });
-
             // Dynamic loading and filtering of Security Updates (ENHANCED)
             const securityUpdatesContainer = document.getElementById('securityUpdatesContainer');
             const noUpdatesMessage = document.getElementById('noUpdatesMessage');
             const filterButtons = document.querySelectorAll('.filter-btn');
-
             const securityUpdates = [
                 {
                     date: 'July 24, 2025',
@@ -1154,25 +1106,21 @@
                     type: 'tip'
                 },
             ];
-
             function renderSecurityUpdates(filterType = 'all') {
                 securityUpdatesContainer.innerHTML = ''; // Clear existing updates
                 const filteredUpdates = securityUpdates.filter(update => {
                     return filterType === 'all' || update.type === filterType;
                 });
-
                 if (filteredUpdates.length === 0) {
                     noUpdatesMessage.style.display = 'block';
                     return;
                 } else {
                     noUpdatesMessage.style.display = 'none';
                 }
-
                 filteredUpdates.forEach(update => {
                     const updateCard = document.createElement('div');
                     updateCard.classList.add('update-card');
                     updateCard.dataset.type = update.type; // Add data attribute for filtering
-
                     const iconClass = {
                         'alert': 'fas fa-exclamation-triangle',
                         'tip': 'fas fa-lightbulb',
@@ -1180,13 +1128,11 @@
                         'announcement': 'fas fa-bullhorn',
                         'resolved': 'fas fa-check-circle'
                     }[update.type] || 'fas fa-info-circle'; // Default icon
-
                     // Trim description for initial view if it's long
                     const shortDescription = update.description.length > 150 ?
                                             update.description.substring(0, 150) + '...' :
                                             update.description;
                     const needsReadMore = update.description.length > 150;
-
                     updateCard.innerHTML = `
                         <div class="update-header">
                             <span class="update-type-badge ${update.type}">
@@ -1200,7 +1146,6 @@
                     `;
                     securityUpdatesContainer.appendChild(updateCard);
                 });
-
                 // Add event listeners for "Read More" buttons
                 document.querySelectorAll('.read-more-btn').forEach(button => {
                     button.addEventListener('click', function() {
@@ -1214,7 +1159,6 @@
                     });
                 });
             }
-
             // Filter button click handler
             filterButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
@@ -1225,9 +1169,7 @@
                     renderSecurityUpdates(filterType);
                 });
             });
-
             renderSecurityUpdates('all'); // Initial load of all updates
-
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
         });
