@@ -271,11 +271,13 @@
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 align-items: center;
-                justify-content: center;
-                gap: 2.5rem;
+                justify-content: flex-start;
+                padding-top: 100px;
+                gap: 1rem;
                 transition: all 0.6s ease;
                 z-index: 1000;
                 box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+                overflow-y: auto;
             }
             
             .nav-menu.active {
@@ -293,19 +295,25 @@
                 padding: 0;
                 display: none;
                 width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: all 0.3s ease;
             }
             
             .sub-menu.active {
                 display: block;
+                max-height: 500px;
             }
             
             .sub-menu a {
                 padding: 0.7rem 1rem;
                 text-align: center;
+                font-size: 1rem;
             }
             
             .dropdown-toggle {
                 cursor: pointer;
+                user-select: none;
             }
             
             .dropdown-toggle.open i {
@@ -314,6 +322,10 @@
             
             header.scrolled .hamburger span {
                 background: white;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
             }
         }
         
@@ -1262,7 +1274,7 @@
                 navMenu.classList.toggle('active');
             });
             
-            // Close menu when clicking a link
+            // Close menu when clicking a link (except dropdown toggles)
             document.querySelectorAll('.nav-link:not(.dropdown-toggle)').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('open');
@@ -1276,6 +1288,7 @@
             dropdownToggles.forEach(toggle => {
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     
                     const parentLi = this.parentElement;
                     const submenu = this.nextElementSibling;
@@ -1284,14 +1297,32 @@
                     parentLi.classList.toggle('show');
                     this.classList.toggle('open');
                     
+                    // For mobile, handle submenu display
+                    if (window.innerWidth <= 768) {
+                        submenu.classList.toggle('active');
+                    }
+                    
                     // Close other submenus on desktop
                     if (window.innerWidth > 768) {
                         document.querySelectorAll('.has-submenu').forEach(item => {
                             if (item !== parentLi) {
                                 item.classList.remove('show');
                                 item.querySelector('.dropdown-toggle').classList.remove('open');
+                                item.querySelector('.sub-menu').classList.remove('active');
                             }
                         });
+                    }
+                });
+            });
+            
+            // Handle submenu item clicks
+            document.querySelectorAll('.sub-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Allow the link to work normally
+                    // Close mobile menu if needed
+                    if (window.innerWidth <= 768) {
+                        hamburger.classList.remove('open');
+                        navMenu.classList.remove('active');
                     }
                 });
             });
@@ -1302,6 +1333,7 @@
                     document.querySelectorAll('.has-submenu').forEach(item => {
                         item.classList.remove('show');
                         item.querySelector('.dropdown-toggle').classList.remove('open');
+                        item.querySelector('.sub-menu').classList.remove('active');
                     });
                 }
             });
