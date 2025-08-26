@@ -72,6 +72,12 @@
             gap: 0.5rem;
         }
         
+        /* New Logo Styles */
+        .logo-img {
+            height: 2rem;
+            width: auto;
+        }
+        
         /* Navigation Menu */
         .nav-menu {
             display: flex;
@@ -422,10 +428,9 @@
 </head>
 <body>
 
-    <!-- Header Section -->
     <header class="header">
         <a href="index.html" class="logo">
-            <i class="fas fa-home"></i> FHA Sharada
+            <img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="logo-img"> FHA Sharada
         </a>
         <button class="hamburger">
             <span class="bar"></span>
@@ -455,19 +460,15 @@
             </nav>
     </header>
 
-    <!-- Main Content Container -->
     <main class="flex-grow p-4">
         <div class="container mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-200">
             
-            <!-- Main content area -->
             <h1 class="main-heading">FHA Sharada Payments</h1>
             <p class="sub-heading">Select a payment option to proceed.</p>
 
-            <!-- Payment Options Grid -->
             <div class="payment-grid">
-                <!-- Annual Dues Card -->
                 <div class="card" data-payment-type="Annual Dues" data-price="₦50,000" data-description="Your annual dues help cover the day-to-day operational costs of the residents' association, including security patrols, street lighting, and administrative fees. These funds are vital for maintaining the high quality of our community services and ensuring a safe, pleasant environment for all residents.">
-                    <<img src="https://i.ibb.co/bgwkQr81/fha-logo-124520.png" alt="FHA Sharada Logo" class="logo-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8c-1.11 0-2.08-.402-2.599-1M12 8a3 3 0 100-6 3 3 0 000 6zm-7 9v1a3 3 0 003 3h18a3 3 0 003-3v-1a6 6 0 00-6-6H9a6 6 0 00-6 6z" />
                     </svg>
                     <h3 class="card-title">Annual Dues</h3>
@@ -475,9 +476,8 @@
                     <p class="card-description">Support community projects and operational costs for the year.</p>
                 </div>
 
-                <!-- Special Levy Card -->
                 <div class="card" data-payment-type="Special Levy" data-price="₦20,000" data-description="This special levy is a dedicated fund for a one-off community-wide project. This year, the funds will be used for a major road rehabilitation project within the FHA Sharada estate to fix potholes and improve drainage, ensuring safer and more accessible streets for everyone.">
-                    <svg xmlns="http://www.w3.org/00/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A2 2 0 013 15.618V8.382a2 2 0 011.553-1.802L9 4m0 16l6-3m-6 3l-9.5-4.75M9 4l6 3m-6-3V4m0 16v-12m12 12l9.5-4.75L15 4m-3 12l9.5-4.75" />
                     </svg>
                     <h3 class="card-title">Special Levy</h3>
@@ -485,7 +485,6 @@
                     <p class="card-description">Contribute to the ongoing road maintenance and security enhancements.</p>
                 </div>
 
-                <!-- Donation Card -->
                 <div class="card" data-payment-type="General Donation" data-price="Any Amount" data-description="Your general donation is a flexible way to support the FHA Sharada Residents' Association. These funds are used for various community initiatives, unexpected maintenance needs, and social projects that benefit all residents. Every contribution, no matter the size, makes a significant positive impact on our community.">
                     <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -496,7 +495,6 @@
                 </div>
             </div>
 
-            <!-- FAQ Section -->
             <div class="mt-16">
                 <h2 class="main-heading">Frequently Asked Questions</h2>
                 <div class="faq">
@@ -515,7 +513,6 @@
                 </div>
             </div>
 
-            <!-- Success/Error Message Container -->
             <div id="messageContainer" class="mt-10 hidden p-6 rounded-xl text-center shadow-lg">
                 <p id="messageText" class="text-lg font-semibold"></p>
             </div>
@@ -523,7 +520,6 @@
         </div>
     </main>
 
-    <!-- Payment Details Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="modal-close-btn">&times;</span>
@@ -533,7 +529,6 @@
         </div>
     </div>
     
-    <!-- Footer Section -->
     <footer class="footer">
         <p>FHA Sharada Residents Association</p>
         <p>&copy; <span id="current-year"></span> All Rights Reserved.</p>
@@ -656,7 +651,3 @@
     </script>
 </body>
 </html>
-
-
-
-
