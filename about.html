@@ -21,19 +21,16 @@
             --warning: #FFC107; /* Standard amber */
             --danger: #F44336; /* Standard red */
             --gray: #9E9E9E; /* Medium grey */
-
             /* New Shadow & Depth Variables */
             --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
             --shadow-bold: 0 15px 45px rgba(0, 0, 0, 0.25);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.7;
@@ -42,26 +39,22 @@
             overflow-x: hidden;
             text-rendering: optimizeLegibility; /* Smoother text rendering */
         }
-
         /* Reusable Components */
         .container {
             width: 90%;
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .section {
             margin-bottom: 7rem;
             opacity: 0;
             transform: translateY(70px);
             transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
         .section.animate {
             opacity: 1;
             transform: translateY(0);
         }
-
         .section-title {
             font-size: 3rem;
             color: var(--primary);
@@ -71,7 +64,6 @@
             font-weight: 700;
             letter-spacing: -0.5px;
         }
-
         .section-title::after {
             content: '';
             position: absolute;
@@ -82,7 +74,6 @@
             left: 0;
             border-radius: 3px;
         }
-
         /* Awesome Header with Glass Morphism */
         header {
             background: rgba(255, 255, 255, 0.9);
@@ -96,31 +87,26 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             transition: all 0.4s ease;
         }
-
         header.scrolled {
             background: rgba(33, 150, 243, 0.95);
             box-shadow: var(--shadow-medium);
         }
-
         header.scrolled .nav-link,
         header.scrolled .association-name {
             color: white;
             text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
         }
-
         .logo-container {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
         .association-logo {
             width: 55px;
             height: 55px;
@@ -129,7 +115,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-
         .association-name {
             font-size: 1.6rem;
             font-weight: 800;
@@ -137,23 +122,19 @@
             transition: all 0.3s ease;
             letter-spacing: -0.5px;
         }
-
         /* Awesome Navigation */
         nav {
             display: flex;
             align-items: center;
         }
-
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 2.2rem;
         }
-
         .nav-menu li {
             position: relative;
         }
-
         .nav-link {
             text-decoration: none;
             color: var(--dark);
@@ -165,7 +146,6 @@
             display: block;
             padding: 0.5rem 0;
         }
-
         .nav-link::after {
             content: '';
             position: absolute;
@@ -176,16 +156,13 @@
             left: 0;
             transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
         .nav-link:hover::after {
             width: 100%;
         }
-
         .nav-link:hover {
             color: var(--accent);
             transform: translateY(-2px);
         }
-
         /* Submenu Styling */
         .sub-menu {
             list-style: none;
@@ -205,17 +182,14 @@
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
             z-index: 100;
         }
-
         .nav-menu li:hover > .sub-menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-
         .sub-menu li {
             padding: 0;
         }
-
         .sub-menu a {
             color: var(--dark);
             padding: 0.8rem 1.5rem;
@@ -226,18 +200,15 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
-
         .sub-menu a::after {
             content: none;
         }
-
         .sub-menu a:hover {
             background-color: var(--primary);
             color: white;
             border-radius: 5px;
             transform: translateX(5px);
         }
-
         /* Hamburger Menu */
         .hamburger {
             display: none;
@@ -247,7 +218,6 @@
             position: relative;
             z-index: 1001;
         }
-
         .hamburger span {
             display: block;
             position: absolute;
@@ -260,16 +230,13 @@
             transform: rotate(0deg);
             transition: .25s ease-in-out;
         }
-
         .hamburger span:nth-child(1) { top: 0; }
         .hamburger span:nth-child(2), .hamburger span:nth-child(3) { top: 10px; }
         .hamburger span:nth-child(4) { top: 20px; }
-
         .hamburger.open span:nth-child(1) { top: 10px; width: 0; left: 50%; }
         .hamburger.open span:nth-child(2) { transform: rotate(45deg); }
         .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
         .hamburger.open span:nth-child(4) { top: 10px; width: 0; left: 50%; }
-
         /* Spectacular Hero Section */
         .hero {
             background-size: cover;
@@ -286,12 +253,10 @@
             overflow: hidden;
             box-shadow: inset 0 -30px 60px rgba(0,0,0,0.2);
         }
-
         .hero-about {
             background: linear-gradient(135deg, rgba(103, 58, 183, 0.9), rgba(81, 45, 168, 0.85)),
                         url('https://placehold.co/1920x1080/673AB7/ffffff?text=FHA+Sharada+Community');
         }
-
         .hero-content {
             max-width: 900px;
             padding: 0 2.5rem;
@@ -301,18 +266,15 @@
             opacity: 0;
             transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         .hero-content.animate {
             transform: translateY(0);
             opacity: 1;
         }
-
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
@@ -320,12 +282,10 @@
             margin-right: auto;
             opacity: 0.9;
         }
-
         /* About Content Sections */
         .main-container {
             margin: 4rem auto;
         }
-
         .about-section {
             background: white;
             border-radius: 20px;
@@ -333,57 +293,48 @@
             box-shadow: var(--shadow-medium);
             margin-bottom: 6rem;
         }
-
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
-
         .about-image {
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow-light);
         }
-
         .about-image img {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.5s ease;
         }
-
         .about-image:hover img {
             transform: scale(1.05);
         }
-
         .about-text h3 {
             font-size: 2rem;
             color: var(--primary);
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
-
         .about-text p {
             margin-bottom: 1.5rem;
             line-height: 1.8;
             color: #555;
         }
-
         .about-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-top: 2rem;
         }
-
         .feature-item {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
         }
-
         .feature-icon {
             width: 50px;
             height: 50px;
@@ -396,30 +347,25 @@
             font-size: 1.5rem;
             flex-shrink: 0;
         }
-
         .feature-content h4 {
             font-size: 1.2rem;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
-
         .feature-content p {
             font-size: 0.95rem;
             color: #666;
             margin-bottom: 0;
         }
-
         /* Team Section */
         .team-section {
             margin-bottom: 6rem;
         }
-
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2.5rem;
         }
-
         .team-member {
             background: white;
             border-radius: 20px;
@@ -428,51 +374,42 @@
             transition: all 0.4s ease;
             text-align: center;
         }
-
         .team-member:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-medium);
         }
-
         .member-image {
             height: 300px;
             overflow: hidden;
         }
-
         .member-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-
         .team-member:hover .member-image img {
             transform: scale(1.1);
         }
-
         .member-info {
             padding: 1.8rem;
         }
-
         .member-name {
             font-size: 1.5rem;
             color: var(--dark);
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
-
         .member-role {
             color: var(--primary);
             font-weight: 600;
             margin-bottom: 1rem;
         }
-
         .member-desc {
             color: #666;
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
-
         /* New Community Services Section */
         .community-services-section {
             background: white;
@@ -481,13 +418,11 @@
             box-shadow: var(--shadow-medium);
             margin-bottom: 6rem;
         }
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
         }
-
         .service-card {
             background: var(--light);
             border-radius: 15px;
@@ -498,7 +433,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .service-card::before {
             content: '';
             position: absolute;
@@ -509,17 +443,14 @@
             background: var(--primary);
             transition: all 0.4s ease;
         }
-
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-medium);
         }
-
         .service-card:hover::before {
             height: 100%;
             opacity: 0.1;
         }
-
         .service-icon {
             width: 70px;
             height: 70px;
@@ -534,35 +465,29 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
         }
-
         .service-card:hover .service-icon {
             background: var(--accent);
             transform: scale(1.1) rotate(5deg);
         }
-
         .service-title {
             font-size: 1.5rem;
             color: var(--dark);
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
-
         .service-desc {
             color: #666;
             line-height: 1.6;
         }
-
         /* Values Section */
         .values-section {
             margin-bottom: 6rem;
         }
-
         .values-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2.5rem;
         }
-
         .value-card {
             background: white;
             border-radius: 20px;
@@ -571,12 +496,10 @@
             text-align: center;
             transition: all 0.4s ease;
         }
-
         .value-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-medium);
         }
-
         .value-icon {
             width: 80px;
             height: 80px;
@@ -589,7 +512,6 @@
             font-size: 2rem;
             margin: 0 auto 1.5rem;
         }
-
         /* Footer */
         footer {
             background: var(--dark);
@@ -599,8 +521,8 @@
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             overflow: hidden;
+            text-align: center;
         }
-
         .footer-container {
             width: 90%;
             max-width: 1400px;
@@ -610,7 +532,6 @@
             gap: 3.5rem;
             margin-bottom: 3.5rem;
         }
-
         .footer-logo {
             width: 70px;
             height: 70px;
@@ -618,28 +539,24 @@
             margin-bottom: 1.8rem;
             object-fit: cover;
         }
-
         .footer-title {
             font-size: 1.8rem;
             margin-bottom: 1.8rem;
             color: white;
             font-weight: 700;
         }
-
         .footer-text {
             opacity: 0.9;
             margin-bottom: 1.8rem;
             line-height: 1.8;
             font-size: 1.05rem;
         }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 { font-size: 3.2rem; }
             .hero p { font-size: 1.3rem; }
             .section-title { font-size: 2.5rem; }
         }
-
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-menu {
@@ -661,7 +578,6 @@
             }
             .nav-menu.active { right: 0; }
             header.scrolled .hamburger span { background: white; }
-
             /* Mobile Submenu Adjustments */
             .sub-menu {
                 position: static;
@@ -677,13 +593,11 @@
                 visibility: hidden;
                 margin-top: 0.5rem;
             }
-
             .sub-menu.active {
                 max-height: 500px;
                 opacity: 1;
                 visibility: visible;
             }
-
             .sub-menu a {
                 padding: 0.6rem 2rem;
                 font-size: 1rem;
@@ -700,7 +614,6 @@
                 order: -1;
             }
         }
-
         @media (max-width: 576px) {
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1.15rem; }
@@ -713,13 +626,11 @@
             }
         }
         
-
         /* Animation Keyframes */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-
         .floating {
             animation: float 3.5s ease-in-out infinite;
         }
@@ -761,7 +672,6 @@
             </nav>
         </div>
     </header>
-
     <main>
         <section class="hero hero-about">
             <div class="hero-content animate">
@@ -769,7 +679,6 @@
                 <p>Discover our community's rich history, values, and the people who make FHA Sharada a wonderful place to live.</p>
             </div>
         </section>
-
         <div class="main-container container">
             <section class="section about-section">
                 <h2 class="section-title">Our Community</h2>
@@ -815,7 +724,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="section team-section">
                 <h2 class="section-title">Our Leadership Team</h2>
                 <div class="team-grid">
@@ -845,7 +753,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="section community-services-section">
                 <h2 class="section-title">Community Services</h2>
                 <div class="services-grid">
@@ -881,7 +788,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="section values-section">
                 <h2 class="section-title">Our Values</h2>
                 <div class="values-grid">
@@ -919,12 +825,10 @@
             </section>
         </div>
     </main>
-
     <footer class="footer">
         <p>FHA Sharada Residents Association</p>
         <p>&copy; <span id="current-year"></span> (c) 2025 All Rights Reserved.</p>
     </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Header scroll effect
@@ -932,16 +836,13 @@
             window.addEventListener('scroll', function() {
                 header.classList.toggle('scrolled', window.scrollY > 50);
             });
-
             // Hamburger menu toggle
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
-
             hamburger.addEventListener('click', function() {
                 this.classList.toggle('open');
                 navMenu.classList.toggle('active');
             });
-
             // Mobile submenu toggle functionality
             const submenuParents = document.querySelectorAll('.has-submenu > .nav-link');
             
@@ -952,20 +853,17 @@
                         e.preventDefault(); // Prevent the main link from navigating
                         const submenu = this.nextElementSibling;
                         const isSubmenuOpen = submenu.classList.contains('active');
-
                         // Close all other active submenus
                         document.querySelectorAll('.sub-menu.active').forEach(openSubmenu => {
                             if (openSubmenu !== submenu) {
                                 openSubmenu.classList.remove('active');
                             }
                         });
-
                         // Toggle the current submenu
                         submenu.classList.toggle('active');
                     }
                 });
             });
-
             // Close the main mobile menu when a link is clicked
             document.querySelectorAll('.nav-menu a').forEach(link => {
                 link.addEventListener('click', () => {
@@ -978,11 +876,9 @@
                     }, 400); // Wait for the transition
                 });
             });
-
             // Hero and section animations
             const heroContent = document.querySelector('.hero-content');
             setTimeout(() => heroContent.classList.add('animate'), 300);
-
             const sections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -993,15 +889,9 @@
                 });
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
-
             // Set current year for copyright
             document.getElementById('current-year').textContent = new Date().getFullYear();
         });
     </script>
 </body>
 </html>
-
-
-
-
-
